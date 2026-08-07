@@ -33,7 +33,7 @@ Agent 后端已从 CLI 拆分为 FastAPI 服务,代码收拢在 `backend/` 包:
 - `backend/agent_api/`:Agent API(对话 / SSE 流式 / 会话管理 / Scheme 读取),SQLite 持久化会话;
 - `backend/render_bridge/`:渲染任务队列(Agent ↔ 浏览器渲染会话);
 - `backend/render_worker/`:无头浏览器渲染 worker(playwright + 软件渲染),保证生产环境视觉自评门禁闭环;
-- 根目录 `agent_tools.py` / `agent_graph.py` / `render_bridge.py` 等为迁移 shim,兼容旧 CLI 与测试。
+- 旧 CLI 迁移 shim(agentloop / agent_tools / agent_graph / render_bridge 等)与配套旧测试已归档至 `exp/legacy-cli/`;新代码一律从 `backend.agent_api.*` 导入。
 
 本地启动 Agent API:
 
@@ -44,8 +44,7 @@ python -m uvicorn backend.agent_api.main:app --host 127.0.0.1 --port 8000
 测试:
 
 ```bash
-python -m unittest discover -s tests          # 既有 31 项
-python -m unittest discover -s backend/tests  # 新增 API/SSE/持久化 10 项
+python -m unittest discover -s backend/tests  # API/SSE/持久化等 10 项
 ```
 
 前端方案读取已改为 `fetchCurrentScheme()`:优先走 `NEXT_PUBLIC_AGENT_API_URL` 指向的 `/api/scheme`,回退同源 `/current_scheme.json`(本地 dev)。
@@ -110,3 +109,15 @@ npm run dev -- --host 127.0.0.1
 - 用独立验证程序证明输出可靠，而不是只看渲染图。
 
 Three.js 已经完成 v4 GLB 加载、房间级摄影机和 Scheme 材质切换闭环，并接入完整五品类目录。下一步应补齐资产卡 Schema、风格说明书和 Agent 访谈流程，而不是继续增加未结构化的代表资产。
+
+## 废弃内容归档 exp/
+
+`exp/` 存放不再参与当前 v4 管线的废弃内容,已在 `.gitignore` 中忽略(不进入版本控制,但保留在磁盘便于追溯):
+
+- `exp/legacy-cli/`:旧 CLI 迁移 shim、`agentloop`、一次性资产知识生成器与配套旧测试;
+- `exp/blender-v1-v3/`:v1/v2/v3 户型的生成/验证脚本及一次性数据迁移脚本;
+- `exp/output-archive/`:旧场景(v1/v2/v3)的 .blend/.glb、旧 scene_manifest / validation_report、户型研究参考图与历史日志;
+- `exp/viewer-template/`:viewer 的 Cloudflare/vinext 模板残留(worker/build/.openai/db/drizzle/examples)与旧前端模型/方案/图标;
+- `exp/caches/`:`__pycache__`、`.pytest_cache` 等可再生缓存。
+
+需要找回某项时从对应子目录移回即可。完整说明见 `exp/README.md`。

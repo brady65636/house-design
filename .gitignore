@@ -24,6 +24,10 @@ viewer/dist/
 viewer/build/
 viewer/.next/
 viewer/db/
+viewer/tsconfig.tsbuildinfo
 
 # 后端运行时数据（SQLite checkpoint）
 backend/data/
+
+# 废弃内容归档（详见 exp/README.md）
+exp/

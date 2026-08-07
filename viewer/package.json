@@ -15,35 +15,30 @@
     "test:paint": "node --test tests/paint-catalog.test.mjs && node scripts/audit-material-quality.mjs",
     "test:wallpaper": "node --test tests/wallpaper-catalog.test.mjs",
     "test:surfaces": "node --test tests/surface-catalog.test.mjs",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/room-camera-tracks.test.mjs tests/visual-observation-tools.test.mjs tests/paint-catalog.test.mjs tests/wallpaper-catalog.test.mjs tests/surface-catalog.test.mjs && node scripts/audit-material-quality.mjs",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "test": "npm run build && node --test tests/room-camera-tracks.test.mjs tests/visual-observation-tools.test.mjs tests/paint-catalog.test.mjs tests/wallpaper-catalog.test.mjs tests/surface-catalog.test.mjs && node scripts/audit-material-quality.mjs",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {
     "@types/three": "^0.185.3",
-    "drizzle-orm": "0.45.2",
     "next": "16.2.6",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "three": "^0.185.1"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.37.1",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
     "@vitejs/plugin-rsc": "0.5.26",
-    "drizzle-kit": "0.31.10",
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.6",
     "react-server-dom-webpack": "19.2.6",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
     "vinext": "0.0.50",
-    "vite": "8.0.13",
-    "wrangler": "4.92.0"
+    "vite": "8.0.13"
   },
   "type": "module"
 }
