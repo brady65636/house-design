@@ -1,0 +1,31 @@
+# 排除进入镜像的大文件与本地环境文件
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.log
+
+# 密钥与环境
+.env
+
+# 前端(node_modules 与构建产物不进后端镜像;viewer 资产走 Vercel)
+viewer/node_modules/
+viewer/dist/
+viewer/build/
+viewer/dev.stderr.log
+viewer/dev.stdout.log
+viewer/.next/
+
+# viewer 静态资产由 Vercel 提供,不进镜像;仅保留 current_scheme.json 供首启 seed
+viewer/public/models/
+viewer/public/assets/
+
+# 大体积资产与源文件
+output/
+blender/
+docs/
+scripts/
+
+# 测试
+tests/
+backend/tests/

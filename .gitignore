@@ -1,0 +1,29 @@
+# 密钥与环境（严禁提交）
+.env
+deploy/aws/.env
+*.pem
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# 日志
+*.log
+viewer/dev.stderr.log
+viewer/dev.stdout.log
+
+# 大体积生成物（.blend/.glb/4K 贴图，GitHub 单文件上限 100MB）
+output/
+
+# 前端依赖与构建产物（走 Vercel）
+viewer/node_modules/
+viewer/dist/
+viewer/build/
+viewer/.next/
+viewer/db/
+
+# 后端运行时数据（SQLite checkpoint）
+backend/data/

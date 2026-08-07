@@ -1,0 +1,444 @@
+{
+  "schema_version": "2.0.0",
+  "generated_at": "2026-08-04T09:04:47.607008+00:00",
+  "generator": "scripts/build_asset_knowledge.py",
+  "asset_cards_file": "asset_cards.json",
+  "asset_count": 87,
+  "assets": [
+    {
+      "id": "paint_warm_cream_matte_01",
+      "category": "wall_paint",
+      "brief": "暖白与奶油白 · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_warm_white_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "暖白与奶油白 · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_warm_white_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "暖白与奶油白 · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_warm_white_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "暖白与奶油白 · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_warm_white_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "暖白与奶油白 · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_warm_white_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "暖白与奶油白 · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_cool_white_light_matte_01",
+      "category": "wall_paint",
+      "brief": "冷白与浅冷灰 · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_cool_white_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "冷白与浅冷灰 · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_cool_white_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "冷白与浅冷灰 · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_cool_white_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "冷白与浅冷灰 · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_cool_white_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "冷白与浅冷灰 · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_cool_white_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "冷白与浅冷灰 · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_greige_light_matte_01",
+      "category": "wall_paint",
+      "brief": "米色与 Greige · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_light_greige_eggshell_01",
+      "category": "wall_paint",
+      "brief": "米色与 Greige · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_greige_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "米色与 Greige · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_greige_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "米色与 Greige · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_greige_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "米色与 Greige · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_greige_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "米色与 Greige · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_taupe_light_matte_01",
+      "category": "wall_paint",
+      "brief": "驼色、灰棕与 Taupe · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_taupe_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "驼色、灰棕与 Taupe · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_taupe_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "驼色、灰棕与 Taupe · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_taupe_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "驼色、灰棕与 Taupe · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_taupe_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "驼色、灰棕与 Taupe · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_taupe_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "驼色、灰棕与 Taupe · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_charcoal_light_matte_01",
+      "category": "wall_paint",
+      "brief": "中灰与炭灰 · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_charcoal_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "中灰与炭灰 · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_charcoal_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "中灰与炭灰 · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_charcoal_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "中灰与炭灰 · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_charcoal_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "中灰与炭灰 · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_charcoal_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "中灰与炭灰 · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_sage_olive_light_matte_01",
+      "category": "wall_paint",
+      "brief": "鼠尾草绿与橄榄绿 · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_sage_olive_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "鼠尾草绿与橄榄绿 · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_sage_olive_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "鼠尾草绿与橄榄绿 · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_sage_olive_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "鼠尾草绿与橄榄绿 · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_sage_olive_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "鼠尾草绿与橄榄绿 · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_sage_olive_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "鼠尾草绿与橄榄绿 · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_slate_blue_light_matte_01",
+      "category": "wall_paint",
+      "brief": "灰蓝与深蓝 · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_slate_blue_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "灰蓝与深蓝 · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_slate_blue_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "灰蓝与深蓝 · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_slate_blue_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "灰蓝与深蓝 · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_slate_blue_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "灰蓝与深蓝 · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_slate_blue_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "灰蓝与深蓝 · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_terracotta_light_matte_01",
+      "category": "wall_paint",
+      "brief": "陶土与锈红 · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_terracotta_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "陶土与锈红 · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_terracotta_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "陶土与锈红 · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_terracotta_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "陶土与锈红 · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_terracotta_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "陶土与锈红 · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_terracotta_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "陶土与锈红 · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_dusty_rose_light_matte_01",
+      "category": "wall_paint",
+      "brief": "灰粉与藕紫 · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_dusty_rose_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "灰粉与藕紫 · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_dusty_rose_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "灰粉与藕紫 · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_dusty_rose_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "灰粉与藕紫 · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_dusty_rose_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "灰粉与藕紫 · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_dusty_rose_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "灰粉与藕紫 · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_ochre_light_matte_01",
+      "category": "wall_paint",
+      "brief": "黄赭与柔和芥末黄 · 浅色 · 哑光墙漆；浅色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_ochre_light_eggshell_01",
+      "category": "wall_paint",
+      "brief": "黄赭与柔和芥末黄 · 浅色 · 蛋壳光墙漆；浅色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_ochre_mid_matte_01",
+      "category": "wall_paint",
+      "brief": "黄赭与柔和芥末黄 · 中色 · 哑光墙漆；中色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_ochre_mid_eggshell_01",
+      "category": "wall_paint",
+      "brief": "黄赭与柔和芥末黄 · 中色 · 蛋壳光墙漆；中色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "paint_ochre_deep_matte_01",
+      "category": "wall_paint",
+      "brief": "黄赭与柔和芥末黄 · 深色 · 哑光墙漆；深色档哑光，远景更安静、反射更弱。"
+    },
+    {
+      "id": "paint_ochre_deep_eggshell_01",
+      "category": "wall_paint",
+      "brief": "黄赭与柔和芥末黄 · 深色 · 蛋壳光墙漆；深色档蛋壳光，保留克制的细微反射。"
+    },
+    {
+      "id": "wallpaper_linen_natural_01",
+      "category": "wallpaper",
+      "brief": "天然亚麻；暖白天然亚麻纸基，远看接近安静素色，近看才出现不规则经纬纤维与细小纱结。"
+    },
+    {
+      "id": "wallpaper_micro_seed_01",
+      "category": "wallpaper",
+      "brief": "矿物籽点；羊皮纸暖底上的矿物蓝灰微型籽叶与针点，密而不堵，作为满铺背景仍保持呼吸感。"
+    },
+    {
+      "id": "wallpaper_linear_geometry_01",
+      "category": "wallpaper",
+      "brief": "暖灰织纹线；暖灰纸基上的窄竖向织纹节奏，带克制的微压纹；中远景保持整洁，斜光下才读到线性。"
+    },
+    {
+      "id": "wallpaper_soft_arch_geometry_01",
+      "category": "wallpaper",
+      "brief": "柔拱构成；由断续拱形、半圆与建筑细线组成的现代几何，陶土灰与炭灰控制在低对比范围。"
+    },
+    {
+      "id": "wallpaper_botanical_meadow_01",
+      "category": "wallpaper",
+      "brief": "雾野草本；橄榄灰、炭灰与少量赭色构成的轻盈草本群落，没有花束式中心，沿墙面形成自然上升节奏。"
+    },
+    {
+      "id": "wallpaper_damask_shadow_01",
+      "category": "wallpaper",
+      "brief": "影纹章；以柔化叶卷与破碎盾形重新组织的低对比纹章，保留古典秩序但避免宫廷金色与厚重锦缎感。"
+    },
+    {
+      "id": "wallpaper_mineral_wash_01",
+      "category": "wallpaper",
+      "brief": "矿物雾染；烟蓝、陶土与橄榄灰半透明色层在暖白纸基上交叠，靠大尺度晕染而不是强烈笔触建立记忆点。"
+    },
+    {
+      "id": "wallpaper_mist_landscape_mural_01",
+      "category": "wallpaper",
+      "brief": "雾境层峦壁画；为 4.40×2.80m 完整主墙创作的非循环层峦壁画，视觉重量压低，上部保留雾白呼吸区。"
+    },
+    {
+      "id": "floor_ash_maple_light_matte_01",
+      "category": "wood_floor",
+      "brief": "浅色白蜡木细纹地板；浅色、细密、低色差的木纹；作为地面背景安静而明亮。"
+    },
+    {
+      "id": "floor_light_oak_matte_01",
+      "category": "wood_floor",
+      "brief": "浅色自然橡木地板；自然浅橡木色，保留温和木纹而不偏黄，是平衡明亮与温度的主地面。"
+    },
+    {
+      "id": "floor_honey_oak_matte_01",
+      "category": "wood_floor",
+      "brief": "蜂蜜色暖木地板；蜂蜜色暖木，比自然浅橡木更有金棕温度和存在感。"
+    },
+    {
+      "id": "floor_warm_walnut_matte_01",
+      "category": "wood_floor",
+      "brief": "暖红棕胡桃木感地板；暖红棕胡桃木感地板，综合色深且有成熟的复古重量。"
+    },
+    {
+      "id": "floor_smoked_dark_oak_matte_01",
+      "category": "wood_floor",
+      "brief": "烟熏深橡木地板；烟熏深橡木，低明度且带刷纹，视觉重量最强。"
+    },
+    {
+      "id": "floor_greywashed_variation_matte_01",
+      "category": "wood_floor",
+      "brief": "灰洗高色差做旧木地板；灰洗、高色差、带做旧感的木地板，纹理变化明显。"
+    },
+    {
+      "id": "tile_plain_mineral_01",
+      "category": "tile",
+      "brief": "暖白素色矿物感瓷砖；暖白、低对比的矿物感素砖，以细微表面变化代替显眼石纹。"
+    },
+    {
+      "id": "tile_white_marble_01",
+      "category": "tile",
+      "brief": "低对比白色大理石纹砖；低对比白色石纹，图形信息受控，偏向清晰而非奢华。"
+    },
+    {
+      "id": "tile_warm_travertine_01",
+      "category": "tile",
+      "brief": "暖米色洞石感瓷砖；暖米色洞石感，纹理温和、带有矿物层次和自然孔洞联想。"
+    },
+    {
+      "id": "tile_dark_slate_01",
+      "category": "tile",
+      "brief": "深灰板岩感瓷砖；深灰板岩感，粗哑、低反射，具有明确的冷静重量。"
+    },
+    {
+      "id": "tile_light_microcement_01",
+      "category": "tile",
+      "brief": "浅灰微水泥感瓷砖；浅灰微水泥感，表面连续、低对比、低装饰性。"
+    },
+    {
+      "id": "tile_terrazzo_warm_01",
+      "category": "tile",
+      "brief": "暖灰细颗粒水磨石砖；暖灰细颗粒水磨石，颗粒细小、综合色温和，具有适度图形信息。"
+    },
+    {
+      "id": "tile_woodlook_oak_01",
+      "category": "tile",
+      "brief": "暖橡木纹砖；暖橡木色的木纹砖，以砖的模数呈现木材的线性温度。"
+    },
+    {
+      "id": "tile_decorative_arc_01",
+      "category": "tile",
+      "brief": "弧环几何装饰花砖；弧环几何装饰花砖，重复图案清晰，是明确的视觉焦点。"
+    },
+    {
+      "id": "ceiling_flat_01",
+      "category": "ceiling",
+      "brief": "原顶或平顶；原顶或平顶，视觉上最轻、最安静，依靠空间比例和材料本身建立秩序。"
+    },
+    {
+      "id": "ceiling_perimeter_step_01",
+      "category": "ceiling",
+      "brief": "周边跌级双眼皮吊顶；周边跌级双眼皮，以细薄的周边层次提供精致、规整的顶面边界。"
+    },
+    {
+      "id": "ceiling_perimeter_cove_01",
+      "category": "ceiling",
+      "brief": "周边下吊灯槽吊顶；周边下吊灯槽，使用柔和明暗建立顶面层次与夜间包裹感。"
+    },
+    {
+      "id": "ceiling_floating_shadow_gap_01",
+      "category": "ceiling",
+      "brief": "悬浮顶与阴影缝；悬浮顶与阴影缝，用明确的暗缝表达轻薄、当代的顶面边界。"
+    },
+    {
+      "id": "ceiling_kitchen_bath_panel_01",
+      "category": "ceiling",
+      "brief": "厨卫模块化大板吊顶；厨卫模块化大板顶面，以整齐模数和细缝表达清洁、理性的湿区秩序。"
+    }
+  ]
+}

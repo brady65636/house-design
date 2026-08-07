@@ -1,0 +1,17 @@
+# 后端依赖(锁定本机已验证版本)。
+# 维护建议:requirements.in 存顶层依赖,用 pip-compile 生成本文件。
+fastapi==0.139.2
+uvicorn[standard]==0.51.0
+langgraph==1.2.9
+langgraph-checkpoint==4.1.1
+langgraph-checkpoint-sqlite==3.1.1
+langchain-openai==1.4.0
+langchain-core==1.5.0
+openai==2.46.0
+pydantic==2.13.4
+pydantic-settings==2.14.2
+httpx==0.28.1
+httpx-sse==0.4.3
+python-dotenv==1.2.2
+aiosqlite==0.21.0
+playwright==1.55.0

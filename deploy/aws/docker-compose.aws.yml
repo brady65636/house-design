@@ -1,0 +1,61 @@
+# 1GB 小内存 VPS 部署：agent-api + render-bridge，两个进程，无 render-worker。
+#
+# 渲染方案：无头浏览器 worker 不跑在服务器上；改由「用户浏览器」注册为 local-demo
+# 渲染会话（打开 Vercel 前端页面时带上 ?render_bridge=... 即可），
+# agent 的 observe_room / observe_home_harmony 截图在用户浏览器里用 GPU 完成。
+#
+# 使用：
+#   1) cd deploy/aws && cp .env.example .env，填好所有值
+#   2) docker compose -f docker-compose.aws.yml up -d --build
+#
+# 注意：两个端口都只绑定 127.0.0.1，对外由 nginx(HTTPS) 反代 /api -> 8000、/bridge -> 8765。
+# 浏览器页面是 HTTPS，若 bridge 走 http 会被浏览器 mixed-content 拦截，必须走 TLS。
+# 不要直接把 8000/8765 暴露到公网。
+
+services:
+  agent-api:
+    build:
+      context: ../..
+      dockerfile: backend/Dockerfile.lite
+    command: python -m uvicorn backend.agent_api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:?请在 deploy/aws/.env 设置 OPENAI_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.6-luna}
+      RENDER_BRIDGE_URL: http://render-bridge:8765
+      # 浏览器渲染会话名：与 viewer 页面默认 session 一致（页面不传 ?render_session 时为 local-demo）
+      RENDER_SESSION_ID: local-demo
+      SCHEME_DATA_DIR: /data
+      DATA_DIR: /data
+      CORS_ORIGINS: ${CORS_ORIGINS:?请在 deploy/aws/.env 设置 CORS_ORIGINS(含 Vercel 域名)}
+      AGENT_API_TOKEN: ${AGENT_API_TOKEN:?请在 deploy/aws/.env 设置 AGENT_API_TOKEN}
+    volumes:
+      - data:/data
+    depends_on:
+      - render-bridge
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx,sys; sys.exit(0 if httpx.get('http://127.0.0.1:8000/api/health',timeout=3).status_code==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  render-bridge:
+    build:
+      context: ../..
+      dockerfile: backend/Dockerfile.lite
+    command: python -m uvicorn backend.render_bridge.main:app --host 0.0.0.0 --port 8765
+    ports:
+      - "127.0.0.1:8765:8765"
+    environment:
+      CORS_ORIGINS: ${CORS_ORIGINS}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx,sys; sys.exit(0 if httpx.get('http://127.0.0.1:8765/health',timeout=3).status_code==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  data:

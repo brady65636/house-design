@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_id": "ceiling_catalog_v1",
+  "products": [
+    {
+      "order": 1,
+      "id": "ceiling_flat_01",
+      "name_zh": "原顶或平顶",
+      "name_en": "Flat ceiling",
+      "family": "flat",
+      "representation": "geometry_preset",
+      "drop_height_mm": 20,
+      "suitable_rooms": ["all_dry_rooms"]
+    },
+    {
+      "order": 2,
+      "id": "ceiling_perimeter_step_01",
+      "name_zh": "周边跌级双眼皮吊顶",
+      "name_en": "Perimeter stepped ceiling",
+      "family": "perimeter_step",
+      "representation": "geometry_preset",
+      "drop_height_mm": 180,
+      "perimeter_band_mm": 300,
+      "suitable_rooms": ["living_room", "dining_room", "bedroom"]
+    },
+    {
+      "order": 3,
+      "id": "ceiling_perimeter_cove_01",
+      "name_zh": "周边下吊灯槽吊顶",
+      "name_en": "Perimeter cove-light ceiling",
+      "family": "perimeter_cove",
+      "representation": "geometry_preset",
+      "drop_height_mm": 200,
+      "perimeter_band_mm": 360,
+      "cove_width_mm": 90,
+      "suitable_rooms": ["living_room", "dining_room", "bedroom"]
+    },
+    {
+      "order": 4,
+      "id": "ceiling_floating_shadow_gap_01",
+      "name_zh": "悬浮顶与阴影缝",
+      "name_en": "Floating ceiling with shadow gap",
+      "family": "floating_shadow_gap",
+      "representation": "geometry_preset",
+      "drop_height_mm": 140,
+      "shadow_gap_mm": 80,
+      "suitable_rooms": ["living_room", "dining_room", "bedroom"]
+    },
+    {
+      "order": 5,
+      "id": "ceiling_kitchen_bath_panel_01",
+      "name_zh": "厨卫模块化大板吊顶",
+      "name_en": "Kitchen and bathroom modular panel ceiling",
+      "family": "modular_panel",
+      "representation": "geometry_preset",
+      "drop_height_mm": 240,
+      "module_size_mm": [600, 1200],
+      "joint_width_mm": 3,
+      "suitable_rooms": ["kitchen", "bathroom"]
+    }
+  ],
+  "source_and_license": {
+    "source_type": "procedural_original_geometry",
+    "license": "project_owned",
+    "brand_association": null
+  }
+}

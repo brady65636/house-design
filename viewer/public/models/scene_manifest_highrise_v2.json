@@ -1,0 +1,1046 @@
+{
+  "schema_version": "2.0.0",
+  "generated_at": "2026-08-03T07:18:50.008003+00:00",
+  "generator": "blender/generate_highrise_house_v2.py",
+  "blender_version": "5.2.0 LTS",
+  "house_id": "house_3b2l_127_v2",
+  "prototype": "中国板式小高层标准层东边户",
+  "units": "meters",
+  "up_axis": "Z",
+  "origin": "east_unit_southwest_exterior_corner_at_floor_level",
+  "area_basis": {
+    "marketed_gross_area_m2": 127.0,
+    "estimated_in_suite_building_area_m2": 104.5,
+    "modeled_net_usable_area_m2": 95.33,
+    "south_balcony_area_m2": 6.12,
+    "north_utility_balcony_area_m2": 3.36,
+    "note_zh": "127㎡为市场常用建筑面积口径；模型净使用面积按房间矩形统计，公摊通过标准层公共核心关系表达。"
+  },
+  "dimensions_m": {
+    "east_unit_width": 10.4,
+    "east_unit_depth": 10.6,
+    "wall_height": 3.0,
+    "standard_floor_width": 25.2,
+    "outer_wall": 0.2,
+    "inner_wall": 0.12
+  },
+  "planning_rules": {
+    "layout": "一梯两户板式小高层（东、西两户镜像）",
+    "active_unit": "east_edge_unit",
+    "bedrooms": 3,
+    "living_dining": 2,
+    "bathrooms": 2,
+    "south_facing_bays": [
+      "bedroom_2",
+      "living_room",
+      "master_bedroom"
+    ],
+    "north_service_rooms": [
+      "kitchen",
+      "guest_bath"
+    ],
+    "north_secondary_bedroom": "bedroom_3",
+    "public_entry_relation": "entry_door_opens_to_shared_elevator_lobby"
+  },
+  "rooms": [
+    {
+      "id": "bedroom_2",
+      "name_zh": "次卧（南）",
+      "type": "bedroom",
+      "rect": [
+        0.2,
+        0.2,
+        3.0,
+        4.2
+      ],
+      "area_m2": 11.2,
+      "orientation": "south",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_bedroom_2",
+        "ceiling": "surface_hr2_ceiling_bedroom_2"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_001",
+        "wall_face_hr2_005",
+        "wall_face_hr2_009",
+        "wall_face_hr2_011"
+      ]
+    },
+    {
+      "id": "living_room",
+      "name_zh": "客厅",
+      "type": "living_room",
+      "rect": [
+        3.12,
+        0.2,
+        7.2,
+        5.5
+      ],
+      "area_m2": 21.62,
+      "orientation": "south",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_living_room",
+        "ceiling": "surface_hr2_ceiling_living_room"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_002",
+        "wall_face_hr2_010",
+        "wall_face_hr2_014",
+        "wall_face_hr2_019"
+      ]
+    },
+    {
+      "id": "master_bedroom",
+      "name_zh": "主卧",
+      "type": "bedroom",
+      "rect": [
+        7.32,
+        0.2,
+        10.2,
+        5.05
+      ],
+      "area_m2": 13.97,
+      "orientation": "south_east",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_master_bedroom",
+        "ceiling": "surface_hr2_ceiling_master_bedroom"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_007",
+        "wall_face_hr2_020",
+        "wall_face_hr2_021"
+      ]
+    },
+    {
+      "id": "foyer",
+      "name_zh": "玄关",
+      "type": "foyer",
+      "rect": [
+        0.2,
+        4.32,
+        3.0,
+        6.5
+      ],
+      "area_m2": 6.1,
+      "orientation": "internal",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_foyer",
+        "ceiling": "surface_hr2_ceiling_foyer"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_006",
+        "wall_face_hr2_012",
+        "wall_face_hr2_013"
+      ]
+    },
+    {
+      "id": "pantry_laundry",
+      "name_zh": "家政储物",
+      "type": "service",
+      "rect": [
+        0.2,
+        6.62,
+        3.0,
+        7.48
+      ],
+      "area_m2": 2.4,
+      "orientation": "internal",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_pantry_laundry",
+        "ceiling": "surface_hr2_ceiling_pantry_laundry"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_015",
+        "wall_face_hr2_017"
+      ]
+    },
+    {
+      "id": "kitchen",
+      "name_zh": "厨房",
+      "type": "kitchen",
+      "rect": [
+        0.2,
+        7.6,
+        3.0,
+        10.4
+      ],
+      "area_m2": 7.84,
+      "orientation": "north",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_kitchen",
+        "ceiling": "surface_hr2_ceiling_kitchen"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_003",
+        "wall_face_hr2_016",
+        "wall_face_hr2_018"
+      ]
+    },
+    {
+      "id": "dining_room",
+      "name_zh": "餐厅",
+      "type": "dining_room",
+      "rect": [
+        3.12,
+        5.62,
+        5.8,
+        8.28
+      ],
+      "area_m2": 7.13,
+      "orientation": "internal",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_dining_room",
+        "ceiling": "surface_hr2_ceiling_dining_room"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_023",
+        "wall_face_hr2_025"
+      ]
+    },
+    {
+      "id": "guest_bath",
+      "name_zh": "公卫",
+      "type": "bathroom",
+      "rect": [
+        3.12,
+        8.4,
+        5.8,
+        10.4
+      ],
+      "area_m2": 5.36,
+      "orientation": "north",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_guest_bath",
+        "ceiling": "surface_hr2_ceiling_guest_bath"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_004",
+        "wall_face_hr2_024",
+        "wall_face_hr2_027"
+      ]
+    },
+    {
+      "id": "hall_storage",
+      "name_zh": "卧室走廊",
+      "type": "hall",
+      "rect": [
+        5.92,
+        5.62,
+        7.02,
+        10.4
+      ],
+      "area_m2": 5.26,
+      "orientation": "internal",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_hall_storage",
+        "ceiling": "surface_hr2_ceiling_hall_storage"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_026",
+        "wall_face_hr2_028",
+        "wall_face_hr2_029",
+        "wall_face_hr2_033"
+      ]
+    },
+    {
+      "id": "master_closet",
+      "name_zh": "主卧衣帽",
+      "type": "closet",
+      "rect": [
+        7.32,
+        5.17,
+        7.98,
+        7.38
+      ],
+      "area_m2": 1.46,
+      "orientation": "internal",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_master_closet",
+        "ceiling": "surface_hr2_ceiling_master_closet"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_022",
+        "wall_face_hr2_032",
+        "wall_face_hr2_034",
+        "wall_face_hr2_035"
+      ]
+    },
+    {
+      "id": "master_bath",
+      "name_zh": "主卫",
+      "type": "bathroom",
+      "rect": [
+        8.1,
+        5.17,
+        10.2,
+        7.38
+      ],
+      "area_m2": 4.64,
+      "orientation": "east",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_master_bath",
+        "ceiling": "surface_hr2_ceiling_master_bath"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_008",
+        "wall_face_hr2_036"
+      ]
+    },
+    {
+      "id": "bedroom_3",
+      "name_zh": "书房 / 次卧（北）",
+      "type": "bedroom",
+      "rect": [
+        7.32,
+        7.5,
+        10.2,
+        10.4
+      ],
+      "area_m2": 8.35,
+      "orientation": "north_east",
+      "surface_ids": {
+        "floor": "surface_hr2_floor_bedroom_3",
+        "ceiling": "surface_hr2_ceiling_bedroom_3"
+      },
+      "wall_face_ids": [
+        "wall_face_hr2_030",
+        "wall_face_hr2_031"
+      ]
+    }
+  ],
+  "balconies": [
+    {
+      "id": "south_balcony",
+      "name_zh": "南向景观阳台",
+      "rect": [
+        3.12,
+        -1.5,
+        7.2,
+        0.0
+      ],
+      "area_m2": 6.12,
+      "orientation": "south"
+    },
+    {
+      "id": "north_utility_balcony",
+      "name_zh": "北向生活阳台",
+      "rect": [
+        0.2,
+        10.6,
+        3.0,
+        11.8
+      ],
+      "area_m2": 3.36,
+      "orientation": "north"
+    }
+  ],
+  "openings": [
+    {
+      "id": "opening_bed2_south_window",
+      "start": 0.65,
+      "end": 2.55,
+      "bottom": 0.8,
+      "top": 2.35,
+      "kind": "window",
+      "host_wall_id": "wall_ext_south"
+    },
+    {
+      "id": "opening_living_balcony_slider",
+      "start": 3.35,
+      "end": 6.97,
+      "bottom": 0.0,
+      "top": 2.4,
+      "kind": "window",
+      "host_wall_id": "wall_ext_south"
+    },
+    {
+      "id": "opening_kitchen_utility_door",
+      "start": 0.55,
+      "end": 2.65,
+      "bottom": 0.0,
+      "top": 2.4,
+      "kind": "window",
+      "host_wall_id": "wall_ext_north"
+    },
+    {
+      "id": "opening_guest_bath_window",
+      "start": 3.65,
+      "end": 4.75,
+      "bottom": 1.35,
+      "top": 2.35,
+      "kind": "window",
+      "host_wall_id": "wall_ext_north"
+    },
+    {
+      "id": "opening_bed3_north_window",
+      "start": 7.55,
+      "end": 9.75,
+      "bottom": 0.8,
+      "top": 2.35,
+      "kind": "window",
+      "host_wall_id": "wall_ext_north"
+    },
+    {
+      "id": "opening_master_east_window",
+      "start": 1.1,
+      "end": 3.7,
+      "bottom": 0.65,
+      "top": 2.35,
+      "kind": "window",
+      "host_wall_id": "wall_ext_east"
+    },
+    {
+      "id": "opening_master_bath_window",
+      "start": 5.65,
+      "end": 6.65,
+      "bottom": 1.35,
+      "top": 2.35,
+      "kind": "window",
+      "host_wall_id": "wall_ext_east"
+    },
+    {
+      "id": "opening_bed3_east_window",
+      "start": 8.0,
+      "end": 9.7,
+      "bottom": 0.85,
+      "top": 2.35,
+      "kind": "window",
+      "host_wall_id": "wall_ext_east"
+    },
+    {
+      "id": "opening_entry_door",
+      "start": 5.05,
+      "end": 6.1,
+      "bottom": 0.0,
+      "top": 2.3,
+      "kind": "door",
+      "host_wall_id": "wall_ext_west"
+    },
+    {
+      "id": "opening_bed2_door",
+      "start": 3.15,
+      "end": 4.05,
+      "bottom": 0.0,
+      "top": 2.2,
+      "kind": "door",
+      "host_wall_id": "wall_bed2_east"
+    },
+    {
+      "id": "opening_foyer_living",
+      "start": 4.65,
+      "end": 6.35,
+      "bottom": 0.0,
+      "top": 2.45,
+      "kind": "passage",
+      "host_wall_id": "wall_foyer_east"
+    },
+    {
+      "id": "opening_kitchen_door",
+      "start": 7.45,
+      "end": 8.45,
+      "bottom": 0.0,
+      "top": 2.25,
+      "kind": "door",
+      "host_wall_id": "wall_kitchen_east"
+    },
+    {
+      "id": "opening_pantry_kitchen",
+      "start": 1.0,
+      "end": 2.2,
+      "bottom": 0.0,
+      "top": 2.25,
+      "kind": "passage",
+      "host_wall_id": "wall_pantry_north"
+    },
+    {
+      "id": "opening_master_door",
+      "start": 4.0,
+      "end": 4.9,
+      "bottom": 0.0,
+      "top": 2.2,
+      "kind": "door",
+      "host_wall_id": "wall_living_master"
+    },
+    {
+      "id": "opening_master_suite",
+      "start": 8.45,
+      "end": 9.35,
+      "bottom": 0.0,
+      "top": 2.2,
+      "kind": "door",
+      "host_wall_id": "wall_master_north"
+    },
+    {
+      "id": "opening_dining_hall",
+      "start": 6.0,
+      "end": 8.15,
+      "bottom": 0.0,
+      "top": 2.45,
+      "kind": "passage",
+      "host_wall_id": "wall_dining_hall"
+    },
+    {
+      "id": "opening_guest_bath_door",
+      "start": 8.85,
+      "end": 9.65,
+      "bottom": 0.0,
+      "top": 2.2,
+      "kind": "door",
+      "host_wall_id": "wall_guest_hall"
+    },
+    {
+      "id": "opening_bed3_door",
+      "start": 7.95,
+      "end": 8.85,
+      "bottom": 0.0,
+      "top": 2.2,
+      "kind": "door",
+      "host_wall_id": "wall_hall_bed3"
+    },
+    {
+      "id": "opening_master_hall",
+      "start": 5.55,
+      "end": 6.45,
+      "bottom": 0.0,
+      "top": 2.2,
+      "kind": "passage",
+      "host_wall_id": "wall_hall_master"
+    },
+    {
+      "id": "opening_master_bath_door",
+      "start": 6.0,
+      "end": 6.8,
+      "bottom": 0.0,
+      "top": 2.2,
+      "kind": "door",
+      "host_wall_id": "wall_closet_bath"
+    }
+  ],
+  "wall_faces": [
+    {
+      "id": "wall_face_hr2_001",
+      "code": "HR2-001",
+      "name_zh": "次卧（南）墙面",
+      "room_id": "bedroom_2",
+      "host_wall_id": "wall_ext_south",
+      "orientation": "north",
+      "axis": "X",
+      "coordinate": 0.0995,
+      "start": 0.0,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": true
+    },
+    {
+      "id": "wall_face_hr2_002",
+      "code": "HR2-002",
+      "name_zh": "客厅墙面",
+      "room_id": "living_room",
+      "host_wall_id": "wall_ext_south",
+      "orientation": "south",
+      "axis": "X",
+      "coordinate": -0.0995,
+      "start": 0.0,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": true
+    },
+    {
+      "id": "wall_face_hr2_003",
+      "code": "HR2-003",
+      "name_zh": "厨房墙面",
+      "room_id": "kitchen",
+      "host_wall_id": "wall_ext_north",
+      "orientation": "north",
+      "axis": "X",
+      "coordinate": 10.6995,
+      "start": 0.0,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_004",
+      "code": "HR2-004",
+      "name_zh": "公卫墙面",
+      "room_id": "guest_bath",
+      "host_wall_id": "wall_ext_north",
+      "orientation": "south",
+      "axis": "X",
+      "coordinate": 10.500499999999999,
+      "start": 0.0,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_005",
+      "code": "HR2-005",
+      "name_zh": "次卧（南）墙面",
+      "room_id": "bedroom_2",
+      "host_wall_id": "wall_ext_west",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 0.0995,
+      "start": 0.0,
+      "end": 10.6,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_006",
+      "code": "HR2-006",
+      "name_zh": "玄关墙面",
+      "room_id": "foyer",
+      "host_wall_id": "wall_ext_west",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": -0.0995,
+      "start": 0.0,
+      "end": 10.6,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_007",
+      "code": "HR2-007",
+      "name_zh": "主卧墙面",
+      "room_id": "master_bedroom",
+      "host_wall_id": "wall_ext_east",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 10.499500000000001,
+      "start": 0.0,
+      "end": 10.6,
+      "asset_id": "paint_light_greige_eggshell_01",
+      "preview_hide": true
+    },
+    {
+      "id": "wall_face_hr2_008",
+      "code": "HR2-008",
+      "name_zh": "主卫墙面",
+      "room_id": "master_bath",
+      "host_wall_id": "wall_ext_east",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 10.3005,
+      "start": 0.0,
+      "end": 10.6,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": true
+    },
+    {
+      "id": "wall_face_hr2_009",
+      "code": "HR2-009",
+      "name_zh": "次卧（南）墙面",
+      "room_id": "bedroom_2",
+      "host_wall_id": "wall_bed2_east",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 3.1195,
+      "start": 0.2,
+      "end": 4.26,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_010",
+      "code": "HR2-010",
+      "name_zh": "客厅墙面",
+      "room_id": "living_room",
+      "host_wall_id": "wall_bed2_east",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 3.0005,
+      "start": 0.2,
+      "end": 4.26,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_011",
+      "code": "HR2-011",
+      "name_zh": "次卧（南）墙面",
+      "room_id": "bedroom_2",
+      "host_wall_id": "wall_bed2_north",
+      "orientation": "north",
+      "axis": "X",
+      "coordinate": 4.3195,
+      "start": 0.2,
+      "end": 3.06,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_012",
+      "code": "HR2-012",
+      "name_zh": "玄关墙面",
+      "room_id": "foyer",
+      "host_wall_id": "wall_bed2_north",
+      "orientation": "south",
+      "axis": "X",
+      "coordinate": 4.2005,
+      "start": 0.2,
+      "end": 3.06,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_013",
+      "code": "HR2-013",
+      "name_zh": "玄关墙面",
+      "room_id": "foyer",
+      "host_wall_id": "wall_foyer_east",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 3.1195,
+      "start": 4.26,
+      "end": 6.56,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_014",
+      "code": "HR2-014",
+      "name_zh": "客厅墙面",
+      "room_id": "living_room",
+      "host_wall_id": "wall_foyer_east",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 3.0005,
+      "start": 4.26,
+      "end": 6.56,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_015",
+      "code": "HR2-015",
+      "name_zh": "家政储物墙面",
+      "room_id": "pantry_laundry",
+      "host_wall_id": "wall_kitchen_east",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 3.1195,
+      "start": 6.56,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_016",
+      "code": "HR2-016",
+      "name_zh": "厨房墙面",
+      "room_id": "kitchen",
+      "host_wall_id": "wall_kitchen_east",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 3.0005,
+      "start": 6.56,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_017",
+      "code": "HR2-017",
+      "name_zh": "家政储物墙面",
+      "room_id": "pantry_laundry",
+      "host_wall_id": "wall_pantry_north",
+      "orientation": "north",
+      "axis": "X",
+      "coordinate": 7.5995,
+      "start": 0.2,
+      "end": 3.06,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_018",
+      "code": "HR2-018",
+      "name_zh": "厨房墙面",
+      "room_id": "kitchen",
+      "host_wall_id": "wall_pantry_north",
+      "orientation": "south",
+      "axis": "X",
+      "coordinate": 7.4805,
+      "start": 0.2,
+      "end": 3.06,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_019",
+      "code": "HR2-019",
+      "name_zh": "客厅墙面",
+      "room_id": "living_room",
+      "host_wall_id": "wall_living_master",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 7.3195,
+      "start": 0.2,
+      "end": 5.11,
+      "asset_id": "wallpaper_linen_natural_01",
+      "preview_hide": true
+    },
+    {
+      "id": "wall_face_hr2_020",
+      "code": "HR2-020",
+      "name_zh": "主卧墙面",
+      "room_id": "master_bedroom",
+      "host_wall_id": "wall_living_master",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 7.2005,
+      "start": 0.2,
+      "end": 5.11,
+      "asset_id": "paint_light_greige_eggshell_01",
+      "preview_hide": true
+    },
+    {
+      "id": "wall_face_hr2_021",
+      "code": "HR2-021",
+      "name_zh": "主卧墙面",
+      "room_id": "master_bedroom",
+      "host_wall_id": "wall_master_north",
+      "orientation": "north",
+      "axis": "X",
+      "coordinate": 5.1695,
+      "start": 7.26,
+      "end": 10.2,
+      "asset_id": "paint_light_greige_eggshell_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_022",
+      "code": "HR2-022",
+      "name_zh": "主卧衣帽墙面",
+      "room_id": "master_closet",
+      "host_wall_id": "wall_master_north",
+      "orientation": "south",
+      "axis": "X",
+      "coordinate": 5.0505,
+      "start": 7.26,
+      "end": 10.2,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_023",
+      "code": "HR2-023",
+      "name_zh": "餐厅墙面",
+      "room_id": "dining_room",
+      "host_wall_id": "wall_dining_guest",
+      "orientation": "north",
+      "axis": "X",
+      "coordinate": 8.3995,
+      "start": 3.06,
+      "end": 5.86,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_024",
+      "code": "HR2-024",
+      "name_zh": "公卫墙面",
+      "room_id": "guest_bath",
+      "host_wall_id": "wall_dining_guest",
+      "orientation": "south",
+      "axis": "X",
+      "coordinate": 8.2805,
+      "start": 3.06,
+      "end": 5.86,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_025",
+      "code": "HR2-025",
+      "name_zh": "餐厅墙面",
+      "room_id": "dining_room",
+      "host_wall_id": "wall_dining_hall",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 5.9195,
+      "start": 5.56,
+      "end": 8.34,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_026",
+      "code": "HR2-026",
+      "name_zh": "卧室走廊墙面",
+      "room_id": "hall_storage",
+      "host_wall_id": "wall_dining_hall",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 5.8005,
+      "start": 5.56,
+      "end": 8.34,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_027",
+      "code": "HR2-027",
+      "name_zh": "公卫墙面",
+      "room_id": "guest_bath",
+      "host_wall_id": "wall_guest_hall",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 5.9195,
+      "start": 8.34,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_028",
+      "code": "HR2-028",
+      "name_zh": "卧室走廊墙面",
+      "room_id": "hall_storage",
+      "host_wall_id": "wall_guest_hall",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 5.8005,
+      "start": 8.34,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_029",
+      "code": "HR2-029",
+      "name_zh": "卧室走廊墙面",
+      "room_id": "hall_storage",
+      "host_wall_id": "wall_hall_bed3",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 7.1395,
+      "start": 7.44,
+      "end": 10.4,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_030",
+      "code": "HR2-030",
+      "name_zh": "书房 / 次卧（北）墙面",
+      "room_id": "bedroom_3",
+      "host_wall_id": "wall_hall_bed3",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 7.0205,
+      "start": 7.44,
+      "end": 10.4,
+      "asset_id": "paint_light_greige_eggshell_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_031",
+      "code": "HR2-031",
+      "name_zh": "书房 / 次卧（北）墙面",
+      "room_id": "bedroom_3",
+      "host_wall_id": "wall_bed3_south",
+      "orientation": "north",
+      "axis": "X",
+      "coordinate": 7.4995,
+      "start": 7.08,
+      "end": 10.2,
+      "asset_id": "paint_light_greige_eggshell_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_032",
+      "code": "HR2-032",
+      "name_zh": "主卧衣帽墙面",
+      "room_id": "master_closet",
+      "host_wall_id": "wall_bed3_south",
+      "orientation": "south",
+      "axis": "X",
+      "coordinate": 7.3805000000000005,
+      "start": 7.08,
+      "end": 10.2,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_033",
+      "code": "HR2-033",
+      "name_zh": "卧室走廊墙面",
+      "room_id": "hall_storage",
+      "host_wall_id": "wall_hall_master",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 7.3195,
+      "start": 5.11,
+      "end": 7.44,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_034",
+      "code": "HR2-034",
+      "name_zh": "主卧衣帽墙面",
+      "room_id": "master_closet",
+      "host_wall_id": "wall_hall_master",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 7.2005,
+      "start": 5.11,
+      "end": 7.44,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_035",
+      "code": "HR2-035",
+      "name_zh": "主卧衣帽墙面",
+      "room_id": "master_closet",
+      "host_wall_id": "wall_closet_bath",
+      "orientation": "east",
+      "axis": "Y",
+      "coordinate": 8.099499999999999,
+      "start": 5.11,
+      "end": 7.44,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    },
+    {
+      "id": "wall_face_hr2_036",
+      "code": "HR2-036",
+      "name_zh": "主卫墙面",
+      "room_id": "master_bath",
+      "host_wall_id": "wall_closet_bath",
+      "orientation": "west",
+      "axis": "Y",
+      "coordinate": 7.980499999999999,
+      "start": 5.11,
+      "end": 7.44,
+      "asset_id": "paint_warm_cream_matte_01",
+      "preview_hide": false
+    }
+  ],
+  "context_zones": [
+    "public_lobby",
+    "elevator_bank",
+    "stair_enclosure",
+    "mirrored_west_unit"
+  ],
+  "agent_wall_assignment": {
+    "target_field": "wall_face_id",
+    "asset_field": "asset_id",
+    "operation": "assign_wall_asset",
+    "cardinality": "one_asset_per_wall_face"
+  },
+  "asset_catalog": "asset_manifest.json",
+  "files": {
+    "blend": "house_3b2l_127_v2.blend",
+    "glb": "house_3b2l_127_v2.glb",
+    "standard_floor_preview": "previews/highrise_standard_floor_overview.png",
+    "east_unit_preview": "previews/highrise_east_unit_overview.png",
+    "validation": "validation_report_highrise_v2.json"
+  },
+  "disclaimer": "求职 Demo 概念模型；面积和结构用于产品/空间数据验证，不作为施工图或规范审图文件。"
+}

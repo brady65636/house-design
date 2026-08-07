@@ -1,0 +1,76 @@
+# Agent 后端三进程编排:agent-api(对外) + render-bridge(内网) + render-worker(无端口)。
+#
+# 使用:
+#   cd backend
+#   export OPENAI_API_KEY=... VIEWER_URL=https://<vercel 域名> AGENT_API_TOKEN=... \
+#          CORS_ORIGINS=https://<vercel 域名>
+#   docker compose up --build -d
+#
+# 说明:
+# - SCHEME_DATA_DIR=/data 让后端持有自己的方案副本(/api/scheme 提供);前端从 Vercel 经
+#   NEXT_PUBLIC_AGENT_API_URL 或 ?agent_api= 拉取。
+# - render-bridge 默认映射 8765 仅为本地调试;PaaS 上可只暴露 agent-api:8000,
+#   bridge 与 worker 走容器内网(render-bridge 服务名)。
+
+services:
+  agent-api:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    command: python -m uvicorn backend.agent_api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_PROXY: ${OPENAI_PROXY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.6-luna}
+      SCHEME_DATA_DIR: /data
+      DATA_DIR: /data
+      RENDER_BRIDGE_URL: http://render-bridge:8765
+      RENDER_SESSION_ID: worker
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      AGENT_API_TOKEN: ${AGENT_API_TOKEN:-}
+    volumes:
+      - data:/data
+    depends_on:
+      - render-bridge
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx,sys; sys.exit(0 if httpx.get('http://127.0.0.1:8000/api/health',timeout=3).status_code==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  render-bridge:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    command: python -m uvicorn backend.render_bridge.main:app --host 0.0.0.0 --port 8765
+    ports:
+      - "8765:8765"   # 仅本地调试;PaaS 上可不暴露
+    environment:
+      CORS_ORIGINS: ${CORS_ORIGINS}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx,sys; sys.exit(0 if httpx.get('http://127.0.0.1:8765/health',timeout=3).status_code==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  render-worker:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+    command: python -m backend.render_worker.main
+    environment:
+      VIEWER_URL: ${VIEWER_URL}
+      RENDER_SESSION_ID: worker
+      RENDER_BRIDGE_URL: http://render-bridge:8765
+      AGENT_API_URL: http://agent-api:8000
+      HEALTH_INTERVAL_SECONDS: ${HEALTH_INTERVAL_SECONDS:-15}
+    depends_on:
+      render-bridge:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  data:

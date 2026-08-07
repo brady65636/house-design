@@ -1,0 +1,20 @@
+# 精简版后端镜像：只跑 agent-api + render-bridge（1GB 小内存 VPS 方案）。
+# 不下载 Playwright Chromium（无 render-worker，渲染交给用户浏览器 local-demo 会话），
+# 镜像体积小约 1GB，构建更快，容器内内存占用也更低。
+# 与 backend/Dockerfile 的区别仅在于少了 `playwright install --with-deps chromium`。
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY backend/requirements.txt /app/backend/requirements.txt
+RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+COPY . /app/
+
+EXPOSE 8000 8765
+
+CMD ["python", "-m", "uvicorn", "backend.agent_api.main:app", "--host", "0.0.0.0", "--port", "8000"]

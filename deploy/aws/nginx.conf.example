@@ -1,0 +1,48 @@
+# nginx 反代配置示例：一个域名同时承载 agent-api 和 render-bridge。
+#
+#   /api/*     → http://127.0.0.1:8000   (agent-api：chat/SSE/scheme/sessions)
+#   /bridge/*  → http://127.0.0.1:8765   (render-bridge：浏览器渲染会话心跳/命令，前缀 /bridge 会被去掉)
+#
+# 为什么必须 HTTPS：Vercel 前端页面是 https，页面里的 fetch 若指向 http 的 bridge
+# 会被浏览器 mixed-content 拦截，所以 bridge 必须走 TLS。用 certbot 免费证书。
+#
+# 用法（服务器上）：
+#   sudo cp deploy/aws/nginx.conf.example /etc/nginx/sites-available/house-design
+#   把 server_name 改成你的真实域名，删掉 # (中间三行) 前的注释会另建一个仅监听的占位块（可选）
+#   sudo ln -s /etc/nginx/sites-available/house-design /etc/nginx/sites-enabled/
+#   sudo nginx -t && sudo systemctl reload nginx
+#   sudo certbot --nginx -d <你的域名>   # 自动签发 TLS 并改写本文件加 443 与跳转
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name agent.example.com;   # ← 改成你的域名
+
+    # 方案/对话响应、SSE 流式、渲染结果都可能较大，放宽上限
+    client_max_body_size 20m;
+
+    # agent-api：/api/chat/stream 是 SSE，必须关缓冲 + 长超时，否则流式会卡顿/断
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 3600s;
+    }
+
+    # render-bridge：尾部斜杠的 proxy_pass 会去掉 /bridge 前缀
+    location /bridge/ {
+        proxy_pass http://127.0.0.1:8765/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+        proxy_read_timeout 120s;
+    }
+}

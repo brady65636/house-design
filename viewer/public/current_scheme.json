@@ -1,0 +1,392 @@
+{
+  "assignments": [
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_001"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_002"
+      },
+      "asset_id": "wallpaper_botanical_meadow_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_003"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_004"
+      },
+      "asset_id": "paint_greige_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_005"
+      },
+      "asset_id": "paint_greige_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_006"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_007"
+      },
+      "asset_id": "paint_greige_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_008"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_009"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_010"
+      },
+      "asset_id": "wallpaper_botanical_meadow_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_011"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_012"
+      },
+      "asset_id": "paint_greige_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_013"
+      },
+      "asset_id": "wallpaper_botanical_meadow_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_014"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_015"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_016"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_017"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_018"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_019"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_020"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_021"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_022"
+      },
+      "asset_id": "wallpaper_botanical_meadow_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_023"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_024"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_025"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_026"
+      },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_027"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_028"
+      },
+      "asset_id": "wallpaper_micro_seed_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_029"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_030"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_031"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_032"
+      },
+      "asset_id": "wallpaper_botanical_meadow_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_033"
+      },
+      "asset_id": "tile_white_marble_01"
+    },
+    {
+      "target": {
+        "kind": "wall_face",
+        "id": "wall_face_real4_034"
+      },
+      "asset_id": "paint_greige_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_open_public"
+      },
+      "asset_id": "floor_ash_maple_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_open_public"
+      },
+      "asset_id": "ceiling_perimeter_step_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_bedroom_3"
+      },
+      "asset_id": "floor_ash_maple_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_bedroom_3"
+      },
+      "asset_id": "ceiling_flat_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_foyer"
+      },
+      "asset_id": "floor_light_oak_matte_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_foyer"
+      },
+      "asset_id": "ceiling_flat_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_dining_room"
+      },
+      "asset_id": "floor_light_oak_matte_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_dining_room"
+      },
+      "asset_id": "ceiling_perimeter_step_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_kitchen"
+      },
+      "asset_id": "tile_plain_mineral_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_kitchen"
+      },
+      "asset_id": "ceiling_flat_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_guest_bath"
+      },
+      "asset_id": "tile_plain_mineral_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_guest_bath"
+      },
+      "asset_id": "ceiling_flat_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_bedroom_2"
+      },
+      "asset_id": "floor_ash_maple_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_bedroom_2"
+      },
+      "asset_id": "ceiling_flat_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_master_bedroom"
+      },
+      "asset_id": "floor_ash_maple_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_master_bedroom"
+      },
+      "asset_id": "ceiling_flat_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_master_dressing"
+      },
+      "asset_id": "floor_ash_maple_light_matte_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_master_dressing"
+      },
+      "asset_id": "ceiling_flat_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_master_bath"
+      },
+      "asset_id": "tile_plain_mineral_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_ceiling_master_bath"
+      },
+      "asset_id": "ceiling_flat_01"
+    },
+    {
+      "target": {
+        "kind": "surface",
+        "id": "surface_real4_floor_south_panorama_balcony"
+      },
+      "asset_id": "tile_warm_travertine_01"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "scheme_id": "scheme_yunkuo_135_v4_default_1786069513",
+  "title": "云阔 135㎡ · 基础方案"
+}

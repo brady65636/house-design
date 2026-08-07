@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "scheme_id": "scheme_living_default_01",
+  "title": "温暖自然 · 01",
+  "assignments": [
+    {
+      "target": { "kind": "wall_face", "id": "wall_face_001" },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": { "kind": "wall_face", "id": "wall_face_002" },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": { "kind": "wall_face", "id": "wall_face_003" },
+      "asset_id": "paint_warm_cream_matte_01"
+    },
+    {
+      "target": { "kind": "surface", "id": "surface_floor_living_room" },
+      "asset_id": "floor_light_oak_matte_01"
+    },
+    {
+      "target": { "kind": "surface", "id": "surface_ceiling_living_room" },
+      "asset_id": "ceiling_flat_01"
+    }
+  ]
+}
