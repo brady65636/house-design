@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -1404,6 +1405,7 @@ export function RoomExperience() {
           <i />{loadState === "ready" ? `${activeTrack.roomLabel} · 实时场景` : loadState === "error" ? "加载失败" : `加载 ${progress}%`}
         </div>
         <div className="header-actions">
+          <Link href="/chat">对话助手</Link>
           <button type="button" className={panelOpen ? "active" : ""} onClick={() => setPanelOpen(!panelOpen)}>方案面板</button>
         </div>
       </header>

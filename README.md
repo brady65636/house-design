@@ -50,6 +50,8 @@ python -m unittest discover -s backend/tests  # 新增 API/SSE/持久化 10 项
 
 前端方案读取已改为 `fetchCurrentScheme()`:优先走 `NEXT_PUBLIC_AGENT_API_URL` 指向的 `/api/scheme`,回退同源 `/current_scheme.json`(本地 dev)。
 
+对话页 `/chat`(主页右上角「对话助手」进入)通过 `viewer/app/chat-proxy/[...path]/route.ts` 服务端代理调用聊天/会话接口——token 由 house-viewer 进程注入,不进浏览器 bundle;SSE 流式回复 + 工具调用实时展示,会话存 localStorage 可新建/切换/删除。
+
 ## 部署上线
 
 前端在 Vercel,后端为常驻容器 PaaS(Docker)。完整步骤、环境变量与 Fly.io / Railway / HuggingFace Spaces 路径见 [docs/DEPLOY.md](docs/DEPLOY.md)。
