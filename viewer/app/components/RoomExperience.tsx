@@ -592,7 +592,8 @@ export function RoomExperience() {
     let cancelled = false;
     const query = new URLSearchParams(window.location.search);
     const sessionId = query.get("render_session") ?? "local-demo";
-    const bridgeUrl = (query.get("render_bridge") ?? "http://127.0.0.1:8765").replace(/\/$/, "");
+    // 生产同域托管：默认指向本站 /bridge；本地开发可显式传 ?render_bridge=
+    const bridgeUrl = (query.get("render_bridge") ?? `${window.location.origin}/bridge`).replace(/\/$/, "");
 
     const postResult = async (command: RenderCommand, body: Record<string, unknown>) => {
       await fetch(`${bridgeUrl}/v1/render-sessions/${encodeURIComponent(sessionId)}/commands/${command.id}/result`, {
