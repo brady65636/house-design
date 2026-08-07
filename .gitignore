@@ -31,3 +31,6 @@ backend/data/
 
 # 废弃内容归档（详见 exp/README.md）
 exp/
+
+# 本机 Claude Code 工具配置（worktree 隔离开关，不随仓库分发）
+.claude/
