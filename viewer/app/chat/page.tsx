@@ -54,6 +54,18 @@ type StoredSession = { id: string; title: string; createdAt: string };
 const SESSIONS_KEY = "house-design.chat.sessions";
 const CURRENT_KEY = "house-design.chat.current";
 
+// 工具调用在对话里只展示中文进度名，不暴露原始工具 ID 与 JSON 参数/结果。
+const TOOL_LABELS: Record<string, string> = {
+  get_today_whether: "查询天气",
+  get_room_by_id: "查询房间",
+  get_asset_by_category: "查询资产列表",
+  get_asset_card_by_id: "读取资产卡",
+  load_scheme: "读取方案",
+  observe_room: "观察房间",
+  observe_home_harmony: "全屋总览",
+  update_scheme: "修改方案",
+};
+
 let idCounter = 0;
 function nextId(): string {
   idCounter += 1;
@@ -276,7 +288,8 @@ export default function ChatPage() {
   const [historyLoaded, setHistoryLoaded] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   // 右侧嵌入式 3D 视图：保持浏览器渲染会话在线，observe_room 等视觉工具才能用。
-  // iframe 始终挂载（隐藏只是 display:none），切换不会让渲染会话掉线。
+  // iframe 始终挂载；「隐藏」只是把面板移出屏幕（保持盒模型），不会让渲染
+  // 会话掉线，也不能用 display:none（那会把 WebGL 画布压到 ~1px，观察截图退化）。
   const [viewerOpen, setViewerOpen] = useState(true);
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -694,11 +707,9 @@ export default function ChatPage() {
                         <span className={`chat-tool-state ${call.status}`}>
                           {call.status === "running" ? "…" : "✓"}
                         </span>
-                        <span className="chat-tool-name">{call.tool}</span>
-                        <span className="chat-tool-args">{call.args}</span>
-                        {call.summary && (
-                          <span className="chat-tool-summary">{call.summary}</span>
-                        )}
+                        <span className="chat-tool-name">
+                          {TOOL_LABELS[call.tool] ?? call.tool}
+                        </span>
                       </div>
                     ))}
                   </div>

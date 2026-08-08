@@ -133,6 +133,13 @@ const ASSET_LABELS: Record<string, string> = {
 
 const WET_ROOM_IDS = new Set(["kitchen", "guest_bath", "master_bath"]);
 
+// Visual-observation captures must not depend on the on-screen canvas size.
+// The live canvas is normally ≥340px wide; if it ever collapses (3D panel
+// hidden in a way that leaves the host at ~0px), render the evidence at this
+// fixed minimum instead of upscaling a 1px strip into a degenerate image.
+const CAPTURE_MIN_WIDTH = 1280;
+const CAPTURE_MIN_HEIGHT = 720;
+
 // The real-time renderer has no baked global illumination. Keep the indirect
 // contribution neutral so a near-white wall in shade reads as its paint colour,
 // rather than inheriting a brown cast from the virtual floor.
@@ -952,6 +959,22 @@ export function RoomExperience() {
       const wasPlaying = tourPlayingValue;
       const previousDetailsVisible = detailsVisibleValue;
 
+      // Evidence must survive a collapsed live canvas (e.g. the 3D panel hidden
+      // off-screen in a way that left the host at ~0px). Render the shot at a
+      // fixed minimum in that case, then restore the original buffer.
+      const originalCanvasSize = {
+        width: renderer.domElement.width,
+        height: renderer.domElement.height,
+      };
+      const captureGuardApplied =
+        originalCanvasSize.width < 320 || originalCanvasSize.height < 320;
+      if (captureGuardApplied) {
+        renderer.setSize(CAPTURE_MIN_WIDTH, CAPTURE_MIN_HEIGHT, false);
+        composer.setSize(CAPTURE_MIN_WIDTH, CAPTURE_MIN_HEIGHT);
+        camera.aspect = CAPTURE_MIN_WIDTH / CAPTURE_MIN_HEIGHT;
+        camera.updateProjectionMatrix();
+      }
+
       setTourPlayingValue(false);
       activeTrackValue = getRoomCameraTrack(roomId);
       tourDurationMsValue = activeTrackValue.durationMs;
@@ -985,6 +1008,12 @@ export function RoomExperience() {
         updateLightingForTrack(previousTrack);
         updateCeilingVisibility();
         applyPresentation();
+        if (captureGuardApplied) {
+          renderer.setSize(originalCanvasSize.width, originalCanvasSize.height, false);
+          composer.setSize(originalCanvasSize.width, originalCanvasSize.height);
+          camera.aspect = originalCanvasSize.width / originalCanvasSize.height;
+          camera.updateProjectionMatrix();
+        }
         setTourProgressValue(previousProgress);
         if (wasPlaying) setTourPlayingValue(true);
       }

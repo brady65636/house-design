@@ -1720,10 +1720,6 @@ body:has(.room-experience) {
   font-weight: 600;
 }
 
-.chat-tool-args {
-  color: #8f9a94;
-}
-
 .chat-tool-summary {
   width: 100%;
   color: #7f8b84;
@@ -1929,10 +1925,14 @@ body:has(.room-experience) {
   flex: 1;
   min-height: 0;
   display: flex;
+  /* 隐藏 3D 面板时作为 .chat-viewer-hidden 的定位包含块，使其保持可见态盒尺寸 */
+  position: relative;
 }
 
 .chat-left {
-  flex: 1;
+  /* 对话栏固定占屏宽 1/3，3D 视图占剩余 2/3 */
+  flex: 0 0 33.333vw;
+  width: 33.333vw;
   min-width: 0;
   min-height: 0;
   display: flex;
@@ -1940,9 +1940,8 @@ body:has(.room-experience) {
 }
 
 .chat-viewer {
-  flex: none;
-  width: min(44vw, 620px);
-  min-width: 340px;
+  flex: 1 1 auto;
+  min-width: 0;
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   background: #101411;
 }
@@ -1955,7 +1954,14 @@ body:has(.room-experience) {
 }
 
 .chat-viewer-hidden {
-  display: none;
+  /* 不能 display:none：那会让 iframe 内部布局塌缩成 ~0 宽，ResizeObserver 把
+     WebGL 画布压到 ~1px，observe_room 等视觉工具拿到的截图退化成 1px 竖条。
+     改为「移出屏幕但保持盒模型」：iframe 继续以可见态相同的尺寸渲染，渲染
+     会话与截图始终有效，用户看不到它。 */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -9999px;
 }
 
 .chat-viewer-toggle {
@@ -1981,6 +1987,8 @@ body:has(.room-experience) {
     flex-direction: column;
   }
   .chat-left {
+    flex: 1 1 auto;
+    width: auto;
     min-height: 0;
   }
   .chat-viewer {
