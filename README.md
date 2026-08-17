@@ -7,7 +7,7 @@
 并通过**无头浏览器渲染真实场景 + Critic 自评**验证视觉效果，最后在浏览器中以实时 3D 方式漫游与预览。
 方案可分支、可回滚、可追溯、可离线评估。
 
-🔗 **在线 Demo**：[my-house.vercel.app](https://my-house.vercel.app)
+🔗 **在线 Demo**：[agent.brady-zhang.com](https://agent.brady-zhang.com/)
 
 ---
 

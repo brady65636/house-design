@@ -50,10 +50,10 @@ Vercel(前端 Next.js 静态)  ──HTTPS──►  PaaS 常驻容器(Docker)
 | `HOUSE_DESIGN_LANGSMITH_ENDPOINT` | LangSmith 官方区域端点 | `https://api.smith.langchain.com` |
 | `HOUSE_DESIGN_LANGSMITH_PROJECT` | Trace 项目名 | `house-design-agent` |
 | `HOUSE_DESIGN_LANGSMITH_WORKSPACE_ID` | 多 workspace API key 才需要 | `workspace-...` |
-| `VIEWER_URL` | viewer 生产页面(Vercel 域名) | `https://my-house.vercel.app` |
+| `VIEWER_URL` | viewer 生产页面 | `https://agent.brady-zhang.com` |
 | `RENDER_SESSION_ID` | agent 提交视觉命令的会话 | `worker` |
 | `AGENT_API_TOKEN` | Bearer 鉴权(chat/sessions);`/api/scheme` 匿名 | 随机串 |
-| `CORS_ORIGINS` | 逗号分隔白名单,**必含 Vercel 域名** | `https://my-house.vercel.app` |
+| `CORS_ORIGINS` | 逗号分隔白名单,**必含前端域名** | `https://agent.brady-zhang.com` |
 | `SCHEME_DATA_DIR` | 后端方案数据目录 | `/data` |
 | `DATA_DIR` | 会话 checkpoint 目录 | `/data` |
 
@@ -80,9 +80,9 @@ cd backend
 export HOUSE_DESIGN_ARK_API_KEY='ark-...' \
        HOUSE_DESIGN_LLM_PROVIDER='ark' \
        HOUSE_DESIGN_ARK_MODEL='doubao-seed-2-0-lite-260428' \
-       VIEWER_URL='https://my-house.vercel.app' \
+       VIEWER_URL='https://agent.brady-zhang.com' \
        AGENT_API_TOKEN='$(openssl rand -hex 24)' \
-       CORS_ORIGINS='https://my-house.vercel.app'
+       CORS_ORIGINS='https://agent.brady-zhang.com'
 docker compose up --build -d
 ```
 
