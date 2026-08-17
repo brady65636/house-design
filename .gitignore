@@ -41,3 +41,6 @@ exp/
 
 # 本机 Claude Code 工具配置（worktree 隔离开关，不随仓库分发）
 .claude/
+
+# 本地项目记忆（含私人信息，不随仓库分发；保留在磁盘供本地开发使用）
+PROJECT_MEMORY.md
