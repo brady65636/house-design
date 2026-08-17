@@ -1,165 +1,160 @@
-# AI 住宅装修设计 Demo
+# AI 住宅装修设计 Agent
 
-当前活动场景是 135㎡三居宽厅真实户型 `house_spacious_yunkuo_135_v4`，已接入房间级 Three.js 漫游和完整五品类代表资产库：13 个墙漆/连续涂层、16 个原创墙纸、13 个地板、21 个瓷砖和 9 个吊顶，共 72 个可寻址的自描述 Asset。10 个综合色墙漆各自只保留一个 Asset，明度、饱和度和漆面均作为 Scheme 参数。
+> 用一句话描述你想住的感受，AI 在可交互的 3D 户型里生成一套完整、可落地、可迭代的装修方案。
 
-![135㎡住宅鸟瞰](output/previews/house_spacious_yunkuo_135_v4.png)
+这是一个端到端的 **全栈 Agent 项目**：用户用自然语言表达居住感受（“明亮安静”“有记忆点”），
+后端 Agent 基于一套自描述材质资产库，生成墙漆、墙纸、地板、瓷砖、吊顶五品类的设计方案，
+并通过**无头浏览器渲染真实场景 + Critic 自评**验证视觉效果，最后在浏览器中以实时 3D 方式漫游与预览。
+方案可分支、可回滚、可追溯、可离线评估。
 
-## 当前交付
+🔗 **在线 Demo**：[my-house.vercel.app](https://my-house.vercel.app)
 
-- Blender 源文件：`output/house_spacious_yunkuo_135_v4.blend`
-- Three.js/glTF 文件：`output/house_spacious_yunkuo_135_v4.glb`
-- 72 个自描述资产/预设的轻量索引：`output/asset_manifest.json`
-- 72 张完整资产卡：`output/asset_cards.json`
-- 房间与表面清单：`output/scene_manifest.json`
-- 自动验证报告：`output/validation_report_spacious_v4.json`
-- 建模规格：`docs/MODEL_SPEC.md`
-- 可复现生成脚本：`blender/generate_spacious_floorplan_v4.py`
-- 独立验证脚本：`blender/validate_spacious_floorplan_v4.py`
-- Three.js 房间体验：`viewer/app/components/RoomExperience.tsx`
-- 相机与室内参照数据：`viewer/app/components/interiorScene.ts`
-- 客厅真实感标杆间：`viewer/app/components/heroLivingScene.ts`
-- 原创现代沙发生成器：`blender/generate_hero_sofa.py`
-- 客厅摄影级渲染器：`blender/render_hero_living.py`
-- 外部资产许可记录：`docs/ASSET_LICENSES.md`
-- 墙漆系统说明：`docs/WALL_PAINT_SYSTEM.md`
-- 完整墙漆色板：`output/previews/paint_catalog.png`
+---
 
-五类产品资产均为项目原创或明确记录来源的代表资产，不对应真实品牌 SKU；客厅中的部分中性家具与环境素材使用 Poly Haven CC0 资产。当前住宅用于产品和技术验证，不是施工图，也不声称满足结构、消防或当地住宅规范。
+## 核心亮点
 
-## 后端(Agent API)
+- **对话式设计 Agent，规划先行**
+  用户提出需求后，Agent 先呈现一份实施规划，确认后再动手修改方案；SSE 流式返回回复，
+  工具调用过程实时可见，整个过程不是黑盒。
 
-Agent 后端已从 CLI 拆分为 FastAPI 服务,代码收拢在 `backend/` 包:
+- **视觉自评闭环**
+  方案生成后由 Playwright 无头浏览器渲染真实 3D 场景、截图回传，Critic Agent 按视觉标准评审，
+  不达标自动返工，把“审美好不好”变成可测量、可回归的质量门禁。
 
-- `backend/agent_api/`:Agent API(对话 / SSE 流式 / 会话管理 / Design Run 与 Scheme 版本),SQLite 持久化会话、JSON 持久化隔离设计运行;
-- `backend/render_bridge/`:渲染任务队列(Agent ↔ 浏览器渲染会话);
-- `backend/render_worker/`:无头浏览器渲染 worker(playwright + 软件渲染),保证生产环境视觉自评门禁闭环;
-- 旧 CLI 迁移 shim(agentloop / agent_tools / agent_graph / render_bridge 等)与配套旧测试已归档至 `exp/legacy-cli/`;新代码一律从 `backend.agent_api.*` 导入。
+- **可寻址的自描述资产库**
+  72 个材质资产，覆盖墙漆 / 墙纸 / 地板 / 瓷砖 / 吊顶五个品类。每个资产不只是图片，
+  还携带视觉语义（角色、适搭、禁忌）、设计关系标签与参数化 Schema，
+  Agent 通过工具检索与组合，而不是碰运气。
 
-本地启动 Agent API:
+- **可复现的生成管线**
+  户型与全部资产由 Blender 脚本参数化生成（Python API → glTF），并有独立的验证脚本
+  校验资产完整性、坐标轴、UV 与导出结果——输出可复现，而非只靠渲染图。
+
+- **方案版本管理**
+  每次设计运行（Design Run）独立隔离，可基于当前方案分支、续跑或回滚，
+  多轮对话的改动历史可完整追溯。
+
+- **可观测与离线评估**
+  全链路 LangSmith 追踪（对话、工具、渲染证据、嵌套 Critic）；`evals/` 提供
+  结果质量、规划、轨迹三个维度的离线评估框架，用数据衡量 Agent 表现。
+
+---
+
+## 材质库一览
+
+72 个资产均带 PBR 贴图与缩略图，前端以“资产卡”呈现：
+
+| 墙漆 | 墙纸 | 地板 | 瓷砖 |
+| --- | --- | --- | --- |
+| ![paint](viewer/public/assets/asset-cards/paint_warm_white_01_preview.webp) | ![wallpaper](viewer/public/assets/asset-cards/wallpaper_art_deco_fan_01_preview.webp) | ![floor](viewer/public/assets/asset-cards/floor_light_oak_matte_01_preview.webp) | ![tile](viewer/public/assets/asset-cards/tile_warm_white_zellige_01_preview.webp) |
+| ![paint](viewer/public/assets/asset-cards/paint_terracotta_01_preview.webp) | ![wallpaper](viewer/public/assets/asset-cards/wallpaper_botanical_meadow_01_preview.webp) | ![floor](viewer/public/assets/asset-cards/floor_warm_walnut_matte_01_preview.webp) | ![tile](viewer/public/assets/asset-cards/tile_oxblood_small_format_01_preview.webp) |
+
+---
+
+## 工作原理
+
+```text
+用户自然语言需求
+      │
+      ▼
+┌─────────────────────────────┐
+│  Agent（LangGraph）          │
+│  1. 规划：拆解为可执行步骤    │
+│  2. 检索：资产卡 / 知识库     │
+│  3. 组合：按视觉标准选材      │
+│  4. 落盘：生成 Design Run    │
+└─────────────────────────────┘
+      │
+      ▼
+   实时 3D 预览（Three.js）
+      │
+      ▼
+无头浏览器渲染 → 截图 → Critic 评审 → 不达标自动迭代
+```
+
+---
+
+## 快速开始
+
+### 1. 启动前端（3D 查看器 + /chat 对话页）
 
 ```bash
+cd viewer
+npm install
+npm run dev
+# 打开 http://localhost:3000
+```
+
+### 2. 启动后端（Agent API）
+
+```bash
+pip install -r backend/requirements.txt
 python -m uvicorn backend.agent_api.main:app --host 127.0.0.1 --port 8000
 ```
 
-本地 `.env` 的模型配置使用项目专属变量；系统级 `OPENAI_*`、`DASHSCOPE_*`、`ARK_*`、
-`DEEPSEEK_*` 不会被后端读取。当前默认 provider 为火山方舟 Ark（豆包多模态模型，
-支持视觉与工具调用）：
+后端通过**项目专属** `HOUSE_DESIGN_*` 环境变量配置模型 provider（支持 OpenAI / 阿里云百炼 / 火山方舟），
+不读取系统级 `OPENAI_*` 等通用变量，防止凭据误投递。完整配置说明见
+[`docs/DEPLOY.md`](docs/DEPLOY.md) 与 `backend/agent_api/config.py`。
 
-```dotenv
-HOUSE_DESIGN_LLM_PROVIDER=ark
-HOUSE_DESIGN_ARK_API_KEY=ark-...
-HOUSE_DESIGN_ARK_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
-HOUSE_DESIGN_ARK_MODEL=doubao-seed-2-0-lite-260428
-HOUSE_DESIGN_REASONING_EFFORT=none
-```
-
-需要切回阿里云百炼时，把 `HOUSE_DESIGN_LLM_PROVIDER` 改为 `dashscope` 并配置
-`HOUSE_DESIGN_DASHSCOPE_API_KEY` / `HOUSE_DESIGN_DASHSCOPE_BASE_URL` /
-`HOUSE_DESIGN_DASHSCOPE_MODEL`；切回 OpenAI 时改为 `openai` 并配置
-`HOUSE_DESIGN_OPENAI_API_KEY` / `HOUSE_DESIGN_OPENAI_BASE_URL` /
-`HOUSE_DESIGN_OPENAI_MODEL`（可选 `HOUSE_DESIGN_OPENAI_PROXY`）。
-
-三个 provider 都会在启动阶段校验官方 API 地址：OpenAI 只允许
-`https://api.openai.com/v1`，DashScope 只允许
-`https://dashscope.aliyuncs.com/compatible-mode/v1`，Ark 只允许
-`https://ark.cn-beijing.volces.com/api/v3`，阻止把凭据发送到
-DeepSeek、兼容网关或其他接口。修改 `.env` 后必须重启后端进程。
-
-可选的 LangSmith 追踪同样使用项目专属变量，默认关闭，也不会读取系统级
-`LANGSMITH_*` / `LANGCHAIN_*`。启用后，每轮 LangGraph、模型调用、手写工具分发、
-渲染观察和嵌套 Critic 会写入同一个 trace：
-
-```dotenv
-HOUSE_DESIGN_LANGSMITH_TRACING=true
-HOUSE_DESIGN_LANGSMITH_API_KEY=lsv2_...
-HOUSE_DESIGN_LANGSMITH_ENDPOINT=https://api.smith.langchain.com
-HOUSE_DESIGN_LANGSMITH_PROJECT=house-design-agent
-# 只有 API key 关联多个 workspace 时才填写：
-HOUSE_DESIGN_LANGSMITH_WORKSPACE_ID=
-```
-
-Trace 会携带 `thread_id`、`design_run_id`、`design_mode`、传输方式和模型名等非密钥
-元数据。关闭 tracing 时，即使系统环境误设了通用 LangSmith 变量，本项目也不会上传。
-启用 tracing 表示对话、工具参数/结果，以及进入模型上下文的实时渲染证据会发送到所配置的
-LangSmith workspace；不要在未经授权的真实住宅或敏感用户数据上直接开启。
-
-测试:
+要让 `/chat` 对话页连上后端，在 `viewer` 下设置：
 
 ```bash
-python -m unittest discover -s backend/tests
+NEXT_PUBLIC_AGENT_API_URL=http://127.0.0.1:8000
 ```
 
-前端方案读取已改为 `fetchCurrentScheme()`:优先走 `NEXT_PUBLIC_AGENT_API_URL` 指向的 `/api/scheme`,回退同源 `/current_scheme.json`(本地 dev)。
+### 3. 如何体验
 
-对话页 `/chat`(主页右上角「对话助手」进入)通过 `viewer/app/chat-proxy/[...path]/route.ts` 服务端代理调用聊天/会话接口——token 由 house-viewer 进程注入,不进浏览器 bundle;SSE 流式回复 + 工具调用实时展示。新对话默认创建隔离的“从零设计”运行，也可选择复制当前为分支或继续当前方案；详细生命周期与恢复规则见 [`docs/DESIGN_VERSIONING.md`](docs/DESIGN_VERSIONING.md)。
+1. 进入主页，在 135㎡ 三居宽厅中漫游，选中墙面 / 地面 / 顶面；
+2. 右侧方案面板选择材质，实时调整明度、饱和度、漆面等参数；
+3. 点击右上角「对话助手」进入 `/chat`，用自然语言描述想要的效果，Agent 生成并应用方案；
+4. 需要“看效果”的观察类需求，由 3D 查看器渲染场景并回传截图，完成视觉自评。
 
-## 部署上线
+---
 
-前端在 Vercel,后端为常驻容器 PaaS(Docker)。完整步骤、环境变量与 Fly.io / Railway / HuggingFace Spaces 路径见 [docs/DEPLOY.md](docs/DEPLOY.md)。
+## 技术栈
 
-## 浏览房间级体验
+| 层 | 技术 |
+| --- | --- |
+| 前端 | Next.js（Vinext）、React 19、TypeScript、Three.js、Tailwind |
+| 后端 | FastAPI、LangGraph、LangChain、Pydantic |
+| 渲染管线 | Blender Python API、glTF、Playwright（无头浏览器视觉自评） |
+| 存储 | SQLite（会话 Checkpoint）、JSON（Design Run 隔离） |
+| 可观测 | LangSmith |
 
-```powershell
-cd viewer
-npm install
-npm run dev -- --host 127.0.0.1
+---
+
+## 项目结构
+
+```text
+viewer/                 前端：3D 查看器 + /chat 对话页（Three.js / React）
+backend/
+  agent_api/            Agent：对话、SSE 流式、工具、Design Run、视觉评估
+  render_bridge/        渲染任务队列（Agent ↔ 浏览器渲染会话）
+  render_worker/        无头浏览器渲染 worker（视觉自评门禁）
+blender/                户型与资产生成、验证脚本
+evals/                  离线评估框架（结果质量 / 规划 / 轨迹）
+scripts/                本地启动与数据迁移脚本
+docs/                   模型规格、材质系统、资产说明、部署文档
 ```
 
-打开 `http://localhost:3000/`。页面默认使用客厅人眼高度主镜头；选中墙面后，右侧方案面板先选择 10 个综合色墙漆 Asset 之一，再用明度、饱和度和漆面参数调整实例；也可选择 3 个独立矿物连续涂层。鸟瞰只作为户型导航，不是主要展示方式。
+---
 
-客厅已经作为第一间真实感标杆空间升级：使用 PBR 木地板、灰泥墙和织物微表面，HDR 环境反射、软阴影、GTAO 接触阴影，以及真实休闲椅/茶几和项目原创现代沙发。页面右上角可切换 Blender Cycles 摄影级静帧与实时 Three.js；其他房间仍保留较轻量的空间参照，暂不应被描述为同等完成度。
+## 相关文档
 
-## 重新生成
+- [`docs/MODEL_SPEC.md`](docs/MODEL_SPEC.md) — 3D 模型与资产规格
+- [`docs/WALL_PAINT_SYSTEM.md`](docs/WALL_PAINT_SYSTEM.md) · [`docs/WALLPAPER_SYSTEM.md`](docs/WALLPAPER_SYSTEM.md) — 材质系统
+- [`docs/DESIGN_VERSIONING.md`](docs/DESIGN_VERSIONING.md) — Design Run 与方案版本
+- [`docs/DEPLOY.md`](docs/DEPLOY.md) — 前端 / 后端部署
+- [`docs/AGENT_EVALUATION_REPORT.md`](docs/AGENT_EVALUATION_REPORT.md) — Agent 评估报告
 
-本机已安装 Blender 5.2.0 LTS。PowerShell 中执行：
+---
 
-```powershell
-& 'C:\Program Files\Blender Foundation\Blender 5.2\blender.exe' `
-  --background `
-  --factory-startup `
-  --python 'blender\generate_spacious_floorplan_v4.py'
-```
+## 免责声明
 
-脚本会覆盖 `output` 中同名的生成物，但不会修改源规格或项目记忆。
+本项目是 AI Agent 技术与 3D 可视化的工作演示，用于产品流程与设计方法验证。
+输出不构成施工图，不对结构、消防、防水或当地住宅规范作任何承诺；
+涉及工程落地的内容应由有资质的现场专业人员确认。
 
-## 验证
+## License
 
-```powershell
-& 'C:\Program Files\Blender Foundation\Blender 5.2\blender.exe' `
-  --background 'output\house_spacious_yunkuo_135_v4.blend' `
-  --python 'blender\validate_spacious_floorplan_v4.py'
-```
-
-验证内容包括：
-
-- 72 个资产/预设是否完整装入 v4 源文件，其中包括 34 套地板/瓷砖 PBR 和 9 套吊顶几何；
-- 综合色墙漆是否使用共享完整 PBR 节点，三种矿物涂层是否使用独立 4K PBR；
-- 135㎡场景的 11 个空间、55 个设计目标和 34 个墙面 ID 是否完整；
-- 模型是否使用米制尺寸、应用变换并处于预期边界；
-- GLB 是否能重新导入；
-- `surface_id` 和 `asset_id` 是否通过 glTF extras 保留；
-- 四张预览图的尺寸是否正确。
-
-## 这一步训练的能力
-
-这批资产主要覆盖项目学习阶梯中的 Level 2 和 Level 4 基础：
-
-- 把住宅、房间、表面和资产区分成稳定的数据概念；
-- 理解材质资产与几何构造预设的区别；
-- 使用自定义属性把 Blender 对象连接到未来的 Scheme JSON；
-- 理解 Blender 的 Z-up 坐标与 glTF/Three.js 导出边界；
-- 用独立验证程序证明输出可靠，而不是只看渲染图。
-
-Three.js 已经完成 v4 GLB 加载、房间级摄影机和 Scheme 材质切换闭环，并接入完整五品类目录。下一步应补齐资产卡 Schema、风格说明书和 Agent 访谈流程，而不是继续增加未结构化的代表资产。
-
-## 废弃内容归档 exp/
-
-`exp/` 存放不再参与当前 v4 管线的废弃内容,已在 `.gitignore` 中忽略(不进入版本控制,但保留在磁盘便于追溯):
-
-- `exp/legacy-cli/`:旧 CLI 迁移 shim、`agentloop`、一次性资产知识生成器与配套旧测试;
-- `exp/blender-v1-v3/`:v1/v2/v3 户型的生成/验证脚本及一次性数据迁移脚本;
-- `exp/output-archive/`:旧场景(v1/v2/v3)的 .blend/.glb、旧 scene_manifest / validation_report、户型研究参考图与历史日志;
-- `exp/viewer-template/`:viewer 的 Cloudflare/vinext 模板残留(worker/build/.openai/db/drizzle/examples)与旧前端模型/方案/图标;
-- `exp/caches/`:`__pycache__`、`.pytest_cache` 等可再生缓存。
-
-需要找回某项时从对应子目录移回即可。完整说明见 `exp/README.md`。
+本项目尚未指定开源协议，代码仅作作品展示与学习参考。
