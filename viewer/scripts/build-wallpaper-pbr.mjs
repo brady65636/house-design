@@ -8,6 +8,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDir, "..", "..");
 const catalogPath = path.join(projectRoot, "viewer", "app", "data", "wallpaperCatalog.json");
 const destination = path.join(projectRoot, "viewer", "public", "assets", "wallpapers");
+const manifestDir = path.join(projectRoot, "viewer", "public", "assets", "manifests");
 const masterDestination = path.join(projectRoot, "output", "wallpapers_pbr");
 const previewDestination = path.join(projectRoot, "output", "previews");
 const imagegenDir = path.join(projectRoot, "output", "imagegen");
@@ -15,6 +16,7 @@ const processingMaxEdge = 2048;
 
 const catalog = JSON.parse(await fs.readFile(catalogPath, "utf8"));
 await fs.mkdir(destination, { recursive: true });
+await fs.mkdir(manifestDir, { recursive: true });
 await fs.mkdir(masterDestination, { recursive: true });
 await fs.mkdir(previewDestination, { recursive: true });
 
@@ -24,6 +26,7 @@ const PROFILE = {
   linear_emboss: { high: 0.18, mid: 0.68, paper: 0.3, roughVariation: 13 },
   selective_emboss: { high: 0.12, mid: 0.72, paper: 0.3, roughVariation: 12 },
   ornamental_emboss: { high: 0.12, mid: 1.0, paper: 0.25, roughVariation: 14 },
+  sculptural_fiber_relief: { high: 0.22, mid: 1.35, paper: 0.28, roughVariation: 18 },
   mineral_print: { high: 0.03, mid: 0.01, paper: 0.4, roughVariation: 14 },
   mural_print: { high: 0.02, mid: 0.0, paper: 0.4, roughVariation: 11 },
 };
@@ -254,7 +257,9 @@ async function buildWallpaper(product) {
     Math.round(outputWidth * runtimeBaseScale),
     Math.round(outputHeight * runtimeBaseScale),
   ];
-  const runtimeLinearScale = Math.min(1, 2048 / Math.max(outputWidth, outputHeight));
+  // Linear maps carry low-amplitude relief, so 1.5K is sufficient for the
+  // interactive viewer while the lossless 4K production masters stay intact.
+  const runtimeLinearScale = Math.min(1, 1536 / Math.max(outputWidth, outputHeight));
   const runtimeLinearResolution = [
     Math.round(outputWidth * runtimeLinearScale),
     Math.round(outputHeight * runtimeLinearScale),
@@ -283,11 +288,11 @@ async function buildWallpaper(product) {
       .toFile(runtimeBasePath),
     sharp(normalMap, { raw: { width, height, channels: 3 } })
       .resize(runtimeLinearResolution[0], runtimeLinearResolution[1], { kernel: sharp.kernel.lanczos3 })
-      .webp({ quality: 94, effort: 5, smartSubsample: true })
+      .webp({ quality: 90, effort: 5, smartSubsample: true })
       .toFile(runtimeNormalPath),
     sharp(roughnessMap, { raw: { width, height, channels: 1 } })
       .resize(runtimeLinearResolution[0], runtimeLinearResolution[1], { kernel: sharp.kernel.lanczos3 })
-      .webp({ quality: 92, effort: 5, smartSubsample: true })
+      .webp({ quality: 88, effort: 5, smartSubsample: true })
       .toFile(runtimeRoughnessPath),
     sharp(baseColor, { raw: { width, height, channels: 3 } })
       .resize(384, 256, { fit: "cover", position: "centre", kernel: sharp.kernel.lanczos3 })
@@ -330,7 +335,7 @@ async function buildWallpaper(product) {
   return {
     id: product.id,
     name_zh: product.name_zh,
-    family: product.family,
+    slug: product.slug,
     texture_mode: product.texture_mode,
     resolution: [outputWidth, outputHeight],
     repeat_size_m: product.repeat_size_m,
@@ -452,7 +457,7 @@ const manifest = {
 };
 
 await fs.writeFile(
-  path.join(destination, "texture_manifest.json"),
+  path.join(manifestDir, "wallpaper_manifest.json"),
   `${JSON.stringify(manifest, null, 2)}\n`,
   "utf8",
 );

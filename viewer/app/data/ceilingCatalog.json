@@ -7,56 +7,141 @@
       "id": "ceiling_flat_01",
       "name_zh": "原顶或平顶",
       "name_en": "Flat ceiling",
-      "family": "flat",
       "representation": "geometry_preset",
       "drop_height_mm": 20,
-      "suitable_rooms": ["all_dry_rooms"]
+      "suitable_rooms": [
+        "all_dry_rooms"
+      ],
+      "preset": "flat"
     },
     {
       "order": 2,
       "id": "ceiling_perimeter_step_01",
       "name_zh": "周边跌级双眼皮吊顶",
       "name_en": "Perimeter stepped ceiling",
-      "family": "perimeter_step",
       "representation": "geometry_preset",
       "drop_height_mm": 180,
       "perimeter_band_mm": 300,
-      "suitable_rooms": ["living_room", "dining_room", "bedroom"]
+      "suitable_rooms": [
+        "living_room",
+        "dining_room",
+        "bedroom"
+      ],
+      "preset": "perimeter_step"
     },
     {
       "order": 3,
       "id": "ceiling_perimeter_cove_01",
       "name_zh": "周边下吊灯槽吊顶",
       "name_en": "Perimeter cove-light ceiling",
-      "family": "perimeter_cove",
       "representation": "geometry_preset",
       "drop_height_mm": 200,
       "perimeter_band_mm": 360,
       "cove_width_mm": 90,
-      "suitable_rooms": ["living_room", "dining_room", "bedroom"]
+      "suitable_rooms": [
+        "living_room",
+        "dining_room",
+        "bedroom"
+      ],
+      "preset": "perimeter_cove"
     },
     {
       "order": 4,
       "id": "ceiling_floating_shadow_gap_01",
       "name_zh": "悬浮顶与阴影缝",
       "name_en": "Floating ceiling with shadow gap",
-      "family": "floating_shadow_gap",
       "representation": "geometry_preset",
       "drop_height_mm": 140,
       "shadow_gap_mm": 80,
-      "suitable_rooms": ["living_room", "dining_room", "bedroom"]
+      "suitable_rooms": [
+        "living_room",
+        "dining_room",
+        "bedroom"
+      ],
+      "preset": "floating_shadow_gap"
     },
     {
       "order": 5,
       "id": "ceiling_kitchen_bath_panel_01",
       "name_zh": "厨卫模块化大板吊顶",
       "name_en": "Kitchen and bathroom modular panel ceiling",
-      "family": "modular_panel",
       "representation": "geometry_preset",
       "drop_height_mm": 240,
-      "module_size_mm": [600, 1200],
+      "module_size_mm": [
+        600,
+        1200
+      ],
       "joint_width_mm": 3,
-      "suitable_rooms": ["kitchen", "bathroom"]
+      "suitable_rooms": [
+        "kitchen",
+        "bathroom"
+      ],
+      "preset": "modular_panel"
+    },
+    {
+      "order": 6,
+      "id": "ceiling_timber_slatted_01",
+      "name_zh": "线性木格栅吊顶",
+      "name_en": "Linear timber slatted ceiling",
+      "representation": "geometry_preset",
+      "drop_height_mm": 180,
+      "slat_width_mm": 38,
+      "slat_gap_mm": 22,
+      "suitable_rooms": [
+        "living_room",
+        "dining_room",
+        "bedroom"
+      ],
+      "preset": "timber_slatted"
+    },
+    {
+      "order": 7,
+      "id": "ceiling_shallow_coffer_grid_01",
+      "name_zh": "浅井字格吊顶",
+      "name_en": "Shallow coffer-grid ceiling",
+      "representation": "geometry_preset",
+      "drop_height_mm": 160,
+      "beam_width_mm": 90,
+      "grid_module_mm": 900,
+      "suitable_rooms": [
+        "living_room",
+        "dining_room",
+        "bedroom"
+      ],
+      "preset": "shallow_coffer_grid"
+    },
+    {
+      "order": 8,
+      "id": "ceiling_exposed_concrete_shadow_track_01",
+      "name_zh": "清水混凝土阴影轨顶",
+      "name_en": "Exposed concrete ceiling with shadow track",
+      "representation": "geometry_preset",
+      "drop_height_mm": 35,
+      "track_width_mm": 28,
+      "track_offset_mm": 420,
+      "suitable_rooms": [
+        "living_room",
+        "dining_room",
+        "bedroom"
+      ],
+      "preset": "exposed_concrete_track"
+    },
+    {
+      "order": 9,
+      "id": "ceiling_curved_cove_01",
+      "name_zh": "软弧灯槽吊顶",
+      "name_en": "Soft curved cove ceiling",
+      "representation": "geometry_preset",
+      "drop_height_mm": 210,
+      "perimeter_band_mm": 420,
+      "curve_radius_mm": 260,
+      "cove_width_mm": 100,
+      "suitable_rooms": [
+        "living_room",
+        "dining_room",
+        "bedroom"
+      ],
+      "preset": "curved_cove"
     }
   ],
   "source_and_license": {

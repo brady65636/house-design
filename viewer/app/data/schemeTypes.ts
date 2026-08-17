@@ -10,6 +10,11 @@ export type Target = {
 export type Assignment = {
   target: Target;
   asset_id: string;
+  parameters?: {
+    lightness: "light" | "mid" | "deep";
+    saturation: number;
+    finish: "matte" | "eggshell";
+  } | null;
 };
 
 export type Scheme = {

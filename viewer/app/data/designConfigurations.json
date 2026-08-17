@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_id": "surface_relationship_configurations_v1",
+  "notice": "这些对象描述五类资产之间的收口与安装关系，不是可独立检索的第六类 Asset；Scheme v2 才会执行。",
+  "systems": [
+    {
+      "id": "skirting_system",
+      "name_zh": "踢脚与墙地收口",
+      "applies_between": ["wall_paint|wallpaper", "wood_floor|tile"],
+      "variants": [
+        {"id": "flush_shadow", "name_zh": "齐平阴影缝", "visual_weight": "quiet", "gap_mm": 8},
+        {"id": "slim_matching", "name_zh": "同色窄踢脚", "visual_weight": "support", "height_mm": 45},
+        {"id": "painted_classic", "name_zh": "墙同色薄踢脚", "visual_weight": "support", "height_mm": 80}
+      ]
+    },
+    {
+      "id": "joint_grout_system",
+      "name_zh": "砖缝与填缝关系",
+      "applies_to": ["tile"],
+      "variants": [
+        {"id": "tone_on_tone", "name_zh": "同色弱缝", "contrast": "low", "preferred_roles": ["quiet", "support"]},
+        {"id": "soft_contrast", "name_zh": "柔和对比缝", "contrast": "medium", "preferred_roles": ["support"]},
+        {"id": "graphic_contrast", "name_zh": "图形对比缝", "contrast": "high", "preferred_roles": ["anchor"]}
+      ]
+    },
+    {
+      "id": "threshold_transition_system",
+      "name_zh": "门槛与异材质过渡",
+      "applies_between": ["wood_floor", "tile"],
+      "variants": [
+        {"id": "flush_inlay", "name_zh": "齐平细嵌条", "visual_weight": "quiet", "width_mm": 8},
+        {"id": "stone_saddle", "name_zh": "窄石材门槛", "visual_weight": "support", "width_mm": 80},
+        {"id": "concealed_break", "name_zh": "门扇下隐藏分界", "visual_weight": "quiet"}
+      ]
+    },
+    {
+      "id": "edge_profile_system",
+      "name_zh": "墙面与吊顶边缘关系",
+      "applies_between": ["wall_paint|wallpaper|tile", "ceiling"],
+      "variants": [
+        {"id": "square_reveal", "name_zh": "直角留缝", "visual_weight": "quiet", "gap_mm": 6},
+        {"id": "soft_radius", "name_zh": "柔和圆角", "visual_weight": "support", "radius_mm": 20},
+        {"id": "trimless_stop", "name_zh": "无明框止口", "visual_weight": "quiet"}
+      ]
+    }
+  ]
+}

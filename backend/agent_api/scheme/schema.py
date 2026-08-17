@@ -5,9 +5,16 @@ class Target(BaseModel):
     id:str=Field(min_length=1,description="目标的id")
     model_config = ConfigDict(extra="forbid")
 
+class PaintParameters(BaseModel):
+    lightness:Literal['light','mid','deep']='light'
+    saturation:float=Field(default=1.0,ge=0.35,le=1.25)
+    finish:Literal['matte','eggshell']='matte'
+    model_config = ConfigDict(extra="forbid")
+
 class Assignment(BaseModel):
     target:Target=Field(description='要配置的墙面，地面，或顶面')
     asset_id:str=Field(min_length=1,description='要分配给目标面的资产的id')
+    parameters:PaintParameters|None=Field(default=None,description='仅参数化综合色墙漆使用；明度、饱和度和漆面不再是独立资产')
     model_config = ConfigDict(extra="forbid")
 
 class Scheme(BaseModel):
@@ -23,6 +30,5 @@ class Scheme(BaseModel):
         if len(target_list)!=len(set(target_list)):
             raise ValueError("同一个场景不能重复分配")
         return self
-
 
 

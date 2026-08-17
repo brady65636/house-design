@@ -37,7 +37,8 @@ class SchemeStoreTests(unittest.TestCase):
     def test_update_increments_scheme_id_and_writes_disk(self) -> None:
         self.store.load()
         before_id = self.store.get()["scheme_id"]
-        result = self.store.update("wall_face_real4_010", "paint_light_greige_eggshell_01")
+        parameters = {"lightness": "light", "saturation": 0.85, "finish": "eggshell"}
+        result = self.store.update("wall_face_real4_010", "paint_greige_01", parameters)
         self.assertIn("修改scheme成功", result)
         after_id = self.store.get()["scheme_id"]
         self.assertNotEqual(before_id, after_id)
@@ -49,7 +50,8 @@ class SchemeStoreTests(unittest.TestCase):
             for assignment in disk["assignments"]
             if assignment["target"]["id"] == "wall_face_real4_010"
         )
-        self.assertEqual(updated["asset_id"], "paint_light_greige_eggshell_01")
+        self.assertEqual(updated["asset_id"], "paint_greige_01")
+        self.assertEqual(updated["parameters"], parameters)
 
     def test_concurrent_updates_stay_serialized_and_file_valid(self) -> None:
         self.store.load()
@@ -57,7 +59,11 @@ class SchemeStoreTests(unittest.TestCase):
 
         def worker() -> None:
             try:
-                self.store.update("wall_face_real4_010", "paint_warm_cream_matte_01")
+                self.store.update(
+                    "wall_face_real4_010",
+                    "paint_warm_white_01",
+                    {"lightness": "light", "saturation": 1.0, "finish": "matte"},
+                )
             except Exception as error:  # noqa: BLE001
                 errors.append(error)
 

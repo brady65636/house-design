@@ -25,7 +25,10 @@ def health(request: Request) -> dict:
 
     return {
         "status": "ok",
-        "model": settings.openai_model,
+        "llm_provider": settings.llm_provider,
+        "model": settings.active_model,
+        "langsmith_tracing": settings.langsmith_tracing,
+        "langsmith_project": settings.langsmith_project,
         "bridge_url": settings.render_bridge_url,
         "bridge_reachable": bridge_reachable,
     }

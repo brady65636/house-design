@@ -21,6 +21,21 @@ server {
     # 方案/对话响应、SSE 流式、渲染结果都可能较大，放宽上限
     client_max_body_size 20m;
 
+    # chat-proxy：/chat 页 SSE 经 house-viewer(3000) 转发到 agent-api。
+    # Critic（独立设计复核）是多轮工具循环，静默期可能远超 60s，
+    # 必须长超时 + 关缓冲，否则 nginx 会掐断 SSE 导致浏览器 network error。
+    location /chat-proxy/ {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 3600s;
+    }
+
     # agent-api：/api/chat/stream 是 SSE，必须关缓冲 + 长超时，否则流式会卡顿/断
     location /api/ {
         proxy_pass http://127.0.0.1:8000;

@@ -12,10 +12,11 @@
     "assets:paint": "node scripts/build-paint-pbr.mjs",
     "assets:wallpaper": "node scripts/build-wallpaper-pbr.mjs",
     "assets:surfaces": "node scripts/build-surface-pbr.mjs",
+    "assets:cards": "node scripts/build-asset-card-previews.mjs",
     "test:paint": "node --test tests/paint-catalog.test.mjs && node scripts/audit-material-quality.mjs",
     "test:wallpaper": "node --test tests/wallpaper-catalog.test.mjs",
     "test:surfaces": "node --test tests/surface-catalog.test.mjs",
-    "test": "npm run build && node --test tests/room-camera-tracks.test.mjs tests/visual-observation-tools.test.mjs tests/paint-catalog.test.mjs tests/wallpaper-catalog.test.mjs tests/surface-catalog.test.mjs && node scripts/audit-material-quality.mjs",
+    "test": "npm run build && node --test tests/room-camera-tracks.test.mjs tests/visual-observation-tools.test.mjs tests/runtime-performance.test.mjs tests/chat-hydration.test.mjs tests/paint-catalog.test.mjs tests/wallpaper-catalog.test.mjs tests/surface-catalog.test.mjs && node scripts/audit-material-quality.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {
@@ -23,6 +24,8 @@
     "next": "16.2.6",
     "react": "19.2.6",
     "react-dom": "19.2.6",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "three": "^0.185.1"
   },
   "devDependencies": {

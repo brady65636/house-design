@@ -42,8 +42,8 @@ v4 共提供 34 个稳定 `wall_face_id`、11 个地面和 10 个顶面，合计
 
 ### 墙漆
 
-1. `paint_warm_cream_matte_01`：暖奶油白，低对比、哑光背景墙面。
-2. `paint_light_greige_eggshell_01`：浅 Greige，略带暖灰、蛋壳光。
+1. `paint_warm_white_01`：暖白色彩 Asset；明度、饱和度、漆面由 Scheme 参数决定。
+2. `paint_greige_01`：Greige 色彩 Asset；明度、饱和度、漆面由 Scheme 参数决定。
 
 ### 墙纸
 
@@ -66,23 +66,23 @@ v4 共提供 34 个稳定 `wall_face_id`、11 个地面和 10 个顶面，合计
 
 ### 吊顶
 
-完整目录为 5 套：原顶或平顶、周边跌级双眼皮、周边下吊灯槽、悬浮顶与阴影缝、厨卫模块化大板。下降高度、周边带宽、灯槽/暗缝尺寸和干湿区适用性见 `viewer/app/data/ceilingCatalog.json`。
+完整目录为 9 套：原顶或平顶、周边跌级双眼皮、周边下吊灯槽、悬浮顶与阴影缝、厨卫模块化大板、木格栅、浅井格、清水混凝土双阴影轨道和弧形灯槽。下降高度、周边带宽、灯槽/暗缝尺寸、格栅/梁网参数和干湿区适用性见 `viewer/app/data/ceilingCatalog.json`。
 
 这些都是项目原创的代表性资产，不对应或冒充任何真实品牌 SKU。
 
 ### 墙漆完整扩展（2026-08-02）
 
-墙漆已从上述两款兼容样本扩展为 10 个色彩家族 × 3 个明度 × 2 种漆面，共 60 个参数化 PBR 变体。旧 ID `paint_warm_cream_matte_01` 与 `paint_light_greige_eggshell_01` 保留，其余变体使用统一稳定命名。完整色值、物理参数、生成方法和验收要求见 `docs/WALL_PAINT_SYSTEM.md`。
+墙漆品类包含 10 个综合色 Asset，以及石灰洗、黏土灰泥、Marmorino 三个独立连续涂层 Asset，共 13 个可寻址项。综合色的 `lightness`、`saturation`、`finish` 均由 Scheme 参数表达，不再生成独立 Asset ID；旧 Variant ID 仅供迁移脚本识别。完整色值、物理参数、生成方法和验收要求见 `docs/WALL_PAINT_SYSTEM.md`。
 
 ### 墙纸完整扩展（2026-08-02）
 
-墙纸已从两款兼容样本扩展为 8 个原创系列。每款记录物理重复尺寸、对花方式、使用位置、微表面类型和来源许可；Blender 使用 4K Base Color / Normal / Roughness / Height，Three.js 使用优化运行时贴图并按需加载。完整目录、生成方法和验收要求见 `docs/WALLPAPER_SYSTEM.md`。
+墙纸已扩展为 16 个原创系列。每款记录物理重复尺寸、对花方式、使用位置、微表面类型和来源许可；Blender 使用 4K Base Color / Normal / Roughness / Height，Three.js 使用优化运行时贴图并按需加载。完整目录、生成方法和验收要求见 `docs/WALLPAPER_SYSTEM.md`。
 
 ## 4. 交付与验收
 
 - `house_spacious_yunkuo_135_v4.blend` 能在 Blender 中继续编辑，且内含完整 v4 资产目录集合。
 - `house_spacious_yunkuo_135_v4.glb` 能被标准 glTF 查看器或 Three.js 加载。
-- `.blend` 内包含全部 87 个资产的数据块或几何预设：60 个墙漆、8 个墙纸、6 个地板、8 个瓷砖和 5 个吊顶。
+- `.blend` 内包含全部 72 个资产的数据块或几何预设：13 个墙漆/连续涂层、16 个墙纸、13 个地板、21 个瓷砖和 9 个吊顶。
 - 34 个房间侧墙面拥有稳定且不重复的 `wall_face_id`，并保留 `room_id`、`host_wall_id`、`wall_code` 和 `asset_id`。
 - 地面/顶面继续拥有稳定的 `surface_id`，吊顶结构继续拥有 `preset_id`。
 - 所有物体使用真实米制尺寸，无负缩放，导出前应用变换。

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "outcome_dataset_v2",
+  "type": "object",
+  "properties": {
+    "$schema": {"type": "string", "minLength": 1},
+    "dataset_version": {"const": "outcome_dataset_v2"},
+    "rubric_version": {"const": "outcome_dimension_v1"},
+    "base_dataset": {"type": "string", "pattern": "^[^/\\\\]+\\.json$"},
+    "entry_contract": {
+      "type": "object",
+      "properties": {
+        "mode": {"const": "interactive_final_baseline"},
+        "simulator_model": {"const": "deepseek-v4-flash"},
+        "close_token": {"const": "CLOSE"},
+        "max_user_turns": {"type": "integer", "minimum": 2, "maximum": 20},
+        "initial_message_template": {"type": "string", "minLength": 1}
+      },
+      "required": [
+        "mode", "simulator_model", "close_token", "max_user_turns",
+        "initial_message_template"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "dataset_version", "rubric_version", "base_dataset", "entry_contract"
+  ],
+  "additionalProperties": false
+}

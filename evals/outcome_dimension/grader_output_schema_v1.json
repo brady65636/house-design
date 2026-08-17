@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "outcome_grader_output_v1",
+  "type": "object",
+  "properties": {
+    "visual_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "criterion_id": {"type": "string"},
+          "verdict": {"enum": ["PASS", "FAIL", "UNABLE_TO_JUDGE"]},
+          "reason": {"type": "string", "minLength": 1},
+          "evidence_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        },
+        "required": ["criterion_id", "verdict", "reason", "evidence_ids"],
+        "additionalProperties": false
+      }
+    },
+    "consistency_gates": {
+      "type": "object",
+      "properties": {
+        "plan_scheme_alignment": {"$ref": "#/$defs/gate"},
+        "scheme_render_version_alignment": {"$ref": "#/$defs/gate"},
+        "scope_integrity": {"$ref": "#/$defs/gate"},
+        "report_tool_consistency": {"$ref": "#/$defs/gate"},
+        "visual_claim_has_evidence": {"$ref": "#/$defs/gate"},
+        "deviation_disclosed": {"$ref": "#/$defs/gate"},
+        "no_false_success": {"$ref": "#/$defs/gate"}
+      },
+      "required": [
+        "plan_scheme_alignment", "scheme_render_version_alignment", "scope_integrity",
+        "report_tool_consistency", "visual_claim_has_evidence", "deviation_disclosed",
+        "no_false_success"
+      ],
+      "additionalProperties": false
+    },
+    "prioritized_findings": {"type": "array", "items": {"type": "string"}},
+    "unverified_items": {"type": "array", "items": {"type": "string"}},
+    "summary": {"type": "string", "minLength": 1}
+  },
+  "required": ["visual_results", "consistency_gates", "prioritized_findings", "unverified_items", "summary"],
+  "additionalProperties": false,
+  "$defs": {
+    "gate": {
+      "type": "object",
+      "properties": {
+        "verdict": {"enum": ["PASS", "FAIL"]},
+        "reason": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      },
+      "required": ["verdict", "reason", "evidence_refs"],
+      "additionalProperties": false
+    }
+  }
+}

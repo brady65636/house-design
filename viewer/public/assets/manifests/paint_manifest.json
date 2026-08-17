@@ -1,0 +1,1122 @@
+{
+  "schema_version": "2.0.0",
+  "catalog_id": "project_wall_paint_v2",
+  "generated_at": "2026-08-10T23:25:58.471Z",
+  "generator": "viewer/scripts/build-paint-pbr.mjs",
+  "texture_set": {
+    "id": "paint_roller_microfinish_01",
+    "physical_size_m": [
+      1,
+      1
+    ],
+    "resolution_px": 4096,
+    "base_color": "/assets/paints/paint_micro_basecolor_4k.jpg",
+    "normal": "/assets/paints/paint_micro_normal_gl_4k.jpg",
+    "roughness_matte": "/assets/paints/paint_micro_roughness_matte_4k.jpg",
+    "roughness_eggshell": "/assets/paints/paint_micro_roughness_eggshell_4k.jpg",
+    "license": "project_owned_procedural",
+    "generator": "viewer/scripts/build-paint-pbr.mjs"
+  },
+  "asset_count": 13,
+  "variant_count": 13,
+  "parameterized_asset_count": 10,
+  "standard_variant_count": 10,
+  "specialty_variant_count": 3,
+  "assets": [
+    {
+      "id": "paint_warm_white_01",
+      "slug": "warm_white",
+      "name_zh": "暖白与奶油白",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#F5F2EB",
+      "tone_color_anchors": {
+        "light": "#F5F2EB",
+        "mid": "#E7E1D7",
+        "deep": "#C6BDAF"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": [
+        "paint_warm_cream_matte_01",
+        "paint_warm_white_light_eggshell_01",
+        "paint_warm_white_mid_matte_01",
+        "paint_warm_white_mid_eggshell_01",
+        "paint_warm_white_deep_matte_01",
+        "paint_warm_white_deep_eggshell_01"
+      ]
+    },
+    {
+      "id": "paint_cool_white_01",
+      "slug": "cool_white",
+      "name_zh": "冷白与浅冷灰",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#F4F6F7",
+      "tone_color_anchors": {
+        "light": "#F4F6F7",
+        "mid": "#E2E5E7",
+        "deep": "#B9C0C4"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_greige_01",
+      "slug": "greige",
+      "name_zh": "米色与 Greige",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#EAE5DD",
+      "tone_color_anchors": {
+        "light": "#EAE5DD",
+        "mid": "#D4CCC1",
+        "deep": "#AAA093"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": [
+        "paint_greige_light_matte_01",
+        "paint_light_greige_eggshell_01",
+        "paint_greige_mid_matte_01",
+        "paint_greige_mid_eggshell_01",
+        "paint_greige_deep_matte_01",
+        "paint_greige_deep_eggshell_01"
+      ]
+    },
+    {
+      "id": "paint_taupe_01",
+      "slug": "taupe",
+      "name_zh": "驼色、灰棕与 Taupe",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#D8CCBE",
+      "tone_color_anchors": {
+        "light": "#D8CCBE",
+        "mid": "#B2A08E",
+        "deep": "#76685D"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_charcoal_01",
+      "slug": "charcoal",
+      "name_zh": "中灰与炭灰",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#D9D9D7",
+      "tone_color_anchors": {
+        "light": "#D9D9D7",
+        "mid": "#A7A7A5",
+        "deep": "#5B5C5C"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_sage_olive_01",
+      "slug": "sage_olive",
+      "name_zh": "鼠尾草绿与橄榄绿",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#D9DFD2",
+      "tone_color_anchors": {
+        "light": "#D9DFD2",
+        "mid": "#A7B29A",
+        "deep": "#66715C"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_slate_blue_01",
+      "slug": "slate_blue",
+      "name_zh": "灰蓝与深蓝",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#D6DEE1",
+      "tone_color_anchors": {
+        "light": "#D6DEE1",
+        "mid": "#9AAEB7",
+        "deep": "#536A78"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_terracotta_01",
+      "slug": "terracotta",
+      "name_zh": "陶土与锈红",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#E5C8B7",
+      "tone_color_anchors": {
+        "light": "#E5C8B7",
+        "mid": "#BD8268",
+        "deep": "#824D3F"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_dusty_rose_01",
+      "slug": "dusty_rose",
+      "name_zh": "灰粉与藕紫",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#E4D2D1",
+      "tone_color_anchors": {
+        "light": "#E4D2D1",
+        "mid": "#B89A9F",
+        "deep": "#745D6A"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_ochre_01",
+      "slug": "ochre",
+      "name_zh": "黄赭与柔和芥末黄",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#E7D8B4",
+      "tone_color_anchors": {
+        "light": "#E7D8B4",
+        "mid": "#C4A66A",
+        "deep": "#806A3E"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "order": 11,
+      "id": "paint_limewash_cool_neutral_01",
+      "coating_system": "limewash",
+      "name_zh": "冷中性石灰洗涂层",
+      "name_en": "Cool-neutral limewash coating",
+      "description": "冷灰米底色中的低对比矿物云雾，极哑光、连续且吸光；远看安静，近看才读到薄层叠刷。",
+      "color_srgb": "#B9BBB6",
+      "finish": "mineral_matte",
+      "physical_size_m": [
+        1.2,
+        1.2
+      ],
+      "roughness_mean": 0.91,
+      "roughness_range": [
+        0.84,
+        0.97
+      ],
+      "normal_scale": 0.045,
+      "env_map_intensity": 0.1,
+      "texture_set_id": "paint_limewash_cool_neutral_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "cool_neutral",
+        "low_contrast",
+        "dry_room_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "limewash_cool_neutral",
+      "is_specialty": true,
+      "maps": {
+        "base_color": "paint_limewash_cool_neutral_01_basecolor_web.jpg",
+        "normal": "paint_limewash_cool_neutral_01_normal_gl_web.jpg",
+        "roughness": "paint_limewash_cool_neutral_01_roughness_web.jpg",
+        "thumbnail": "paint_limewash_cool_neutral_01_thumb.webp"
+      }
+    },
+    {
+      "order": 12,
+      "id": "paint_clay_plaster_earth_01",
+      "coating_system": "clay_plaster",
+      "name_zh": "暖土黏土灰泥涂层",
+      "name_en": "Warm earth clay-plaster coating",
+      "description": "低彩度暖土灰泥，细砂颗粒和干燥吸光感形成连续背景，不依赖木纹制造自然温度。",
+      "color_srgb": "#B7A38D",
+      "finish": "mineral_matte",
+      "physical_size_m": [
+        1,
+        1
+      ],
+      "roughness_mean": 0.89,
+      "roughness_range": [
+        0.81,
+        0.96
+      ],
+      "normal_scale": 0.075,
+      "env_map_intensity": 0.11,
+      "texture_set_id": "paint_clay_plaster_earth_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "warm_earth",
+        "tactile_matte",
+        "dry_room_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "clay_plaster_earth",
+      "is_specialty": true,
+      "maps": {
+        "base_color": "paint_clay_plaster_earth_01_basecolor_web.jpg",
+        "normal": "paint_clay_plaster_earth_01_normal_gl_web.jpg",
+        "roughness": "paint_clay_plaster_earth_01_roughness_web.jpg",
+        "thumbnail": "paint_clay_plaster_earth_01_thumb.webp"
+      }
+    },
+    {
+      "order": 13,
+      "id": "paint_marmorino_deep_01",
+      "coating_system": "marmorino",
+      "name_zh": "深中性抛光灰泥涂层",
+      "name_en": "Deep-neutral polished plaster coating",
+      "description": "深炭褐连续灰泥，以低对比镘刀运动和克制柔光建立包裹感，不使用强图案或镜面高光。",
+      "color_srgb": "#4A4743",
+      "finish": "polished_mineral",
+      "physical_size_m": [
+        1.4,
+        1.4
+      ],
+      "roughness_mean": 0.54,
+      "roughness_range": [
+        0.42,
+        0.68
+      ],
+      "normal_scale": 0.035,
+      "env_map_intensity": 0.18,
+      "texture_set_id": "paint_marmorino_deep_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "anchor",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "deep_quiet",
+        "soft_reflection",
+        "feature_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "marmorino_deep",
+      "is_specialty": true,
+      "maps": {
+        "base_color": "paint_marmorino_deep_01_basecolor_web.jpg",
+        "normal": "paint_marmorino_deep_01_normal_gl_web.jpg",
+        "roughness": "paint_marmorino_deep_01_roughness_web.jpg",
+        "thumbnail": "paint_marmorino_deep_01_thumb.webp"
+      }
+    }
+  ],
+  "variants": [
+    {
+      "id": "paint_warm_white_01",
+      "slug": "warm_white",
+      "name_zh": "暖白与奶油白",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#F5F2EB",
+      "tone_color_anchors": {
+        "light": "#F5F2EB",
+        "mid": "#E7E1D7",
+        "deep": "#C6BDAF"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": [
+        "paint_warm_cream_matte_01",
+        "paint_warm_white_light_eggshell_01",
+        "paint_warm_white_mid_matte_01",
+        "paint_warm_white_mid_eggshell_01",
+        "paint_warm_white_deep_matte_01",
+        "paint_warm_white_deep_eggshell_01"
+      ]
+    },
+    {
+      "id": "paint_cool_white_01",
+      "slug": "cool_white",
+      "name_zh": "冷白与浅冷灰",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#F4F6F7",
+      "tone_color_anchors": {
+        "light": "#F4F6F7",
+        "mid": "#E2E5E7",
+        "deep": "#B9C0C4"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_greige_01",
+      "slug": "greige",
+      "name_zh": "米色与 Greige",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#EAE5DD",
+      "tone_color_anchors": {
+        "light": "#EAE5DD",
+        "mid": "#D4CCC1",
+        "deep": "#AAA093"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": [
+        "paint_greige_light_matte_01",
+        "paint_light_greige_eggshell_01",
+        "paint_greige_mid_matte_01",
+        "paint_greige_mid_eggshell_01",
+        "paint_greige_deep_matte_01",
+        "paint_greige_deep_eggshell_01"
+      ]
+    },
+    {
+      "id": "paint_taupe_01",
+      "slug": "taupe",
+      "name_zh": "驼色、灰棕与 Taupe",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#D8CCBE",
+      "tone_color_anchors": {
+        "light": "#D8CCBE",
+        "mid": "#B2A08E",
+        "deep": "#76685D"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_charcoal_01",
+      "slug": "charcoal",
+      "name_zh": "中灰与炭灰",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#D9D9D7",
+      "tone_color_anchors": {
+        "light": "#D9D9D7",
+        "mid": "#A7A7A5",
+        "deep": "#5B5C5C"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_sage_olive_01",
+      "slug": "sage_olive",
+      "name_zh": "鼠尾草绿与橄榄绿",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#D9DFD2",
+      "tone_color_anchors": {
+        "light": "#D9DFD2",
+        "mid": "#A7B29A",
+        "deep": "#66715C"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_slate_blue_01",
+      "slug": "slate_blue",
+      "name_zh": "灰蓝与深蓝",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#D6DEE1",
+      "tone_color_anchors": {
+        "light": "#D6DEE1",
+        "mid": "#9AAEB7",
+        "deep": "#536A78"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_terracotta_01",
+      "slug": "terracotta",
+      "name_zh": "陶土与锈红",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#E5C8B7",
+      "tone_color_anchors": {
+        "light": "#E5C8B7",
+        "mid": "#BD8268",
+        "deep": "#824D3F"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_dusty_rose_01",
+      "slug": "dusty_rose",
+      "name_zh": "灰粉与藕紫",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#E4D2D1",
+      "tone_color_anchors": {
+        "light": "#E4D2D1",
+        "mid": "#B89A9F",
+        "deep": "#745D6A"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "id": "paint_ochre_01",
+      "slug": "ochre",
+      "name_zh": "黄赭与柔和芥末黄",
+      "coating_system": "solid_paint",
+      "is_specialty": false,
+      "default_color_srgb": "#E7D8B4",
+      "tone_color_anchors": {
+        "light": "#E7D8B4",
+        "mid": "#C4A66A",
+        "deep": "#806A3E"
+      },
+      "parameter_schema": {
+        "lightness": {
+          "type": "enum",
+          "values": [
+            "light",
+            "mid",
+            "deep"
+          ],
+          "default": "light"
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": 0.35,
+          "maximum": 1.25,
+          "default": 1,
+          "step": 0.05
+        },
+        "finish": {
+          "type": "enum",
+          "values": [
+            "matte",
+            "eggshell"
+          ],
+          "default": "matte"
+        }
+      },
+      "legacy_asset_ids": []
+    },
+    {
+      "order": 11,
+      "id": "paint_limewash_cool_neutral_01",
+      "coating_system": "limewash",
+      "name_zh": "冷中性石灰洗涂层",
+      "name_en": "Cool-neutral limewash coating",
+      "description": "冷灰米底色中的低对比矿物云雾，极哑光、连续且吸光；远看安静，近看才读到薄层叠刷。",
+      "color_srgb": "#B9BBB6",
+      "finish": "mineral_matte",
+      "physical_size_m": [
+        1.2,
+        1.2
+      ],
+      "roughness_mean": 0.91,
+      "roughness_range": [
+        0.84,
+        0.97
+      ],
+      "normal_scale": 0.045,
+      "env_map_intensity": 0.1,
+      "texture_set_id": "paint_limewash_cool_neutral_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "cool_neutral",
+        "low_contrast",
+        "dry_room_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "limewash_cool_neutral",
+      "is_specialty": true,
+      "maps": {
+        "base_color": "paint_limewash_cool_neutral_01_basecolor_web.jpg",
+        "normal": "paint_limewash_cool_neutral_01_normal_gl_web.jpg",
+        "roughness": "paint_limewash_cool_neutral_01_roughness_web.jpg",
+        "thumbnail": "paint_limewash_cool_neutral_01_thumb.webp"
+      }
+    },
+    {
+      "order": 12,
+      "id": "paint_clay_plaster_earth_01",
+      "coating_system": "clay_plaster",
+      "name_zh": "暖土黏土灰泥涂层",
+      "name_en": "Warm earth clay-plaster coating",
+      "description": "低彩度暖土灰泥，细砂颗粒和干燥吸光感形成连续背景，不依赖木纹制造自然温度。",
+      "color_srgb": "#B7A38D",
+      "finish": "mineral_matte",
+      "physical_size_m": [
+        1,
+        1
+      ],
+      "roughness_mean": 0.89,
+      "roughness_range": [
+        0.81,
+        0.96
+      ],
+      "normal_scale": 0.075,
+      "env_map_intensity": 0.11,
+      "texture_set_id": "paint_clay_plaster_earth_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "warm_earth",
+        "tactile_matte",
+        "dry_room_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "clay_plaster_earth",
+      "is_specialty": true,
+      "maps": {
+        "base_color": "paint_clay_plaster_earth_01_basecolor_web.jpg",
+        "normal": "paint_clay_plaster_earth_01_normal_gl_web.jpg",
+        "roughness": "paint_clay_plaster_earth_01_roughness_web.jpg",
+        "thumbnail": "paint_clay_plaster_earth_01_thumb.webp"
+      }
+    },
+    {
+      "order": 13,
+      "id": "paint_marmorino_deep_01",
+      "coating_system": "marmorino",
+      "name_zh": "深中性抛光灰泥涂层",
+      "name_en": "Deep-neutral polished plaster coating",
+      "description": "深炭褐连续灰泥，以低对比镘刀运动和克制柔光建立包裹感，不使用强图案或镜面高光。",
+      "color_srgb": "#4A4743",
+      "finish": "polished_mineral",
+      "physical_size_m": [
+        1.4,
+        1.4
+      ],
+      "roughness_mean": 0.54,
+      "roughness_range": [
+        0.42,
+        0.68
+      ],
+      "normal_scale": 0.035,
+      "env_map_intensity": 0.18,
+      "texture_set_id": "paint_marmorino_deep_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "anchor",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "deep_quiet",
+        "soft_reflection",
+        "feature_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "marmorino_deep",
+      "is_specialty": true,
+      "maps": {
+        "base_color": "paint_marmorino_deep_01_basecolor_web.jpg",
+        "normal": "paint_marmorino_deep_01_normal_gl_web.jpg",
+        "roughness": "paint_marmorino_deep_01_roughness_web.jpg",
+        "thumbnail": "paint_marmorino_deep_01_thumb.webp"
+      }
+    }
+  ],
+  "color_notice": "所有颜色均为经过色彩管理的屏幕预览值，不是实体色卡、光谱测量值或施工承诺；真实观感会随底材、光源、批次和施工方式变化。"
+}

@@ -73,7 +73,7 @@ SSH "
 echo
 echo "接下来在服务器上执行："
 echo "  1) ssh $SERVER"
-echo "  2) 编辑 deploy/aws/.env，填 OPENAI_API_KEY / CORS_ORIGINS(你的 Vercel 域名) / AGENT_API_TOKEN"
+echo "  2) 编辑 deploy/aws/.env，填 HOUSE_DESIGN_OPENAI_API_KEY / CORS_ORIGINS(你的 Vercel 域名) / AGENT_API_TOKEN"
 echo "  3) cd $REMOTE_DIR && docker compose -f deploy/aws/docker-compose.aws.yml up -d --build"
 echo "  4) 配置 nginx + TLS（见 deploy/aws/nginx.conf.example 与 README.md）"
 echo "  5) 验证: curl https://<你的域名>/api/health"

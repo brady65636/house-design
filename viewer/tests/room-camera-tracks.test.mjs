@@ -26,7 +26,7 @@ function angleDegrees(first, second) {
 
 test("camera catalog matches the active v4 house and all design spaces", () => {
   assert.equal(cameraCatalog.houseId, sceneManifest.house_id);
-  assert.equal(cameraCatalog.revision, "hard-finish-realism-pass-v3");
+  assert.equal(cameraCatalog.revision, "hard-finish-realism-pass-v5-wall-coverage");
   assert.equal(sceneManifest.geometry_revision, cameraCatalog.revision);
   assert.equal(cameraCatalog.coordinateSystem, "blender_z_up_meters");
   assert.equal(cameraCatalog.tracks.length, sceneManifest.rooms.length);
@@ -75,6 +75,13 @@ test("every room track has deterministic anchors and valid human-eye keyframes",
 
 test("each room track covers every wall, floor and ceiling design target", () => {
   for (const track of cameraCatalog.tracks) {
+    const room = sceneManifest.rooms.find((candidate) => candidate.id === track.roomId);
+    assert.ok(room, `${track.roomId}: room missing from manifest`);
+    assert.deepEqual(
+      new Set(track.surfaceTargets.walls),
+      new Set(room.wall_face_ids),
+      `${track.roomId}: camera wall targets must equal manifest wall targets`,
+    );
     const declaredTargets = [
       track.surfaceTargets.floor,
       track.surfaceTargets.ceiling,

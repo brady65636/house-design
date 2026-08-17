@@ -13,6 +13,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import math
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -26,8 +27,13 @@ REFERENCE_PATH = OUTPUT_DIR / "research" / "spacious_floorplans" / "heda_135_ldk
 BLEND_PATH = OUTPUT_DIR / "house_spacious_yunkuo_135_v4.blend"
 GLB_PATH = OUTPUT_DIR / "house_spacious_yunkuo_135_v4.glb"
 MANIFEST_PATH = OUTPUT_DIR / "scene_manifest_spacious_v4.json"
+ACTIVE_SCENE_MANIFEST_PATH = OUTPUT_DIR / "scene_manifest.json"
+ROOT_SCENE_MANIFEST_PATH = ROOT_DIR / "scene_manifest.json"
+ROOT_ASSET_MANIFEST_PATH = ROOT_DIR / "asset_manifest.json"
+ROOT_ASSET_CARDS_PATH = ROOT_DIR / "asset_cards.json"
+VIEWER_MODELS_DIR = ROOT_DIR / "viewer" / "public" / "models"
 HOUSE_ID = "house_spacious_yunkuo_135_v4"
-GEOMETRY_REVISION = "hard-finish-realism-pass-v3"
+GEOMETRY_REVISION = "hard-finish-realism-pass-v5-wall-coverage"
 
 WIDTH = 13.40
 DEPTH = 9.80
@@ -63,7 +69,17 @@ PREVIEW_DIR.mkdir(parents=True, exist_ok=True)
 
 
 ROOMS = [
-    {"id": "open_public", "name_zh": "完整横厅客厅", "type": "living_room", "rect": [3.20, 0.20, 9.85, 6.35], "orientation": "south"},
+    {
+        "id": "open_public",
+        "name_zh": "完整横厅客厅",
+        "type": "living_room",
+        "rect": [3.20, 0.20, 9.85, 6.35],
+        # The public zone is L-shaped: this short circulation bay reaches the
+        # guest-bath door.  Keeping only the main rectangle previously left a
+        # real floor/ceiling gap and made wall_face_real4_028 look detached.
+        "topology_rects": [[3.20, 0.20, 9.85, 6.35], [5.30, 6.35, 7.25, 7.20]],
+        "orientation": "south",
+    },
     {"id": "bedroom_3", "name_zh": "南次卧", "type": "bedroom", "rect": [0.20, 0.20, 3.05, 4.35], "orientation": "south_west"},
     {"id": "foyer", "name_zh": "玄关", "type": "foyer", "rect": [0.20, 4.65, 3.05, 6.35], "orientation": "west"},
     {"id": "dining_room", "name_zh": "餐厅", "type": "dining_room", "rect": [0.20, 6.55, 3.05, 9.60], "orientation": "north"},
@@ -75,8 +91,8 @@ ROOMS = [
     {"id": "master_bath", "name_zh": "主卫", "type": "bathroom", "rect": [12.05, 4.35, 13.20, 6.35], "orientation": "east"},
 ]
 for room in ROOMS:
-    x1, y1, x2, y2 = room["rect"]
-    room["area_m2"] = round((x2 - x1) * (y2 - y1), 2)
+    rects = room.get("topology_rects", [room["rect"]])
+    room["area_m2"] = round(sum((x2 - x1) * (y2 - y1) for x1, y1, x2, y2 in rects), 2)
 
 BALCONIES = [
     {
@@ -148,6 +164,24 @@ WALLS = [
     ("wall_guest_bath_west", (5.30, 7.10), (5.30, DEPTH), INNER_WALL, ["guest_bath", "kitchen"], False),
     ("wall_kitchen_south", (3.15, 6.55), (5.30, 6.55), INNER_WALL, ["kitchen", "open_public"], False),
     ("wall_kitchen_west", (3.15, 6.55), (3.15, DEPTH), INNER_WALL, ["kitchen", "dining_room"], False),
+]
+
+# Preserve the published stable wall-face IDs while correcting two bad legacy
+# room/host-wall pairings.  The old generator silently expanded a non-overlap
+# to the full wall, which put 020 in the master service zone and 026 inside the
+# north bedroom.  These IDs now point at the physically adjacent missing sides.
+WALL_FACE_SOURCE_OVERRIDES = {
+    20: "wall_ext_north",       # bedroom_2 north exterior wall
+    26: "wall_master_west",     # master_dressing west wall
+}
+
+# Long exterior walls can border more than the two rooms stored in the legacy
+# WALLS tuple.  Append the omitted room-facing finishes after the published
+# 001-034 range so every existing Scheme target keeps its stable ID.
+ADDITIONAL_WALL_FACE_SOURCES = [
+    (35, "wall_ext_west", "dining_room"),
+    (36, "wall_ext_south", "master_bedroom"),
+    (37, "wall_ext_north", "guest_bath"),
 ]
 
 
@@ -355,23 +389,30 @@ def wall_openings(wall_id, start, end):
 def room_side_geometry(room_id, start, end):
     """Resolve the actual room-facing side instead of trusting list order."""
     room = next(item for item in ROOMS if item["id"] == room_id)
-    x1, y1, x2, y2 = room["rect"]
     horizontal = abs(start[1] - end[1]) < 1e-6
-    if horizontal:
-        wall_coordinate = start[1]
-        positive_side = (y1 + y2) / 2 > wall_coordinate
-        orientation = "north" if positive_side else "south"
-        segment_start = max(min(start[0], end[0]), x1)
-        segment_end = min(max(start[0], end[0]), x2)
-    else:
-        wall_coordinate = start[0]
-        positive_side = (x1 + x2) / 2 > wall_coordinate
-        orientation = "east" if positive_side else "west"
-        segment_start = max(min(start[1], end[1]), y1)
-        segment_end = min(max(start[1], end[1]), y2)
-    if segment_end - segment_start < 0.05:
-        segment_start = min(start[0], end[0]) if horizontal else min(start[1], end[1])
-        segment_end = max(start[0], end[0]) if horizontal else max(start[1], end[1])
+    wall_coordinate = start[1] if horizontal else start[0]
+    candidates = []
+    for x1, y1, x2, y2 in room.get("topology_rects", [room["rect"]]):
+        if horizontal:
+            segment_start = max(min(start[0], end[0]), x1)
+            segment_end = min(max(start[0], end[0]), x2)
+            distance = abs((y1 + y2) / 2 - wall_coordinate)
+            positive_side = (y1 + y2) / 2 > wall_coordinate
+        else:
+            segment_start = max(min(start[1], end[1]), y1)
+            segment_end = min(max(start[1], end[1]), y2)
+            distance = abs((x1 + x2) / 2 - wall_coordinate)
+            positive_side = (x1 + x2) / 2 > wall_coordinate
+        if segment_end - segment_start >= 0.05:
+            candidates.append((distance, positive_side, segment_start, segment_end))
+    if not candidates:
+        raise ValueError(f"Room {room_id} does not intersect wall segment {start}->{end}")
+    _distance, positive_side, segment_start, segment_end = min(candidates, key=lambda item: item[0])
+    orientation = (
+        ("north" if positive_side else "south")
+        if horizontal
+        else ("east" if positive_side else "west")
+    )
     return orientation, (1 if positive_side else -1), segment_start, segment_end
 
 
@@ -449,10 +490,13 @@ def build_furniture(collection, mats):
 def build_model(collections, mats):
     for room in ROOMS:
         floor_asset = default_floor_asset(room["type"])
-        underlay_rect = expand_rect(room["rect"], SURFACE_UNDERLAY)
-        underlay_props = {"surface_underlay_m": SURFACE_UNDERLAY, "design_rect_m": json.dumps(room["rect"])}
-        add_surface("Floor_"+room["id"], underlay_rect, .015, .03, collections["surfaces"], mats[floor_asset], {"surface_id":f"surface_real4_floor_{room['id']}","surface_role":"floor","room_id":room["id"],"asset_id":floor_asset,"area_m2":room["area_m2"],**underlay_props})
-        add_surface("Ceiling_"+room["id"], underlay_rect, WALL_HEIGHT-.015, .03, collections["surfaces"], mats["ceiling_white"], {"surface_id":f"surface_real4_ceiling_{room['id']}","surface_role":"ceiling","room_id":room["id"],"asset_id":"ceiling_white","preview_hide":True,**underlay_props})
+        design_rects = room.get("topology_rects", [room["rect"]])
+        for rect_index, design_rect in enumerate(design_rects):
+            underlay_rect = expand_rect(design_rect, SURFACE_UNDERLAY)
+            suffix = "" if rect_index == 0 else f"_zone_{rect_index + 1}"
+            underlay_props = {"surface_underlay_m": SURFACE_UNDERLAY, "design_rect_m": json.dumps(design_rect)}
+            add_surface("Floor_"+room["id"]+suffix, underlay_rect, .015, .03, collections["surfaces"], mats[floor_asset], {"surface_id":f"surface_real4_floor_{room['id']}","surface_role":"floor","room_id":room["id"],"asset_id":floor_asset,"area_m2":room["area_m2"],**underlay_props})
+            add_surface("Ceiling_"+room["id"]+suffix, underlay_rect, WALL_HEIGHT-.015, .03, collections["surfaces"], mats["ceiling_white"], {"surface_id":f"surface_real4_ceiling_{room['id']}","surface_role":"ceiling","room_id":room["id"],"asset_id":"ceiling_white","preview_hide":True,**underlay_props})
     for balcony in BALCONIES:
         add_surface("Floor_"+balcony["id"], balcony["rect"], 0, .08, collections["surfaces"], mats["tile_warm_travertine_01"], {"surface_id":f"surface_real4_floor_{balcony['id']}","surface_role":"balcony_floor","room_id":balcony["id"],"asset_id":"tile_warm_travertine_01","area_m2":balcony["area_m2"]})
 
@@ -476,32 +520,83 @@ def build_model(collections, mats):
     for wall_id, start, end, thickness, rooms, hide in WALLS:
         horizontal = abs(start[1]-end[1]) < 1e-6
         for room_id in rooms[:2]:
-            orientation, outward_sign, face_start, face_end = room_side_geometry(room_id, start, end)
-            wall_core_center = start[1] if horizontal else start[0]
+            source_wall_id = WALL_FACE_SOURCE_OVERRIDES.get(index, wall_id)
+            source = next(item for item in WALLS if item[0] == source_wall_id)
+            _source_id, source_start, source_end, source_thickness, _source_rooms, source_hide = source
+            source_horizontal = abs(source_start[1]-source_end[1]) < 1e-6
+            orientation, outward_sign, face_start, face_end = room_side_geometry(room_id, source_start, source_end)
+            wall_core_center = source_start[1] if source_horizontal else source_start[0]
             # Keep the finish's inner face flush with the wall core and its visible
             # outer face FINISH metres beyond it. Subtracting FINISH/2 here makes
             # the two visible faces coplanar and causes severe depth-buffer fighting.
-            coordinate = wall_core_center + outward_sign * (thickness / 2 + FINISH / 2)
+            coordinate = wall_core_center + outward_sign * (source_thickness / 2 + FINISH / 2)
             asset_id = (
                 "tile_light_microcement_01"
                 if room_id in WET_ROOM_IDS
                 else "wallpaper_linen_natural_01"
-                if wall_id == "wall_master_west" and room_id == "open_public"
-                else "paint_light_greige_eggshell_01"
+                if source_wall_id == "wall_master_west" and room_id == "open_public"
+                else "paint_greige_01"
                 if room_id in {"master_bedroom", "bedroom_2"}
-                else "paint_warm_cream_matte_01"
+                else "paint_warm_white_01"
             )
             room_name = next((room["name_zh"] for room in ROOMS if room["id"] == room_id), room_id)
-            face = {"id":f"wall_face_real4_{index:03d}","code":f"REAL4-{index:03d}","name_zh":f"{room_name}墙面","room_id":room_id,"host_wall_id":wall_id,"orientation":orientation,"axis":"X" if horizontal else "Y","coordinate":coordinate,"start":face_start,"end":face_end,"asset_id":asset_id,"preview_hide":hide,"surface_zone":"wet_wall" if room_id in WET_ROOM_IDS else "dry_wall","allowed_asset_categories":["tile"] if room_id in WET_ROOM_IDS else ["wall_paint","wallpaper"]}
+            face = {"id":f"wall_face_real4_{index:03d}","code":f"REAL4-{index:03d}","name_zh":f"{room_name}墙面","room_id":room_id,"host_wall_id":source_wall_id,"orientation":orientation,"axis":"X" if source_horizontal else "Y","coordinate":coordinate,"start":face_start,"end":face_end,"asset_id":asset_id,"preview_hide":source_hide,"surface_zone":"wet_wall" if room_id in WET_ROOM_IDS else "dry_wall","allowed_asset_categories":["tile"] if room_id in WET_ROOM_IDS else ["wall_paint","wallpaper"]}
             face.update({
                 "wall_core_center_coordinate": wall_core_center,
-                "wall_core_thickness_m": thickness,
+                "wall_core_thickness_m": source_thickness,
                 "finish_thickness_m": FINISH,
                 "finish_outer_clearance_m": FINISH,
             })
             base.add_wall_face(face, mats[asset_id], collections["finishes"])
             faces.append(face)
             index += 1
+
+    if index != ADDITIONAL_WALL_FACE_SOURCES[0][0]:
+        raise RuntimeError(
+            f"Stable wall-face range changed: expected next ID "
+            f"{ADDITIONAL_WALL_FACE_SOURCES[0][0]:03d}, got {index:03d}"
+        )
+    for stable_index, source_wall_id, room_id in ADDITIONAL_WALL_FACE_SOURCES:
+        if index != stable_index:
+            raise RuntimeError(f"Expected wall-face ID {stable_index:03d}, got {index:03d}")
+        source = next(item for item in WALLS if item[0] == source_wall_id)
+        _source_id, source_start, source_end, source_thickness, _source_rooms, source_hide = source
+        source_horizontal = abs(source_start[1]-source_end[1]) < 1e-6
+        orientation, outward_sign, face_start, face_end = room_side_geometry(
+            room_id, source_start, source_end
+        )
+        wall_core_center = source_start[1] if source_horizontal else source_start[0]
+        coordinate = wall_core_center + outward_sign * (source_thickness / 2 + FINISH / 2)
+        asset_id = "tile_light_microcement_01" if room_id in WET_ROOM_IDS else (
+            "paint_greige_01" if room_id in {"master_bedroom", "bedroom_2"}
+            else "paint_warm_white_01"
+        )
+        room_name = next(
+            (room["name_zh"] for room in ROOMS if room["id"] == room_id), room_id
+        )
+        face = {
+            "id": f"wall_face_real4_{stable_index:03d}",
+            "code": f"REAL4-{stable_index:03d}",
+            "name_zh": f"{room_name}墙面",
+            "room_id": room_id,
+            "host_wall_id": source_wall_id,
+            "orientation": orientation,
+            "axis": "X" if source_horizontal else "Y",
+            "coordinate": coordinate,
+            "start": face_start,
+            "end": face_end,
+            "asset_id": asset_id,
+            "preview_hide": source_hide,
+            "surface_zone": "wet_wall" if room_id in WET_ROOM_IDS else "dry_wall",
+            "allowed_asset_categories": ["tile"] if room_id in WET_ROOM_IDS else ["wall_paint", "wallpaper"],
+            "wall_core_center_coordinate": wall_core_center,
+            "wall_core_thickness_m": source_thickness,
+            "finish_thickness_m": FINISH,
+            "finish_outer_clearance_m": FINISH,
+        }
+        base.add_wall_face(face, mats[asset_id], collections["finishes"])
+        faces.append(face)
+        index += 1
     merge_meshes_by_property(collections["walls"], "host_wall_id")
     merge_meshes_by_property(collections["finishes"], "wall_face_id")
     bpy.context.scene["wall_faces_json"] = json.dumps(faces, ensure_ascii=False)
@@ -642,6 +737,25 @@ def write_manifest(faces):
     MANIFEST_PATH.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def activate_outputs():
+    """Atomically synchronize the reproducible v4 outputs to active consumers."""
+    # A list is used for manifests because one source has multiple consumers.
+    copies = [
+        (GLB_PATH, VIEWER_MODELS_DIR / GLB_PATH.name),
+        (MANIFEST_PATH, ACTIVE_SCENE_MANIFEST_PATH),
+        (MANIFEST_PATH, ROOT_SCENE_MANIFEST_PATH),
+        (MANIFEST_PATH, VIEWER_MODELS_DIR / "scene_manifest.json"),
+        (base.ASSET_MANIFEST_PATH, ROOT_ASSET_MANIFEST_PATH),
+        (base.ASSET_MANIFEST_PATH, VIEWER_MODELS_DIR / "asset_manifest.json"),
+        (base.ASSET_CARDS_PATH, ROOT_ASSET_CARDS_PATH),
+    ]
+    for source, destination in copies:
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        temporary = destination.with_suffix(destination.suffix + ".tmp")
+        shutil.copy2(source, temporary)
+        temporary.replace(destination)
+
+
 def main():
     base.reset_file()
     scene = bpy.context.scene
@@ -678,9 +792,11 @@ def main():
     export_glb(root)
     faces = json.loads(scene["wall_faces_json"])
     write_manifest(faces)
+    base.write_manifests()
     for obj in collection_objects_recursive(root):
         obj.hide_render = False
     bpy.ops.wm.save_as_mainfile(filepath=str(BLEND_PATH),compress=True)
+    activate_outputs()
     print("SPACIOUS_V4_GENERATION_COMPLETE")
     print(f"BLEND={BLEND_PATH}")
     print(f"GLB={GLB_PATH}")

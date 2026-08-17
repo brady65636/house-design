@@ -12,28 +12,28 @@
   - 生成实现：`viewer/app/components/heroLivingScene.ts`
   - 来源：程序化原创
   - 许可：项目自有
-- 8 个原创墙纸系列及其 PBR 纹理
+- 16 个原创墙纸系列及其 PBR 纹理
   - 图像基底：OpenAI 内置 ImageGen 逐款生成；要求平视扫描、无品牌、无文字、原创图案，并逐张人工检查。Damask 首稿未采用，最终稿经过一次定向返修
   - 完整源文件和提示词：`output/imagegen/`、`docs/WALLPAPER_TEXTURE_PROMPTS.md`
   - 单一数据目录：`viewer/app/data/wallpaperCatalog.json`
   - PBR 派生脚本：`viewer/scripts/build-wallpaper-pbr.mjs`
   - 4K PBR 母版：`output/wallpapers_pbr/`；Three.js 优化运行时：`viewer/public/assets/wallpapers/`
   - 许可：项目自有，不对应真实品牌或 SKU
-- 参数化 PBR 墙漆系统
+- 参数化 PBR 墙漆与连续矿物涂层系统
   - 色彩目录：`viewer/app/data/paintCatalog.json`
   - PBR 生成脚本：`viewer/scripts/build-paint-pbr.mjs`
   - 最终资产：`viewer/public/assets/paints/`
-  - 来源：固定种子周期噪声程序化生成，包含 4K Base Color、Normal 和两种 Roughness
-  - 许可：项目自有；60 个变体均为屏幕预览色，不对应真实品牌、SKU 或实体色卡
-- 6 套地板与 8 套瓷砖 PBR 系统
+  - 来源：固定种子周期噪声程序化生成；10 个综合色 Asset 共享微表面，并以明度、饱和度、漆面参数解析实例，石灰洗、黏土灰泥和 Marmorino 三个 Asset 使用独立 4K PBR
+  - 许可：项目自有；13 个资产均为屏幕预览，不对应真实品牌、SKU 或实体色卡
+- 13 套地板与 21 套瓷砖 PBR 系统
   - ImageGen 原图：`output/imagegen/`
   - 完整提示词：`docs/SURFACE_TEXTURE_PROMPTS.md`
   - 目录：`viewer/app/data/floorCatalog.json`、`viewer/app/data/tileCatalog.json`
   - PBR 派生脚本：`viewer/scripts/build-surface-pbr.mjs`
   - 4K 派生母版：`output/surfaces_pbr/`；Three.js 运行时贴图：`viewer/public/assets/surfaces/`
-  - 来源：11 张无品牌 ImageGen 材质基底、既有 Poly Haven `wood_floor` CC0 原图，以及一套固定算法生成的微水泥基底；所有结果统一做无缝化并确定性派生 Normal、Roughness、Height
+  - 来源：无品牌 ImageGen 材质基底、既有 Poly Haven `wood_floor` CC0 原图，以及固定算法生成的微水泥与严格周期棋盘基底；所有结果确定性派生 Normal、Roughness、Height，非周期源图统一做无缝化
   - 许可：ImageGen 与程序化部分为项目自有；Poly Haven 部分沿用 CC0；均不对应真实品牌或 SKU
-- 5 套吊顶几何预设
+- 9 套吊顶几何预设
   - 目录：`viewer/app/data/ceilingCatalog.json`
   - Blender 几何：`blender/generate_spacious_floorplan_v4.py` 内的 `V4_ASSET_LIBRARY`
   - Three.js 房间适配几何：`viewer/app/components/RoomExperience.tsx`

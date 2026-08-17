@@ -1,0 +1,3084 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_ids": [
+    "floor_catalog_v1",
+    "tile_catalog_v1"
+  ],
+  "generated_at": "2026-08-13T10:58:43.413Z",
+  "generator": "viewer/scripts/build-surface-pbr.mjs",
+  "color_space": {
+    "base_color": "sRGB",
+    "normal_roughness_height": "linear"
+  },
+  "normal_convention": "OpenGL",
+  "texture_count": 34,
+  "category_counts": {
+    "wood_floor": 13,
+    "tile": 21
+  },
+  "textures": [
+    {
+      "order": 1,
+      "id": "floor_ash_maple_light_matte_01",
+      "name_zh": "浅色白蜡木细纹地板",
+      "name_en": "Light ash fine-grain floor",
+      "source_file": "output/imagegen/floor_ash_maple_light_generated_v1.png",
+      "source_type": "imagegen_original",
+      "colorize": true,
+      "plank_size_mm": [
+        150,
+        1800
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.8
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "fine_wood",
+      "roughness_mean": 0.72,
+      "normal_scale": 0.22,
+      "tint": "#d8d0c1",
+      "runtime_color_multiplier": "#f5f8ff",
+      "material_group": "light_fine_grain",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_ash_maple_light_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_ash_maple_light_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_ash_maple_light_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_ash_maple_light_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_ash_maple_light_matte_01_basecolor_web.jpg",
+        "normal": "floor_ash_maple_light_matte_01_normal_gl_web.webp",
+        "roughness": "floor_ash_maple_light_matte_01_roughness_web.webp",
+        "thumbnail": "floor_ash_maple_light_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 1456411,
+            "sha256": "566546249ed5f5987e5ac30efaa0aa7684b41a08268b456e4b9e0b1fac53b21a"
+          },
+          "normal": {
+            "bytes": 38404568,
+            "sha256": "7e4ec9bfa8ebd130086f6667db297d063cddaea43aa3002f793a96aeb13e115d"
+          },
+          "roughness": {
+            "bytes": 6845794,
+            "sha256": "7a346d2625c0447d0581bdd23d47bfe9ccc92030a7fd66f61fab51cd083d79aa"
+          },
+          "height": {
+            "bytes": 13909211,
+            "sha256": "ad10207bddcf8322c9489afa2ba01a94c398e33d0d3dc586849daeda5a244bad"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 96747,
+            "sha256": "89ce74828853b5e301d2f33d0508d6a7cb144ddb121964119338c0e8a33ae335"
+          },
+          "normal": {
+            "bytes": 450304,
+            "sha256": "72338adad4b414ba1177e96865723614533b5e79fcaa5e4566a928bc0d26b19b"
+          },
+          "roughness": {
+            "bytes": 33694,
+            "sha256": "5d39b74089056ce744eca9673305961eb5108eda74b8a5f3a674c5c453cb975d"
+          },
+          "thumbnail": {
+            "bytes": 1758,
+            "sha256": "7d006a58035c4053f89a683a88439424aedb8a5a029e63452554d05e38dd4814"
+          }
+        }
+      }
+    },
+    {
+      "order": 2,
+      "id": "floor_light_oak_matte_01",
+      "name_zh": "浅色自然橡木地板",
+      "name_en": "Light natural oak floor",
+      "source_file": "viewer/public/assets/hero-living/textures/wood_floor_diff_1k.jpg",
+      "source_type": "cc0_reference",
+      "colorize": true,
+      "plank_size_mm": [
+        190,
+        1900
+      ],
+      "repeat_size_m": [
+        2,
+        2
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "natural_wood",
+      "roughness_mean": 0.7,
+      "normal_scale": 0.24,
+      "modulate": {
+        "brightness": 1.08,
+        "saturation": 0.5
+      },
+      "tint": "#d1c5b5",
+      "runtime_color_multiplier": "#f3f7ff",
+      "material_group": "light_natural_oak",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_light_oak_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_light_oak_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_light_oak_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_light_oak_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_light_oak_matte_01_basecolor_web.jpg",
+        "normal": "floor_light_oak_matte_01_normal_gl_web.webp",
+        "roughness": "floor_light_oak_matte_01_roughness_web.webp",
+        "thumbnail": "floor_light_oak_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 1724261,
+            "sha256": "1a46e267b5a08c4970abb3ee849e5db6573573517cb8fd63b3dd9c2baa8badfe"
+          },
+          "normal": {
+            "bytes": 41289171,
+            "sha256": "fcb3fc73bae802a424a56abdcdacb503e2593b47db61d78ac6928bebcdeb75b7"
+          },
+          "roughness": {
+            "bytes": 6948918,
+            "sha256": "f6b9abf0d2f9a394e7ea4cc7c11c5b61face52a65dda3a7dd6a8593c16de8cff"
+          },
+          "height": {
+            "bytes": 14817577,
+            "sha256": "c2b5ef21e5d928a8782e80fac6ffb3843f19c67d9e60c44cba9175141abe4469"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 127249,
+            "sha256": "3e2c403351c3ffbe751d961174df687de664fb71590d365e7dff461d3cc21707"
+          },
+          "normal": {
+            "bytes": 492632,
+            "sha256": "f7bb7fd72cd048cd0d1969a2cbaa70721b9b29c032f443a27cf6f4717fe61d3e"
+          },
+          "roughness": {
+            "bytes": 41412,
+            "sha256": "ed79d285a90f032e5d8c97df21b5aecca6f66bcb6cc986ff4c86f55950448a6a"
+          },
+          "thumbnail": {
+            "bytes": 4850,
+            "sha256": "8535071063208449c9e372246c83e72f132894738fcd51231b6727c421950e38"
+          }
+        }
+      }
+    },
+    {
+      "order": 3,
+      "id": "floor_honey_oak_matte_01",
+      "name_zh": "蜂蜜色暖木地板",
+      "name_en": "Honey oak floor",
+      "material_group": "honey_warm_wood",
+      "source_file": "viewer/public/assets/hero-living/textures/wood_floor_diff_1k.jpg",
+      "source_type": "cc0_reference",
+      "colorize": true,
+      "plank_size_mm": [
+        180,
+        1800
+      ],
+      "repeat_size_m": [
+        2,
+        2
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "natural_wood",
+      "roughness_mean": 0.68,
+      "normal_scale": 0.24,
+      "modulate": {
+        "brightness": 0.92,
+        "saturation": 0.92
+      },
+      "tint": "#a86934",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_honey_oak_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_honey_oak_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_honey_oak_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_honey_oak_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_honey_oak_matte_01_basecolor_web.jpg",
+        "normal": "floor_honey_oak_matte_01_normal_gl_web.webp",
+        "roughness": "floor_honey_oak_matte_01_roughness_web.webp",
+        "thumbnail": "floor_honey_oak_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 1759816,
+            "sha256": "1be2aeb43c7ed2b29b55c91b48c029aed17b24e7e056b475cca9bf01d6da8eb5"
+          },
+          "normal": {
+            "bytes": 43615913,
+            "sha256": "2f4682ce27fb7295d4b74fb2d38f7d57daf8e822ce6c7a876c2cf8f1c6dd8a35"
+          },
+          "roughness": {
+            "bytes": 7168863,
+            "sha256": "d410aeac9a4989d91f213d94e74097a5d97bd70c7c8144027250a5bdc17142dc"
+          },
+          "height": {
+            "bytes": 16410407,
+            "sha256": "6c3b1c9c0a7cf5f067d479205d7cd562c984ff5e9fd1617c2b07440710fffe79"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 98522,
+            "sha256": "64955d42d2e7653c621ba62c43ad624626ed68a2b7c28418b966dabd6d454b61"
+          },
+          "normal": {
+            "bytes": 547202,
+            "sha256": "302b0378722163eef96d91a4cf112b3473394727bf504882971a49e6b80e75e1"
+          },
+          "roughness": {
+            "bytes": 59792,
+            "sha256": "af3068aec81788c8f0a0429b0a74270eba06761c2cab5b2dfa97e39052c4cacd"
+          },
+          "thumbnail": {
+            "bytes": 1844,
+            "sha256": "50f7647c7765c8eb4ecc9c1bc87201a59010802361d68fbe896a38b1df8cc9ce"
+          }
+        }
+      }
+    },
+    {
+      "order": 4,
+      "id": "floor_warm_walnut_matte_01",
+      "name_zh": "暖红棕胡桃木感地板",
+      "name_en": "Warm walnut floor",
+      "material_group": "warm_red_brown",
+      "source_file": "output/imagegen/floor_warm_walnut_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        180,
+        1800
+      ],
+      "repeat_size_m": [
+        1.26,
+        1.8
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "natural_wood",
+      "roughness_mean": 0.67,
+      "normal_scale": 0.24,
+      "tint": "#70402d",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_warm_walnut_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_warm_walnut_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_warm_walnut_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_warm_walnut_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_warm_walnut_matte_01_basecolor_web.jpg",
+        "normal": "floor_warm_walnut_matte_01_normal_gl_web.webp",
+        "roughness": "floor_warm_walnut_matte_01_roughness_web.webp",
+        "thumbnail": "floor_warm_walnut_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2995615,
+            "sha256": "b4dcd0b924e126f3aae36cf39f387c447fe27d527b0151d162b278ec97e04acd"
+          },
+          "normal": {
+            "bytes": 39618696,
+            "sha256": "3fab6dd12d34ed13f39f1b0ccb80d56a78981d2a4a3da731acd9964c7d75441a"
+          },
+          "roughness": {
+            "bytes": 6820445,
+            "sha256": "ecbc1d00ef03b7c8cad525cd967d01aa03fdd5d152e9aa8269905a7da8575849"
+          },
+          "height": {
+            "bytes": 14211426,
+            "sha256": "1137a43358333d913e3c52251660d9e3af760f3fbdf9e37c7033e7289746a6ff"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 232287,
+            "sha256": "f2808b2f0eb4adda231055a9cccbbbe08ddafe71971f89c1c2b7736db6ed0e70"
+          },
+          "normal": {
+            "bytes": 460510,
+            "sha256": "937d7fdb4b84b680c8876026960f1879049266baef653297667aba860493aa79"
+          },
+          "roughness": {
+            "bytes": 26378,
+            "sha256": "9e0d6a8bbd03a5c472bca817f1b624831c0d71f2882afea3bb383e2c2dd15d77"
+          },
+          "thumbnail": {
+            "bytes": 6276,
+            "sha256": "3b6c7efb3c9b6662e43dbf8796c292cb5505958c21a34f1f5f03ee001617b563"
+          }
+        }
+      }
+    },
+    {
+      "order": 5,
+      "id": "floor_smoked_dark_oak_matte_01",
+      "name_zh": "烟熏深橡木地板",
+      "name_en": "Smoked dark oak floor",
+      "material_group": "smoked_dark_wood",
+      "source_file": "output/imagegen/floor_smoked_dark_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        190,
+        1900
+      ],
+      "repeat_size_m": [
+        1.14,
+        1.9
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "brushed_wood",
+      "roughness_mean": 0.73,
+      "normal_scale": 0.28,
+      "tint": "#4d413d",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_smoked_dark_oak_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_smoked_dark_oak_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_smoked_dark_oak_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_smoked_dark_oak_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_smoked_dark_oak_matte_01_basecolor_web.jpg",
+        "normal": "floor_smoked_dark_oak_matte_01_normal_gl_web.webp",
+        "roughness": "floor_smoked_dark_oak_matte_01_roughness_web.webp",
+        "thumbnail": "floor_smoked_dark_oak_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2826040,
+            "sha256": "44f0cbe9ea2a49de116a2a3750c9bfedcb98bf487dd134f818f5fb70e06777ad"
+          },
+          "normal": {
+            "bytes": 42705898,
+            "sha256": "3951e811c497ef86e675037e3025897ab6d36d96f97f3bb1f890024fcee74575"
+          },
+          "roughness": {
+            "bytes": 7147739,
+            "sha256": "399d48c35eb7354c84f59dd8331bdedc9c722ce5f6faf8e34609c1ed60e19bf7"
+          },
+          "height": {
+            "bytes": 15012017,
+            "sha256": "4adfd9085de3cceee009d3ceff264c8cbc03fcf95662c53a4ca5f3747bbb67d9"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 187904,
+            "sha256": "a979e9b44f7bfb34b8229f4fbefdd6b03b92f263ee1e521f63895a8c469db675"
+          },
+          "normal": {
+            "bytes": 527904,
+            "sha256": "04632273da61bf01c1a95ba013076aafc240f0f17bfbdbea4466def0238b0bf7"
+          },
+          "roughness": {
+            "bytes": 45914,
+            "sha256": "98dcb8eb6c750978b149dd87c03f39d5385c63b874415cf3314fc8ce07fbb703"
+          },
+          "thumbnail": {
+            "bytes": 4488,
+            "sha256": "b496853bd6836fb6f35cd5b322a50c1001daebea96072ac56ea4f72482015fef"
+          }
+        }
+      }
+    },
+    {
+      "order": 6,
+      "id": "floor_greywashed_variation_matte_01",
+      "name_zh": "灰洗高色差做旧木地板",
+      "name_en": "Grey-washed varied timber floor",
+      "material_group": "greywashed_reclaimed",
+      "source_file": "output/imagegen/floor_greywashed_variation_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        170,
+        1700
+      ],
+      "repeat_size_m": [
+        1.36,
+        1.7
+      ],
+      "supported_layouts": [
+        "straight"
+      ],
+      "surface_profile": "brushed_wood",
+      "roughness_mean": 0.78,
+      "normal_scale": 0.3,
+      "tint": "#9a9083",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_greywashed_variation_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_greywashed_variation_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_greywashed_variation_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_greywashed_variation_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_greywashed_variation_matte_01_basecolor_web.jpg",
+        "normal": "floor_greywashed_variation_matte_01_normal_gl_web.webp",
+        "roughness": "floor_greywashed_variation_matte_01_roughness_web.webp",
+        "thumbnail": "floor_greywashed_variation_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3508856,
+            "sha256": "f9aa3bd853578017e2a42e97768d08bf9993b5623fba2f58177e7ddf6c627242"
+          },
+          "normal": {
+            "bytes": 41571117,
+            "sha256": "58e0f30e41ee346c495cce6c806ac73467f338abe8ebf71f3ba5224e4f5e6367"
+          },
+          "roughness": {
+            "bytes": 6927982,
+            "sha256": "fe9e76c44249a1e3a7ebc416e3f9f251df0421ac3e742c7680ebf07914679705"
+          },
+          "height": {
+            "bytes": 13762571,
+            "sha256": "7b9fbe5e0ce375d991273e8c4af112f6fd99a5377939087dd754cb6c353dfd8b"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 285276,
+            "sha256": "3e00244d8efea5799af43308215aed4ab8385985cdd94797a7e07015b4adb2ca"
+          },
+          "normal": {
+            "bytes": 441714,
+            "sha256": "adb830719c44453c4bbca1eb5c9b662fee643b74f5fe9b107d406325a45da297"
+          },
+          "roughness": {
+            "bytes": 16406,
+            "sha256": "a002fddd5ca7333898e4085f0f9a53ff13e184adee2f7325b88458911d92ccc4"
+          },
+          "thumbnail": {
+            "bytes": 12320,
+            "sha256": "d1e35df474895c9042fda564745b15389788d9547a28e8ad29be9889a56d16bf"
+          }
+        }
+      }
+    },
+    {
+      "order": 7,
+      "id": "floor_bleached_ash_wideplank_matte_01",
+      "name_zh": "漂白白蜡木宽板地板",
+      "name_en": "Bleached ash wide-plank floor",
+      "material_group": "bleached_ash_wideplank",
+      "source_file": "output/imagegen/floor_bleached_ash_wideplank_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        220,
+        2200
+      ],
+      "repeat_size_m": [
+        1.32,
+        2.2
+      ],
+      "supported_layouts": [
+        "straight"
+      ],
+      "surface_profile": "fine_wood",
+      "roughness_mean": 0.76,
+      "normal_scale": 0.2,
+      "tint": "#d9c9ac",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_bleached_ash_wideplank_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_bleached_ash_wideplank_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_bleached_ash_wideplank_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_bleached_ash_wideplank_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_bleached_ash_wideplank_matte_01_basecolor_web.jpg",
+        "normal": "floor_bleached_ash_wideplank_matte_01_normal_gl_web.webp",
+        "roughness": "floor_bleached_ash_wideplank_matte_01_roughness_web.webp",
+        "thumbnail": "floor_bleached_ash_wideplank_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2372342,
+            "sha256": "6ee0d7a00f987a6f574041029078d2267273edfbf5e15f20f58e3616b3445718"
+          },
+          "normal": {
+            "bytes": 35586476,
+            "sha256": "4917220c4e17bc5de0ba5ad82c6ed939757de679ce98713548baa815ae6a55b3"
+          },
+          "roughness": {
+            "bytes": 6672203,
+            "sha256": "9cce1ea3e5088c25b326113a8af3dbca8ec642a3080124c8c7f28266f098f63c"
+          },
+          "height": {
+            "bytes": 12477159,
+            "sha256": "66c3a98e5637cb4be56086b18bed34d19b0ba6f98126fa13fda5a5f0b7b26f45"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 166792,
+            "sha256": "e1ba639869c61bc081ae0ea6f462540dc9ed030b0b7990d349e4c54c1d6c277c"
+          },
+          "normal": {
+            "bytes": 387296,
+            "sha256": "513216120cf52aeb639d18375f49fcbe4fcf4c80852621819931b8d158a24f49"
+          },
+          "roughness": {
+            "bytes": 14282,
+            "sha256": "e90b354c75c4dba2e2e73efbfcce669d44536b5e352bc569fd577a718fa4fe7a"
+          },
+          "thumbnail": {
+            "bytes": 3052,
+            "sha256": "5e88ce85ff0d57990e023af9a6cdca656e35769341923b272e9afab6fe616efa"
+          }
+        }
+      }
+    },
+    {
+      "order": 8,
+      "id": "floor_caramel_teak_matte_01",
+      "name_zh": "焦糖柚木地板",
+      "name_en": "Caramel teak floor",
+      "material_group": "caramel_teak",
+      "source_file": "output/imagegen/floor_caramel_teak_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        160,
+        1600
+      ],
+      "repeat_size_m": [
+        1.28,
+        1.6
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "natural_wood",
+      "roughness_mean": 0.68,
+      "normal_scale": 0.23,
+      "tint": "#a46735",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_caramel_teak_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_caramel_teak_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_caramel_teak_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_caramel_teak_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_caramel_teak_matte_01_basecolor_web.jpg",
+        "normal": "floor_caramel_teak_matte_01_normal_gl_web.webp",
+        "roughness": "floor_caramel_teak_matte_01_roughness_web.webp",
+        "thumbnail": "floor_caramel_teak_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3190173,
+            "sha256": "5afcfa95d3441f8dc885c9cc687c496783eda8a69706aed4a194bb2a607a3763"
+          },
+          "normal": {
+            "bytes": 35724095,
+            "sha256": "115271a4635bfc8b675b5dd3a6a23f0dda78a783f4f39b359510b7bfe6a299a1"
+          },
+          "roughness": {
+            "bytes": 6556334,
+            "sha256": "6c910c18f2324f74bc167409dfc68c29ef40f4110abb7b8084f0121c4ab39381"
+          },
+          "height": {
+            "bytes": 11834843,
+            "sha256": "a9bad0ea33335b6e2ca13a8b6f017d7083b1df00166790c4c6bff8eebd834302"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 273676,
+            "sha256": "dc0d45185e5f23808b3f06e0e03c68a687680e371387a93d12aaaa217114884a"
+          },
+          "normal": {
+            "bytes": 375182,
+            "sha256": "1fce1e7f79cadec74a184a7302feacd96bc5121fecef05997925694a77d665bf"
+          },
+          "roughness": {
+            "bytes": 8990,
+            "sha256": "c20b835dabdea9a0ef6accb73e310158d824fea5dd150f5d07107adf18a69796"
+          },
+          "thumbnail": {
+            "bytes": 9446,
+            "sha256": "b6b144b77905a48a2265600dfe3e4482fcc7eb9e0dec07708697775b59e94204"
+          }
+        }
+      }
+    },
+    {
+      "order": 9,
+      "id": "floor_ebonized_oak_matte_01",
+      "name_zh": "乌木化橡木地板",
+      "name_en": "Ebonized oak floor",
+      "material_group": "ebonized_oak",
+      "source_file": "output/imagegen/floor_ebonized_oak_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        180,
+        1800
+      ],
+      "repeat_size_m": [
+        1.26,
+        1.8
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "brushed_wood",
+      "roughness_mean": 0.71,
+      "normal_scale": 0.26,
+      "tint": "#292725",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_ebonized_oak_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_ebonized_oak_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_ebonized_oak_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_ebonized_oak_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_ebonized_oak_matte_01_basecolor_web.jpg",
+        "normal": "floor_ebonized_oak_matte_01_normal_gl_web.webp",
+        "roughness": "floor_ebonized_oak_matte_01_roughness_web.webp",
+        "thumbnail": "floor_ebonized_oak_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2477301,
+            "sha256": "3fc4e4ffe4385659d094edfa9c57fc40289b36230e96dd8c096cc42098542144"
+          },
+          "normal": {
+            "bytes": 43277089,
+            "sha256": "88839885667a4e39684c0ff43ac824f89c7c784d5ffc45cdd21f419f13392b31"
+          },
+          "roughness": {
+            "bytes": 7198574,
+            "sha256": "65db0f39d1babc2366382b122e70eb90fcb5f9e9ecf509f8fb9ae1034988de28"
+          },
+          "height": {
+            "bytes": 15568914,
+            "sha256": "91b3916de8f303befe8744739ae3d2c6a58ae88d3307e3272d6027e5fca6da46"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 167742,
+            "sha256": "7638158e9e6704df8bba3e3fd291404a8a833088beed7778fe3e6833d74776e7"
+          },
+          "normal": {
+            "bytes": 521030,
+            "sha256": "fc2838a111f0a3be3ff982c753b32021f5d6fcce0813b7958df549f66f522b73"
+          },
+          "roughness": {
+            "bytes": 47954,
+            "sha256": "b7b458eb73ddc5b3e67edbf66268824bac8b54670cb605f3ecac5f4b1c8cd2ba"
+          },
+          "thumbnail": {
+            "bytes": 4800,
+            "sha256": "172d04ec80315e49f0799d94d3d7a0cef87a7c30eda8908f0f32aac2c1d878ef"
+          }
+        }
+      }
+    },
+    {
+      "order": 10,
+      "id": "floor_character_oak_wideplank_matte_01",
+      "name_zh": "高色差节疤橡木宽板地板",
+      "name_en": "Character oak wide-plank floor",
+      "material_group": "character_oak_high_variation",
+      "source_file": "output/imagegen/floor_character_oak_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        220,
+        2200
+      ],
+      "repeat_size_m": [
+        1.54,
+        2.2
+      ],
+      "supported_layouts": [
+        "straight"
+      ],
+      "surface_profile": "character_wood",
+      "roughness_mean": 0.74,
+      "normal_scale": 0.3,
+      "tint": "#b38a5d",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_character_oak_wideplank_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_character_oak_wideplank_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_character_oak_wideplank_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_character_oak_wideplank_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_character_oak_wideplank_matte_01_basecolor_web.jpg",
+        "normal": "floor_character_oak_wideplank_matte_01_normal_gl_web.webp",
+        "roughness": "floor_character_oak_wideplank_matte_01_roughness_web.webp",
+        "thumbnail": "floor_character_oak_wideplank_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2825424,
+            "sha256": "32d9529e9dfb2fe84ff1354ffae27dd96f1a7f72ad3232aeb908ab4f36439236"
+          },
+          "normal": {
+            "bytes": 40026018,
+            "sha256": "cfe648c3892b9854d4beb241c314bf6da6ed6ce602a2dd4c83ff7de2dbda22bf"
+          },
+          "roughness": {
+            "bytes": 6884375,
+            "sha256": "37fe71a8bc3a2ab24916649160e58d704d0d4a40e366dd46d2503f0331fadb8f"
+          },
+          "height": {
+            "bytes": 12400837,
+            "sha256": "4cbf09fa8d12a5800f77e76909527ecf0ec1929d4c58cabffe4a7648cc05df3c"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 219422,
+            "sha256": "0e48e2999baab85377ff21a925efd2c4f9ba5915f6fa016cab8548774a26e0f0"
+          },
+          "normal": {
+            "bytes": 396622,
+            "sha256": "a9cc270699fd13c81b03c0c20f9079c9f946e0658035aa1180bdf5da0fc75e03"
+          },
+          "roughness": {
+            "bytes": 18770,
+            "sha256": "71c094c44e970e4a2bfa0f10281455b878ee9064e001077c44a134ed93896760"
+          },
+          "thumbnail": {
+            "bytes": 8852,
+            "sha256": "2ff69f37560588d8e70d2e956f8db172483a61be2b9ad76a045e5815eff9c06c"
+          }
+        }
+      }
+    },
+    {
+      "order": 11,
+      "id": "floor_riftsawn_oak_linear_matte_01",
+      "name_zh": "径切直纹橡木地板",
+      "name_en": "Rift-sawn linear oak floor",
+      "material_group": "riftsawn_linear_oak",
+      "source_file": "output/imagegen/floor_riftsawn_oak_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        140,
+        2100
+      ],
+      "repeat_size_m": [
+        1.12,
+        2.1
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "rift_linear_wood",
+      "roughness_mean": 0.75,
+      "normal_scale": 0.18,
+      "tint": "#d2bd98",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_riftsawn_oak_linear_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_riftsawn_oak_linear_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_riftsawn_oak_linear_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_riftsawn_oak_linear_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_riftsawn_oak_linear_matte_01_basecolor_web.jpg",
+        "normal": "floor_riftsawn_oak_linear_matte_01_normal_gl_web.webp",
+        "roughness": "floor_riftsawn_oak_linear_matte_01_roughness_web.webp",
+        "thumbnail": "floor_riftsawn_oak_linear_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2384525,
+            "sha256": "dd82d7f612539ce7d7cee67c19a79e102aeeedcd7dad525c72253f3a3e90fb2e"
+          },
+          "normal": {
+            "bytes": 33012075,
+            "sha256": "aaa87d755200a1a56d29741503da88698412cf2209dc45a9b043eb84ff24bab0"
+          },
+          "roughness": {
+            "bytes": 6442086,
+            "sha256": "afc3411157afa2049ae5fae0e977cc8de1512ef2b53a473a0c87b167b4a4aed3"
+          },
+          "height": {
+            "bytes": 12425492,
+            "sha256": "3a7ead6d67dc30072cd43d1ff8a89c1b8ae6cc2a118de372465f7ddcb93eecd8"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 175648,
+            "sha256": "010abe23e0acaffc46d0d3befe153485346e03e508b85bf5a5b609966032235a"
+          },
+          "normal": {
+            "bytes": 335000,
+            "sha256": "a7ae3523300e64757cd10e9761b8462b25416777ab96755889e2956748f4f5e7"
+          },
+          "roughness": {
+            "bytes": 12938,
+            "sha256": "1b2ecaf7e564e20fcaf08d5b3ad7a1addbe9a5fc96ad9784e5ab064212dbe85f"
+          },
+          "thumbnail": {
+            "bytes": 4958,
+            "sha256": "eb398fe60e099698cc43f4d06da9c5ea2bdf6157319ce9aa6527010ed342bd2f"
+          }
+        }
+      }
+    },
+    {
+      "order": 12,
+      "id": "floor_endgrain_block_matte_01",
+      "name_zh": "端纹木块拼花地板",
+      "name_en": "End-grain block floor",
+      "material_group": "endgrain_block",
+      "source_file": "output/imagegen/floor_endgrain_block_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        90,
+        180
+      ],
+      "repeat_size_m": [
+        1.08,
+        1.08
+      ],
+      "supported_layouts": [
+        "module_grid"
+      ],
+      "surface_profile": "endgrain_block",
+      "roughness_mean": 0.77,
+      "normal_scale": 0.32,
+      "tint": "#76502e",
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_endgrain_block_matte_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_endgrain_block_matte_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_endgrain_block_matte_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_endgrain_block_matte_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_endgrain_block_matte_01_basecolor_web.jpg",
+        "normal": "floor_endgrain_block_matte_01_normal_gl_web.webp",
+        "roughness": "floor_endgrain_block_matte_01_roughness_web.webp",
+        "thumbnail": "floor_endgrain_block_matte_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 4395535,
+            "sha256": "efc04aad94d72dc4a090e37a223c57f8dd3baf703383b69359fa424dce219ab5"
+          },
+          "normal": {
+            "bytes": 42707694,
+            "sha256": "b2ea2992ccdacfdfd2d03505cca4d906c0e3a51d01281306cfa2360f38aa28da"
+          },
+          "roughness": {
+            "bytes": 7047459,
+            "sha256": "639865ae9e1a7a5ddeefa4d964d786602e26c8d058eb22fbb7ac8149bd0650d7"
+          },
+          "height": {
+            "bytes": 13970050,
+            "sha256": "93bed0c86a0bbbaf84400af7d132b67f0dd3bb97a6d6cd00b0f2b4e6f764713e"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 397320,
+            "sha256": "2953d86fc47ce416d48c24e6bae5a5d7f4a25962da772e1cf06b03bf6f376ac4"
+          },
+          "normal": {
+            "bytes": 528966,
+            "sha256": "b2e2caca663fa3ee41a0914411fee91b3d63b8f8bc0991c5ca2e76e98a90b892"
+          },
+          "roughness": {
+            "bytes": 30462,
+            "sha256": "9f4f3e4617746e9ac5a1272c08796fc61358f1795584c49db81cc972fcdc0009"
+          },
+          "thumbnail": {
+            "bytes": 18514,
+            "sha256": "7c40b274f8be1134c2eee9f1e9ed94095a5a572d0a6bc77b95c990bb4eb7a85d"
+          }
+        }
+      }
+    },
+    {
+      "order": 13,
+      "id": "floor_natural_cork_01",
+      "name_zh": "天然细颗粒软木地板",
+      "name_en": "Natural fine-grain cork floor",
+      "material_group": "natural_cork",
+      "source_file": "output/imagegen/floor_natural_cork_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        900
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "natural_cork",
+      "roughness_mean": 0.8,
+      "normal_scale": 0.2,
+      "tint": "#c69a60",
+      "material_type": "cork",
+      "design_roles": [
+        "support",
+        "quiet"
+      ],
+      "relationship_tags": [
+        "warm_natural",
+        "fine_grain",
+        "soft_visual_weight",
+        "dry_room_floor"
+      ],
+      "category": "wood_floor",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/floor_natural_cork_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/floor_natural_cork_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/floor_natural_cork_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/floor_natural_cork_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "floor_natural_cork_01_basecolor_web.jpg",
+        "normal": "floor_natural_cork_01_normal_gl_web.webp",
+        "roughness": "floor_natural_cork_01_roughness_web.webp",
+        "thumbnail": "floor_natural_cork_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3977063,
+            "sha256": "7786f2191c07f4de4befd7d992927c9306b11037cb811e07f44a0fd9fb5a3beb"
+          },
+          "normal": {
+            "bytes": 36887644,
+            "sha256": "becf28067750608991b0e852deeb64e31747f728e94f1bbf61663edec350fc43"
+          },
+          "roughness": {
+            "bytes": 6970850,
+            "sha256": "42fdc32cd7f955f7731c2123ae9b8e63052c87ee5005efd49322c88b2495e450"
+          },
+          "height": {
+            "bytes": 13102354,
+            "sha256": "6b9363744d043fcd4c7899e0832a67bcb57c1a849a51c7aa5bd842042d23bb0a"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 436527,
+            "sha256": "23980f3a10a01f47858e8858464112004c937fe6ef3d82377483087a1e815802"
+          },
+          "normal": {
+            "bytes": 446522,
+            "sha256": "71f54e4f1b691436a1c7b2cab7c189f4c20b2ba22e055a6af158c091b79317b5"
+          },
+          "roughness": {
+            "bytes": 43464,
+            "sha256": "9a7ec8bafcfc76e65606a3656d1c4bd8adc3c266cbed022a2f3465b35f279a53"
+          },
+          "thumbnail": {
+            "bytes": 30026,
+            "sha256": "761c5bc6f52cfd3f8435a0635c79b4b87de7299e300d9691a3c278bb3ef6350c"
+          }
+        }
+      }
+    },
+    {
+      "order": 1,
+      "id": "tile_plain_mineral_01",
+      "name_zh": "暖白素色矿物感瓷砖",
+      "name_en": "Warm white mineral ceramic tile",
+      "material_group": "plain_mineral",
+      "source_file": "output/imagegen/tile_plain_mineral_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "satin_ceramic",
+      "roughness_mean": 0.66,
+      "normal_scale": 0.16,
+      "tint": "#e2ddd1",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_plain_mineral_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_plain_mineral_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_plain_mineral_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_plain_mineral_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_plain_mineral_01_basecolor_web.jpg",
+        "normal": "tile_plain_mineral_01_normal_gl_web.webp",
+        "roughness": "tile_plain_mineral_01_roughness_web.webp",
+        "thumbnail": "tile_plain_mineral_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 1831389,
+            "sha256": "0fb39f1d957edd3bed4c6ac38a26802123e3dcdad9c7475e435499e3647975c1"
+          },
+          "normal": {
+            "bytes": 31818146,
+            "sha256": "23b92f597a0fae26dbb48ce1744a398a74f34b7bc9f34d9adf1cfc3d5c31e60c"
+          },
+          "roughness": {
+            "bytes": 6645174,
+            "sha256": "0fe5c241ffbec68cdc1032a09ca37522cd41779ed9f0f95770c499663cc61d3c"
+          },
+          "height": {
+            "bytes": 15974478,
+            "sha256": "7956184d7470809ab6a128c3c56d110916bb41cca51ba4ec52344d4c1f38176b"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 89641,
+            "sha256": "9c1383664519bfb3fcb87d21da4ed321b3aacfb93c23c9d2e6a5156d9ea40820"
+          },
+          "normal": {
+            "bytes": 366636,
+            "sha256": "4fccb51d19d094af6fbe810da1fc1c421f7515834900e8acc98f02ea51868ee5"
+          },
+          "roughness": {
+            "bytes": 22052,
+            "sha256": "89a0b79441b0de57a86b118075b831ab300f1dfbdb143d0e83db0c4ae1828573"
+          },
+          "thumbnail": {
+            "bytes": 1718,
+            "sha256": "8ab3cc01c9a6c88d60cdf7450440889db3bece5cf02997bca653d668bace7cbc"
+          }
+        }
+      }
+    },
+    {
+      "order": 2,
+      "id": "tile_white_marble_01",
+      "name_zh": "低对比白色大理石纹砖",
+      "name_en": "Low-contrast white marble tile",
+      "material_group": "white_marble",
+      "source_file": "output/imagegen/tile_white_marble_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "honed_stone",
+      "roughness_mean": 0.52,
+      "normal_scale": 0.1,
+      "tint": "#e7e3da",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_white_marble_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_white_marble_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_white_marble_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_white_marble_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_white_marble_01_basecolor_web.jpg",
+        "normal": "tile_white_marble_01_normal_gl_web.webp",
+        "roughness": "tile_white_marble_01_roughness_web.webp",
+        "thumbnail": "tile_white_marble_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 1380306,
+            "sha256": "82537f74a64bcfd86f4a03236b12df4bc16de9369e2f21e608e9a04e2a7777f6"
+          },
+          "normal": {
+            "bytes": 34718354,
+            "sha256": "70bae3c1108a487811f236e8805d1d8616f1a41978c25e2d11e97cd531ff67f4"
+          },
+          "roughness": {
+            "bytes": 6914296,
+            "sha256": "3804dc2217a4e466272c1cda850556c0e0cfcd20fa81cd8124731d3b2931f36d"
+          },
+          "height": {
+            "bytes": 17489001,
+            "sha256": "4c53cba2b8f6cf15dff4b2391cb25c91ce8cc5f2b539da3218ffcb1a31194470"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 70471,
+            "sha256": "f92715fe9e17e940ea0c48998525814480027bfd5997ef7923dd8758cee93c23"
+          },
+          "normal": {
+            "bytes": 416126,
+            "sha256": "db56284bbad5900dc633146ced1f7ae8e9993f19783774cda094c9c83b07c073"
+          },
+          "roughness": {
+            "bytes": 47640,
+            "sha256": "2d68a02cfa9b7380d69d5a24ccb57194b1b5f3e269287b7528183a0597df5958"
+          },
+          "thumbnail": {
+            "bytes": 2878,
+            "sha256": "c0790e012a79dacce03bd86ea4ad40d0f1d13453febf9ac006872d11341071e6"
+          }
+        }
+      }
+    },
+    {
+      "order": 3,
+      "id": "tile_warm_travertine_01",
+      "name_zh": "暖米色洞石感瓷砖",
+      "name_en": "Warm travertine tile",
+      "material_group": "warm_travertine",
+      "source_file": "output/imagegen/tile_warm_travertine_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "honed_stone",
+      "roughness_mean": 0.62,
+      "normal_scale": 0.18,
+      "tint": "#b69e7a",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_warm_travertine_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_warm_travertine_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_warm_travertine_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_warm_travertine_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_warm_travertine_01_basecolor_web.jpg",
+        "normal": "tile_warm_travertine_01_normal_gl_web.webp",
+        "roughness": "tile_warm_travertine_01_roughness_web.webp",
+        "thumbnail": "tile_warm_travertine_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3262150,
+            "sha256": "73cb95b300b87b1cf6315f7920d992924a24116dc4d968e7f86f367bb64b1180"
+          },
+          "normal": {
+            "bytes": 33318785,
+            "sha256": "0b358e9841cb7c3d4dfc13318089b38b8f4453ad39d2e77b55d43389b196de6a"
+          },
+          "roughness": {
+            "bytes": 6789839,
+            "sha256": "5ea505f86e628b553f62da256898bd4be047df25f1ae2da272abb0708f11f5e5"
+          },
+          "height": {
+            "bytes": 16118901,
+            "sha256": "6058f4d91704059b0be490a8d35c432038676969a85a3be8837bb43b13b3fb52"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 271921,
+            "sha256": "8120f60f0b5dcee42b8803a31d86fef132959052c7353f0df6757a680a35b7a2"
+          },
+          "normal": {
+            "bytes": 387730,
+            "sha256": "630fd16072811aae7d9f7315ffd44fa45daa98fce3bd213a87bd9086e4bc42a0"
+          },
+          "roughness": {
+            "bytes": 35570,
+            "sha256": "07f2e403ead6d2f7f9f2a8a80c1f75229247c3e288c2eca8059042df22a3c6fa"
+          },
+          "thumbnail": {
+            "bytes": 11320,
+            "sha256": "63a9583fa632decf343367ac2b520c671bfc2eff226db120656d486d017082e8"
+          }
+        }
+      }
+    },
+    {
+      "order": 4,
+      "id": "tile_dark_slate_01",
+      "name_zh": "深灰板岩感瓷砖",
+      "name_en": "Dark grey slate tile",
+      "material_group": "dark_slate",
+      "source_file": "output/imagegen/tile_dark_slate_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "cleft_stone",
+      "roughness_mean": 0.78,
+      "normal_scale": 0.24,
+      "tint": "#565655",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_dark_slate_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_dark_slate_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_dark_slate_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_dark_slate_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_dark_slate_01_basecolor_web.jpg",
+        "normal": "tile_dark_slate_01_normal_gl_web.webp",
+        "roughness": "tile_dark_slate_01_roughness_web.webp",
+        "thumbnail": "tile_dark_slate_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2886447,
+            "sha256": "ce07a4ca52a8e6a84cd9b2358234532f2a59f047d81f6c89c5f92be2c5b1d41b"
+          },
+          "normal": {
+            "bytes": 41296161,
+            "sha256": "e6b87b2455051bd9859d201a33734dfa53303aa78404eab2398b9ef547e706e8"
+          },
+          "roughness": {
+            "bytes": 7156300,
+            "sha256": "6535d50fa810500117bfafad967574d1dfe294d0a1f36f6723a2f21a75a67caa"
+          },
+          "height": {
+            "bytes": 16336286,
+            "sha256": "2f1236f9041ecd2589dd0d47b12f107e86b4635d42c5099fd14e7cbcc7f34c9f"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 196067,
+            "sha256": "930f8b6328ae32d35140761b7da5a11357f54b45935183f40dd588e85526a490"
+          },
+          "normal": {
+            "bytes": 523850,
+            "sha256": "d0a9d4f70423cd758fb796481a77eef79e62a5355594b979018fc3cbe04ed5a6"
+          },
+          "roughness": {
+            "bytes": 58972,
+            "sha256": "7f7be37efa92e71d6405ba672f95fd58e1ea9309d142cc108a4a176588844e53"
+          },
+          "thumbnail": {
+            "bytes": 6376,
+            "sha256": "10dc421f545186ee1507819b2de57d23c5492354a3959c86c97a250607fcc861"
+          }
+        }
+      }
+    },
+    {
+      "order": 5,
+      "id": "tile_light_microcement_01",
+      "name_zh": "浅灰微水泥感瓷砖",
+      "name_en": "Light microcement tile",
+      "material_group": "microcement",
+      "source_type": "procedural_original",
+      "synthetic_profile": "microcement",
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "microcement",
+      "roughness_mean": 0.78,
+      "normal_scale": 0.14,
+      "tint": "#a5a7a2",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_light_microcement_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_light_microcement_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_light_microcement_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_light_microcement_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_light_microcement_01_basecolor_web.jpg",
+        "normal": "tile_light_microcement_01_normal_gl_web.webp",
+        "roughness": "tile_light_microcement_01_roughness_web.webp",
+        "thumbnail": "tile_light_microcement_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 471501,
+            "sha256": "cdba3d0d35aeca41a543c3965225cf81746377ece2dac9a4c3f4c5818792893e"
+          },
+          "normal": {
+            "bytes": 38185936,
+            "sha256": "9233fb1ae403cc8177c1d00794f89d8fa51b17607bc431307d1cb5c89adc88aa"
+          },
+          "roughness": {
+            "bytes": 7205188,
+            "sha256": "e8ef19a0a58c38198f2361afbd369e038ad26fcc60931d000882757ab6dfb56b"
+          },
+          "height": {
+            "bytes": 18244320,
+            "sha256": "212ce16e2a0328f4dc70cc978be9628e008504c34c17f9e4cbe674385a3246e5"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 30919,
+            "sha256": "4db9b5e6b479b4ced950209d742661de651a117389e0b2e06848cdc775a6b5a6"
+          },
+          "normal": {
+            "bytes": 467130,
+            "sha256": "ff59137b84730fbf9f57b4218c1ca4b61f9675acaabc31aeb19a0b3725005d6a"
+          },
+          "roughness": {
+            "bytes": 64764,
+            "sha256": "cce583c57ab692b0c978331f1ae580b03264c76e5f32b15a2f5e2e40b76b55bb"
+          },
+          "thumbnail": {
+            "bytes": 1114,
+            "sha256": "05248cf7a4edb06cd414f09d4d41ea2f08f82794896e1a323806717c9bdd5e35"
+          }
+        }
+      }
+    },
+    {
+      "order": 6,
+      "id": "tile_terrazzo_warm_01",
+      "name_zh": "暖灰细颗粒水磨石砖",
+      "name_en": "Warm fine-chip terrazzo tile",
+      "material_group": "terrazzo",
+      "source_file": "output/imagegen/tile_terrazzo_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "terrazzo",
+      "roughness_mean": 0.7,
+      "normal_scale": 0.18,
+      "tint": "#b7aea0",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_terrazzo_warm_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_terrazzo_warm_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_terrazzo_warm_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_terrazzo_warm_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_terrazzo_warm_01_basecolor_web.jpg",
+        "normal": "tile_terrazzo_warm_01_normal_gl_web.webp",
+        "roughness": "tile_terrazzo_warm_01_roughness_web.webp",
+        "thumbnail": "tile_terrazzo_warm_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3827412,
+            "sha256": "ec442b81c786dd7c0805f5d3ae8ee59ff761f2922c65daa33bd004bcaf88e30e"
+          },
+          "normal": {
+            "bytes": 30799057,
+            "sha256": "7e232859f562daa629d01bada9dc5a4e11a9dfa741d4b6599f500735c1f8bb94"
+          },
+          "roughness": {
+            "bytes": 6558299,
+            "sha256": "959e77ce33e7fa19cce20eee950ec89b12343f9b195a2794b4ee7454cf522f9c"
+          },
+          "height": {
+            "bytes": 13148204,
+            "sha256": "b1e5cfa2a0c6896502bb9ff661020a08ddc32969b31dc3bf44e5c0435cc74c37"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 344383,
+            "sha256": "cab2be78ba40fdb55668c92c64b7447eef0bb5b365be2ed2e95df275f2194772"
+          },
+          "normal": {
+            "bytes": 344458,
+            "sha256": "7574a000006612c760b5030866c1553bc9b8a5c32dc04e7b21662dab3659866f"
+          },
+          "roughness": {
+            "bytes": 18038,
+            "sha256": "135ae9fc11c7480174fe462ab52a57adb8cd66aec23c58284fedb863c88423a2"
+          },
+          "thumbnail": {
+            "bytes": 25674,
+            "sha256": "2d65ee01dcbef3e28298468ae36e5a399faa23805b99b62d7045f28092ca5b3c"
+          }
+        }
+      }
+    },
+    {
+      "order": 7,
+      "id": "tile_woodlook_oak_01",
+      "name_zh": "暖橡木纹砖",
+      "name_en": "Warm oak wood-look tile",
+      "material_group": "woodlook",
+      "source_file": "output/imagegen/tile_woodlook_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        200,
+        1200
+      ],
+      "repeat_size_m": [
+        1.6,
+        1.2
+      ],
+      "supported_layouts": [
+        "running_bond",
+        "herringbone"
+      ],
+      "surface_profile": "satin_ceramic",
+      "roughness_mean": 0.68,
+      "normal_scale": 0.14,
+      "tint": "#b48755",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_woodlook_oak_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_woodlook_oak_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_woodlook_oak_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_woodlook_oak_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_woodlook_oak_01_basecolor_web.jpg",
+        "normal": "tile_woodlook_oak_01_normal_gl_web.webp",
+        "roughness": "tile_woodlook_oak_01_roughness_web.webp",
+        "thumbnail": "tile_woodlook_oak_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2641207,
+            "sha256": "7c551c3be92dc65fad3cd3c02edefde40a3e91f9a3ed83a8df7515ca11f46f53"
+          },
+          "normal": {
+            "bytes": 32016801,
+            "sha256": "dfbd1803490e20d376e1cf29c2c3bf38f78465595e5f151a0dda2683a94fc65c"
+          },
+          "roughness": {
+            "bytes": 6620374,
+            "sha256": "5773338c8513958a15adf387c4fa1fcdc7bf160f8a6b9f4acbdb8050d43ccd5a"
+          },
+          "height": {
+            "bytes": 16426090,
+            "sha256": "ce9de98de0608beb1b1cdc142b5a4455150aa5b4ff53a201cb9e816f25bda1c3"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 194215,
+            "sha256": "c0ef17619c2dc6d6c53110fea9e8aac83e5b075f5ef4258b015ad1d2366bed62"
+          },
+          "normal": {
+            "bytes": 362820,
+            "sha256": "e21ed78f682a298b13f808581186e764e6e9e0cb8e258b941befe1b02a2fc689"
+          },
+          "roughness": {
+            "bytes": 23574,
+            "sha256": "06ceeefd8fd953f2621b210552fe8f6cfea63e413bbb96d0644a9fe0da119c90"
+          },
+          "thumbnail": {
+            "bytes": 6580,
+            "sha256": "544924281a2ea639a1ce8db50e8a408d5383629827efd281a5c780dc5b08191f"
+          }
+        }
+      }
+    },
+    {
+      "order": 8,
+      "id": "tile_decorative_arc_01",
+      "name_zh": "弧环几何装饰花砖",
+      "name_en": "Interlocking arc decorative tile",
+      "material_group": "decorative_pattern",
+      "source_file": "output/imagegen/tile_decorative_pattern_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        200,
+        200
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "matte_printed_ceramic",
+      "roughness_mean": 0.74,
+      "normal_scale": 0.12,
+      "tint": "#d5c7b5",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_decorative_arc_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_decorative_arc_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_decorative_arc_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_decorative_arc_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_decorative_arc_01_basecolor_web.jpg",
+        "normal": "tile_decorative_arc_01_normal_gl_web.webp",
+        "roughness": "tile_decorative_arc_01_roughness_web.webp",
+        "thumbnail": "tile_decorative_arc_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2821032,
+            "sha256": "e28a01e37f0370d281cd623c43068c3e76e6ad3fee32a4e22d14fa292080fb10"
+          },
+          "normal": {
+            "bytes": 28787644,
+            "sha256": "768f0cd4c2251c09db2ba914eb009dcbec9cc4cb7d85a6a1977daccf99cc3d98"
+          },
+          "roughness": {
+            "bytes": 6586261,
+            "sha256": "200f456448f93d359c5cd86722c2321f0420abe4c4689984a8eff133d3aa24b1"
+          },
+          "height": {
+            "bytes": 15408770,
+            "sha256": "9614101786ffa892db8f6020c5d0679ecd909b5af9f7283f393b04963c902f47"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 234691,
+            "sha256": "a67028c3f6d65752d9abd863120ae8a9eeddf23241673936ae320a8849c3fa8e"
+          },
+          "normal": {
+            "bytes": 282774,
+            "sha256": "ca782d38abfb3e25254c533161fbccec9f52fa3aad9c9fdb926b41bb8712ea73"
+          },
+          "roughness": {
+            "bytes": 13532,
+            "sha256": "cc665faefbd0baa4e22171c876cec8e607d6b75bd939d175fc7aa0587300f9a7"
+          },
+          "thumbnail": {
+            "bytes": 15028,
+            "sha256": "f3941fab3b2d2014c932bc826b6df51399a0d13cb70a944369e0f0d90c993ba8"
+          }
+        }
+      }
+    },
+    {
+      "order": 9,
+      "id": "tile_terracotta_cotto_01",
+      "name_zh": "手工赤陶砖",
+      "name_en": "Handmade terracotta cotto tile",
+      "material_group": "terracotta_cotto",
+      "source_file": "output/imagegen/tile_terracotta_cotto_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        300,
+        300
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "porous_terracotta",
+      "roughness_mean": 0.78,
+      "normal_scale": 0.22,
+      "tint": "#a8613f",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_terracotta_cotto_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_terracotta_cotto_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_terracotta_cotto_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_terracotta_cotto_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_terracotta_cotto_01_basecolor_web.jpg",
+        "normal": "tile_terracotta_cotto_01_normal_gl_web.webp",
+        "roughness": "tile_terracotta_cotto_01_roughness_web.webp",
+        "thumbnail": "tile_terracotta_cotto_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3876700,
+            "sha256": "7aedad6c536b37fe8fa09148b6911ffd9cbddeae03be9802ea1d1b2503b5d39c"
+          },
+          "normal": {
+            "bytes": 37832436,
+            "sha256": "c55e0a1696f426f93a9505a8ff974deb0a8163ec08d94b9a0e006f670bd39d1e"
+          },
+          "roughness": {
+            "bytes": 7094592,
+            "sha256": "75d7d826cae18bf095cd0a4ed10e38978d98d4faa4c2e8d5122fe05f08adc8bc"
+          },
+          "height": {
+            "bytes": 14680225,
+            "sha256": "0c15c49d612ebcc26d69d8a7b5760678eaed49f96d3cac6b0fde0a873d434c80"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 335294,
+            "sha256": "13e5bbd381980c45a28cdd8909edc8033195b8d2697922f45b9904bda62d25ae"
+          },
+          "normal": {
+            "bytes": 447550,
+            "sha256": "9c2be1efc5c360284f4cde56df330229029d629d244bbaf1c371ad94bd03ef65"
+          },
+          "roughness": {
+            "bytes": 55722,
+            "sha256": "7c230a62aa6f9d9ebed4d2d38ec13c3aba87b75e8c605ddc139706d829575421"
+          },
+          "thumbnail": {
+            "bytes": 13122,
+            "sha256": "3c632c687e3f6000162e79dead2d352bd0bd1294b75b29468b5da8102d7e4209"
+          }
+        }
+      }
+    },
+    {
+      "order": 10,
+      "id": "tile_jade_handglazed_01",
+      "name_zh": "翠玉手工釉砖",
+      "name_en": "Jade handmade glazed tile",
+      "material_group": "jade_handglazed",
+      "source_file": "output/imagegen/tile_jade_handglazed_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        100,
+        200
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "hand_glazed_ceramic",
+      "roughness_mean": 0.48,
+      "normal_scale": 0.13,
+      "tint": "#557a67",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_jade_handglazed_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_jade_handglazed_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_jade_handglazed_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_jade_handglazed_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_jade_handglazed_01_basecolor_web.jpg",
+        "normal": "tile_jade_handglazed_01_normal_gl_web.webp",
+        "roughness": "tile_jade_handglazed_01_roughness_web.webp",
+        "thumbnail": "tile_jade_handglazed_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2431739,
+            "sha256": "9c58d96c5a5879a4248bf85fd70d4272a07b90b550737c4f344df44395d7407c"
+          },
+          "normal": {
+            "bytes": 29121296,
+            "sha256": "c91e034f02076ddee70923e420fad46091c771dd7b4f721ec9ca309888e9ed82"
+          },
+          "roughness": {
+            "bytes": 6593864,
+            "sha256": "f83c79871fc3f0f83e1261eadf7eab2121765deb423f3141ce4b67e11cc59dc6"
+          },
+          "height": {
+            "bytes": 13263962,
+            "sha256": "fb8f2e664e40dd2ee92cb8b1c6c886fc468276467524cc84abb16fba74711715"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 179641,
+            "sha256": "bc837216998ccb4f3c7355632055b49bf39ee54f2f05b3c4ab7d9129b0624961"
+          },
+          "normal": {
+            "bytes": 289958,
+            "sha256": "6965fb9c984bdf36f9a4b43783c8ef4adf83298fd38ea93cde4930585a413a06"
+          },
+          "roughness": {
+            "bytes": 25544,
+            "sha256": "cca24281357d1a9aad7e52790f6a86f102c3713e5a10bb4f2a2abc728d509540"
+          },
+          "thumbnail": {
+            "bytes": 7980,
+            "sha256": "1d523f811cabe531101dbfbd542e6f8a1aa3d12dda38b08c241a94a2efa9a01a"
+          }
+        }
+      }
+    },
+    {
+      "order": 11,
+      "id": "tile_blue_white_brush_01",
+      "name_zh": "青花笔触陶砖",
+      "name_en": "Blue-and-white brush ceramic tile",
+      "material_group": "blue_white_brush",
+      "source_file": "output/imagegen/tile_blue_white_brush_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        200,
+        200
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "matte_printed_ceramic",
+      "roughness_mean": 0.58,
+      "normal_scale": 0.1,
+      "tint": "#d8d8cf",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_blue_white_brush_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_blue_white_brush_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_blue_white_brush_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_blue_white_brush_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_blue_white_brush_01_basecolor_web.jpg",
+        "normal": "tile_blue_white_brush_01_normal_gl_web.webp",
+        "roughness": "tile_blue_white_brush_01_roughness_web.webp",
+        "thumbnail": "tile_blue_white_brush_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3266754,
+            "sha256": "2b2544f433476799d76ab904a8d021872a2602990210d6e5be367219d952014c"
+          },
+          "normal": {
+            "bytes": 27295062,
+            "sha256": "ffc5a086cc20bacc37333a5985505fcfb2e7fd971ad669850b3fc57c08a9d542"
+          },
+          "roughness": {
+            "bytes": 6541546,
+            "sha256": "83a0a4ba3516c6ca67828e9c04f9e537c01eda34b687d277512a181d196dd5b6"
+          },
+          "height": {
+            "bytes": 14618080,
+            "sha256": "c60f175866f2e9336567d5320d93cd34655e8b99a9da2de076079ed9458d22d8"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 283339,
+            "sha256": "a9577a0aa2f99c4ae14851101602d659d0c571d6e7bd8f5aad43d89f6e6c16b2"
+          },
+          "normal": {
+            "bytes": 286660,
+            "sha256": "af83206a95b4bafd9c25a8301f3ea96a9ae76bc6448f16d0cebf6991e00d054b"
+          },
+          "roughness": {
+            "bytes": 24570,
+            "sha256": "b1de60320e3d7ea5c30c6d91e22b6b427f2200cc918f6bfb70a6a5a0ceb4f2b5"
+          },
+          "thumbnail": {
+            "bytes": 15496,
+            "sha256": "636a7b92e2ad47b1454be81406b2f9b439a21c327fb860d4d623a9e9465355c5"
+          }
+        }
+      }
+    },
+    {
+      "order": 12,
+      "id": "tile_oxblood_small_format_01",
+      "name_zh": "酒红小规格釉砖",
+      "name_en": "Oxblood small-format glazed tile",
+      "material_group": "oxblood_glazed",
+      "source_file": "output/imagegen/tile_oxblood_small_format_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        75,
+        150
+      ],
+      "repeat_size_m": [
+        0.6,
+        0.6
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "hand_glazed_ceramic",
+      "roughness_mean": 0.5,
+      "normal_scale": 0.12,
+      "tint": "#6e272b",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_oxblood_small_format_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_oxblood_small_format_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_oxblood_small_format_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_oxblood_small_format_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_oxblood_small_format_01_basecolor_web.jpg",
+        "normal": "tile_oxblood_small_format_01_normal_gl_web.webp",
+        "roughness": "tile_oxblood_small_format_01_roughness_web.webp",
+        "thumbnail": "tile_oxblood_small_format_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2589160,
+            "sha256": "645278da2706020b988f5c9e460e21f529d37d02f55199e316561426249b5d86"
+          },
+          "normal": {
+            "bytes": 29135844,
+            "sha256": "ae3c9f3b5be504dc8be8b2278746ce4d202bad6640a56e880f9627284f003d0e"
+          },
+          "roughness": {
+            "bytes": 6627914,
+            "sha256": "432f35866945a1ed95e9c3e3215b2e0d327d541337113899faf30d3bd0ed91a3"
+          },
+          "height": {
+            "bytes": 13437554,
+            "sha256": "5fb2353543d22b5d8161996e0eb020ea8e5e8055823ed4116c93cae1ac3127e6"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 166533,
+            "sha256": "246d2bd845b3c4746ff9308948f6403d1d8eb048075ebdeed93c95712ed2ba65"
+          },
+          "normal": {
+            "bytes": 331314,
+            "sha256": "2e69094ab95a9716004d7215293d943d66ca72ef36d725bcb13fe336db0d207c"
+          },
+          "roughness": {
+            "bytes": 24810,
+            "sha256": "2a1114111839bbe3ad5c733a9e781541d7df9205a342ab5a8d86217a6b017513"
+          },
+          "thumbnail": {
+            "bytes": 4360,
+            "sha256": "790fbc532befb0c009683dc203def75c7640c8583f74df951bf5b9cb433053cb"
+          }
+        }
+      }
+    },
+    {
+      "order": 13,
+      "id": "tile_checker_black_ivory_01",
+      "name_zh": "黑象牙棋盘砖",
+      "name_en": "Black and ivory checker tile",
+      "material_group": "checker_black_ivory",
+      "source_file": "output/imagegen/tile_checker_black_ivory_generated_v1.png",
+      "source_type": "procedural_original_from_imagegen_brief",
+      "synthetic_profile": "checker_black_ivory",
+      "already_seamless": true,
+      "checker_colors": [
+        "#292a29",
+        "#ddd3bf"
+      ],
+      "grout_color": "#777168",
+      "module_size_mm": [
+        300,
+        300
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "diagonal"
+      ],
+      "surface_profile": "printed_honed_ceramic",
+      "roughness_mean": 0.54,
+      "normal_scale": 0.1,
+      "tint": "#8c887f",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_checker_black_ivory_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_checker_black_ivory_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_checker_black_ivory_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_checker_black_ivory_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_checker_black_ivory_01_basecolor_web.jpg",
+        "normal": "tile_checker_black_ivory_01_normal_gl_web.webp",
+        "roughness": "tile_checker_black_ivory_01_roughness_web.webp",
+        "thumbnail": "tile_checker_black_ivory_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 752186,
+            "sha256": "35828f77f3329039bc7c512e5e5053e9f3f7298ab83dce0585b4b67d9cbda551"
+          },
+          "normal": {
+            "bytes": 30411110,
+            "sha256": "d589358e33d26fa2e3b43920047d53168915f9aab5a2e9f2487a7c245cc44d16"
+          },
+          "roughness": {
+            "bytes": 6646760,
+            "sha256": "423f8d3fe81be01c581757989e9188e5c18800b9d96dee023ab9ab05b5b334b0"
+          },
+          "height": {
+            "bytes": 17519947,
+            "sha256": "582491e72978dbe6c87749ee4c6607602203f08c8a0e8c441f523a66b5df347c"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 91111,
+            "sha256": "4bb2b5cc5f023718eb699f0660179c7fc4fb2db4bac2977ec2de263cc42bd272"
+          },
+          "normal": {
+            "bytes": 336432,
+            "sha256": "8f418758dba6ae720b8546f2945f2fa3622c986659bee336d5c543a2b552faab"
+          },
+          "roughness": {
+            "bytes": 21618,
+            "sha256": "af140f059da1e060565ac59f3c24fe961e7efbccc2123ecc902abb0eeac92a92"
+          },
+          "thumbnail": {
+            "bytes": 3934,
+            "sha256": "36b97d158cfaf0e4dafc5a76362b82705487e4b17766be3900fcf9b45ded48fe"
+          }
+        }
+      }
+    },
+    {
+      "order": 14,
+      "id": "tile_green_breccia_01",
+      "name_zh": "深绿碎裂石纹大板",
+      "name_en": "Deep green breccia slab tile",
+      "material_group": "green_breccia",
+      "source_file": "output/imagegen/tile_green_breccia_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "honed_stone",
+      "roughness_mean": 0.56,
+      "normal_scale": 0.12,
+      "tint": "#355044",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_green_breccia_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_green_breccia_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_green_breccia_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_green_breccia_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_green_breccia_01_basecolor_web.jpg",
+        "normal": "tile_green_breccia_01_normal_gl_web.webp",
+        "roughness": "tile_green_breccia_01_roughness_web.webp",
+        "thumbnail": "tile_green_breccia_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 4389239,
+            "sha256": "c1d5b2cd3263da7b5866558096dd3a64ebc5ee30f39cf155fc877988b2c3d575"
+          },
+          "normal": {
+            "bytes": 31673498,
+            "sha256": "edbfc5e7ed6e25a93165ba69306e4dee3ac5dbc7f85cc26f8ae9ad4237ff1158"
+          },
+          "roughness": {
+            "bytes": 6638156,
+            "sha256": "4ea998b320e2243e94165f1dc613202287f6c55febeb85a3ad14f88e5acc51da"
+          },
+          "height": {
+            "bytes": 14625653,
+            "sha256": "6b4688f091855d61e20c9d416c2a4e502c0ffaf5f6130a78f11a877b51384878"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 442835,
+            "sha256": "fab5fac7c1e766258640acd0a175d371f6d3d9593907e70466bd6eedebeedfe1"
+          },
+          "normal": {
+            "bytes": 349632,
+            "sha256": "2e901afd70acb499a440d2b63905058e3b5725780a37a3e9afa3d5a8ac9ca377"
+          },
+          "roughness": {
+            "bytes": 29054,
+            "sha256": "9bb0b2010dcae95e4c60dcd0b857b448c0b1072894ac8ee310debdbb62009679"
+          },
+          "thumbnail": {
+            "bytes": 34582,
+            "sha256": "24c659f535f886028d1fd373bb86fec4d6d038c222214e06fc2d228c3ce9b0bd"
+          }
+        }
+      }
+    },
+    {
+      "order": 15,
+      "id": "tile_ivory_fluted_relief_01",
+      "name_zh": "象牙竖向浮雕墙砖",
+      "name_en": "Ivory fluted relief wall tile",
+      "material_group": "ivory_fluted_relief",
+      "source_file": "output/imagegen/tile_ivory_fluted_relief_generated_v1.png",
+      "source_type": "procedural_original_from_imagegen_brief",
+      "synthetic_profile": "ivory_fluted_relief",
+      "already_seamless": true,
+      "flute_count": 16,
+      "grout_color": "#b8afa0",
+      "module_size_mm": [
+        100,
+        300
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "relief_ceramic",
+      "roughness_mean": 0.58,
+      "normal_scale": 0.34,
+      "tint": "#e8dfcf",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_ivory_fluted_relief_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_ivory_fluted_relief_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_ivory_fluted_relief_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_ivory_fluted_relief_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_ivory_fluted_relief_01_basecolor_web.jpg",
+        "normal": "tile_ivory_fluted_relief_01_normal_gl_web.webp",
+        "roughness": "tile_ivory_fluted_relief_01_roughness_web.webp",
+        "thumbnail": "tile_ivory_fluted_relief_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 392577,
+            "sha256": "066a1329d3ca22ba7878371e95e942474292886cfb01bd06771a0b96a5a97b27"
+          },
+          "normal": {
+            "bytes": 12633757,
+            "sha256": "9703ee4cfc37ad21ccfdabc7a11d4c93deec332eabe05410009b1c42bae1dda7"
+          },
+          "roughness": {
+            "bytes": 6810264,
+            "sha256": "52aed09041cb073ed10f340d64143ef4d734fc494678c88ca3ca71f0cd00c552"
+          },
+          "height": {
+            "bytes": 4040565,
+            "sha256": "f8315f10812b10be4eaa082a3b8678b2a66a369d278b890317f36417410faad3"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 25058,
+            "sha256": "647c34ae021157ec39c49d6ad995b678b00aff8235bc08846e8fb0ac43e37966"
+          },
+          "normal": {
+            "bytes": 57340,
+            "sha256": "a9c163121d7761b8b1605586915db4bad474f768fb414aad3725083f7403f480"
+          },
+          "roughness": {
+            "bytes": 4248,
+            "sha256": "f0913fa23b4dc1671fb3c173ce355120e7e403734bcb32648130c66b00aa1563"
+          },
+          "thumbnail": {
+            "bytes": 722,
+            "sha256": "c0257c094c410b9473b35944bc09341d09113a4b10908254b30c906d9d34583a"
+          }
+        }
+      }
+    },
+    {
+      "order": 16,
+      "id": "tile_warm_white_zellige_01",
+      "name_zh": "暖白手工釉面小砖",
+      "name_en": "Warm white handmade glazed tile",
+      "material_group": "warm_white_zellige",
+      "source_file": "output/imagegen/tile_warm_white_zellige_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        100,
+        100
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "hand_glazed_ceramic",
+      "roughness_mean": 0.46,
+      "normal_scale": 0.15,
+      "tint": "#e7dfd0",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_warm_white_zellige_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_warm_white_zellige_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_warm_white_zellige_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_warm_white_zellige_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_warm_white_zellige_01_basecolor_web.jpg",
+        "normal": "tile_warm_white_zellige_01_normal_gl_web.webp",
+        "roughness": "tile_warm_white_zellige_01_roughness_web.webp",
+        "thumbnail": "tile_warm_white_zellige_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 1799416,
+            "sha256": "7500a5bcb52ebd76f168d69f05b63e8c3470d96764e01d4a8d5a6b1f2d45318a"
+          },
+          "normal": {
+            "bytes": 26936619,
+            "sha256": "29d18de1bda746927bed99ad8e3e5525ece4976d99ffb40f8d7f27a2188e3864"
+          },
+          "roughness": {
+            "bytes": 6549705,
+            "sha256": "b094756d30b01374079d15cce07630e6027afbfd776840cb40f044df573333c7"
+          },
+          "height": {
+            "bytes": 12532232,
+            "sha256": "aca877d548f5a311c41571f883cb15bab7f770ec2377f6ffa23a2482b7476ea0"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 125694,
+            "sha256": "e2a1faf0a4b6aad5a43e22eb6d579e81f5b48e084d4b809db6dc484f07f6c62a"
+          },
+          "normal": {
+            "bytes": 288402,
+            "sha256": "58999b2a89c41e15ccf5e70298956a448f8254e8ebac9af7cbbacbafdbb9a803"
+          },
+          "roughness": {
+            "bytes": 18924,
+            "sha256": "86d519b51ac7a1c6cc08c5a0cd63a53922f387ce5c32501dcec5a7c88da73a80"
+          },
+          "thumbnail": {
+            "bytes": 6288,
+            "sha256": "b68529684d4b67a7b127a347ca39142c969ba7e736cd825e7e164c2ed6d3b2c2"
+          }
+        }
+      }
+    },
+    {
+      "order": 17,
+      "id": "tile_largechip_terrazzo_01",
+      "name_zh": "大颗粒彩色水磨石砖",
+      "name_en": "Large-chip coloured terrazzo tile",
+      "material_group": "largechip_terrazzo",
+      "source_file": "output/imagegen/tile_largechip_terrazzo_generated_v1.png",
+      "source_type": "imagegen_original",
+      "seam_edge_blend_px": 20,
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "terrazzo",
+      "roughness_mean": 0.66,
+      "normal_scale": 0.16,
+      "tint": "#cbbfac",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_largechip_terrazzo_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_largechip_terrazzo_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_largechip_terrazzo_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_largechip_terrazzo_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_largechip_terrazzo_01_basecolor_web.jpg",
+        "normal": "tile_largechip_terrazzo_01_normal_gl_web.webp",
+        "roughness": "tile_largechip_terrazzo_01_roughness_web.webp",
+        "thumbnail": "tile_largechip_terrazzo_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3851672,
+            "sha256": "79e3e71c6c46acf4639b223a2419ec4131f68757033c323228899d75d45d42d2"
+          },
+          "normal": {
+            "bytes": 30857377,
+            "sha256": "3c7e4bce747e6c2bcb96e3673e57d744138f763fc38e790f9330335259871d23"
+          },
+          "roughness": {
+            "bytes": 6614682,
+            "sha256": "5ab5e8d68a2188bbc4b3201ff3b3773956ef3c6655f19e8ab54fb2509199a310"
+          },
+          "height": {
+            "bytes": 12952746,
+            "sha256": "26e248c1544518cd27e3984d16c203a8b795b8fe2551c8a071ce7bd74a73bf98"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 357145,
+            "sha256": "d332a2a90cfb632a2bf4fc911dbf2607a9fe6d6bd52e5888bc0ea15d9a0e62d3"
+          },
+          "normal": {
+            "bytes": 273004,
+            "sha256": "8d4f9806a5e4a001ec172da60232e2af21b0bcca6a990efe92e1e94f7f655f78"
+          },
+          "roughness": {
+            "bytes": 9876,
+            "sha256": "798b0ae7e490b19a1caac79cd166a61ec9a35129b887507031739b69c9fc319a"
+          },
+          "thumbnail": {
+            "bytes": 22406,
+            "sha256": "e87975214e56931320e46699da874fd64c0b0d0bc9f4a72f51f249f33124a83d"
+          }
+        }
+      }
+    },
+    {
+      "order": 18,
+      "id": "tile_deep_blue_cloudstone_01",
+      "name_zh": "深蓝云纹石材大板",
+      "name_en": "Deep blue cloud-stone slab tile",
+      "material_group": "deep_blue_cloudstone",
+      "source_file": "output/imagegen/tile_deep_blue_cloudstone_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "honed_stone",
+      "roughness_mean": 0.57,
+      "normal_scale": 0.12,
+      "tint": "#263b52",
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_deep_blue_cloudstone_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_deep_blue_cloudstone_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_deep_blue_cloudstone_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_deep_blue_cloudstone_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_deep_blue_cloudstone_01_basecolor_web.jpg",
+        "normal": "tile_deep_blue_cloudstone_01_normal_gl_web.webp",
+        "roughness": "tile_deep_blue_cloudstone_01_roughness_web.webp",
+        "thumbnail": "tile_deep_blue_cloudstone_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3889608,
+            "sha256": "205b4eebb66e39bab60727adede768f8f1e76ad99f752699f9b6aeba01aa0fd8"
+          },
+          "normal": {
+            "bytes": 32704346,
+            "sha256": "c09f1890ef137fcd3302ec384d2568abcf5f7732e4292c1597218621c704723b"
+          },
+          "roughness": {
+            "bytes": 6725016,
+            "sha256": "5d547646f946edadf9bdb7ebc629fad3634bc072950237c84c0e664dc2fc0fed"
+          },
+          "height": {
+            "bytes": 15547009,
+            "sha256": "177d2eddfcf523f2a79d175d1c555884f2f0a3217f2515eadd715b5125719a4b"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 337180,
+            "sha256": "c1a8dac1dc4cda3552741eb1777de08b6c6269760ba2f2d1e9ae2ccb03b8f6c2"
+          },
+          "normal": {
+            "bytes": 378608,
+            "sha256": "62c0d74745629bef0bba6f40dcef8c1deeb7dc23950b495f6db0a2cd0888f0fa"
+          },
+          "roughness": {
+            "bytes": 26758,
+            "sha256": "55bfdb39fc68c01826d9c04d077c2001cc7c256ed7aba27753b5d0751b976dbe"
+          },
+          "thumbnail": {
+            "bytes": 19076,
+            "sha256": "bce07cd579d2cfca64324c7d38ce0bc5d9470f7a2224c67f85699eb0e8cce7a2"
+          }
+        }
+      }
+    },
+    {
+      "order": 19,
+      "id": "tile_cool_finger_mosaic_01",
+      "name_zh": "冷灰蓝细长马赛克",
+      "name_en": "Cool grey-blue finger mosaic tile",
+      "material_group": "cool_finger_mosaic",
+      "source_type": "procedural_original",
+      "synthetic_profile": "cool_finger_mosaic",
+      "already_seamless": true,
+      "grout_color": "#8F9596",
+      "module_size_mm": [
+        25,
+        100
+      ],
+      "repeat_size_m": [
+        0.6,
+        0.6
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "fine_glazed_mosaic",
+      "roughness_mean": 0.54,
+      "normal_scale": 0.12,
+      "tint": "#607884",
+      "design_roles": [
+        "support",
+        "anchor"
+      ],
+      "relationship_tags": [
+        "cool_refined",
+        "small_module",
+        "linear_rhythm",
+        "wet_area_capable"
+      ],
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_cool_finger_mosaic_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_cool_finger_mosaic_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_cool_finger_mosaic_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_cool_finger_mosaic_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_cool_finger_mosaic_01_basecolor_web.jpg",
+        "normal": "tile_cool_finger_mosaic_01_normal_gl_web.webp",
+        "roughness": "tile_cool_finger_mosaic_01_roughness_web.webp",
+        "thumbnail": "tile_cool_finger_mosaic_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 835324,
+            "sha256": "a0369f12c0e52e8d33ee6a876522577224f02a73535a2b4e0337bc99bcbcd827"
+          },
+          "normal": {
+            "bytes": 9669965,
+            "sha256": "2aa849d061063d417991974d572e83a08b119c7ff03e097e20a41cab5ea33758"
+          },
+          "roughness": {
+            "bytes": 6508327,
+            "sha256": "5a09119572361cabd1fd1925b77cad7754a45f63f31dad6fb62bdf087354643f"
+          },
+          "height": {
+            "bytes": 4201755,
+            "sha256": "57e5aac8ac6a5d82f7ec509de356258947b05cc9ce7a1972e10fad2220e1a7aa"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 112050,
+            "sha256": "b94edfca1d1e024a588df015040298147ee018ae7684db7da1445fcc3a983dfc"
+          },
+          "normal": {
+            "bytes": 43116,
+            "sha256": "102f576397c046898caf35ecca0abc7e2e5a14709f00cadfff1495878b3580fa"
+          },
+          "roughness": {
+            "bytes": 7118,
+            "sha256": "407ecabcb9ad862eebe0679cd752e755054e75c636e25862e5e9d0b383d1e8d4"
+          },
+          "thumbnail": {
+            "bytes": 5022,
+            "sha256": "feed3f68c03302948b4f1a86610b5dbb5e170550af7b02fa04e5932850bc2084"
+          }
+        }
+      }
+    },
+    {
+      "order": 20,
+      "id": "tile_smoke_penny_mosaic_01",
+      "name_zh": "烟灰圆点马赛克",
+      "name_en": "Smoke-grey penny mosaic tile",
+      "material_group": "smoke_penny_mosaic",
+      "source_type": "procedural_original",
+      "synthetic_profile": "smoke_penny_mosaic",
+      "already_seamless": true,
+      "grout_color": "#A6A39D",
+      "module_size_mm": [
+        50,
+        50
+      ],
+      "repeat_size_m": [
+        0.6,
+        0.6
+      ],
+      "supported_layouts": [
+        "offset_grid"
+      ],
+      "surface_profile": "fine_glazed_mosaic",
+      "roughness_mean": 0.57,
+      "normal_scale": 0.13,
+      "tint": "#5F6262",
+      "design_roles": [
+        "support",
+        "anchor"
+      ],
+      "relationship_tags": [
+        "cool_refined",
+        "small_module",
+        "circular_rhythm",
+        "wet_area_capable"
+      ],
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_smoke_penny_mosaic_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_smoke_penny_mosaic_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_smoke_penny_mosaic_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_smoke_penny_mosaic_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_smoke_penny_mosaic_01_basecolor_web.jpg",
+        "normal": "tile_smoke_penny_mosaic_01_normal_gl_web.webp",
+        "roughness": "tile_smoke_penny_mosaic_01_roughness_web.webp",
+        "thumbnail": "tile_smoke_penny_mosaic_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 822210,
+            "sha256": "e79efa32d9f88b0d7a0ebd21be432d7832601a2260d686ca7e2eafa27b57554b"
+          },
+          "normal": {
+            "bytes": 10951336,
+            "sha256": "aa7144270699613e74ba7b652a560be051977eea83e8624cddaae9a0dd75a03a"
+          },
+          "roughness": {
+            "bytes": 6419448,
+            "sha256": "02ac483993e7298b4a4f250afbf51a29e62864e01e502cec3e16d43ecf86c7e0"
+          },
+          "height": {
+            "bytes": 5117752,
+            "sha256": "e75c3f1347530f64aceb3a09a6cd52c5c96e79bc557a0a62af3e5a580979a942"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 132022,
+            "sha256": "a7f248f4066304775724236e1ab0d5326e87ce7365351259388e197398a5c8d0"
+          },
+          "normal": {
+            "bytes": 104014,
+            "sha256": "c0571814c46bdecf9012b732cb249f13b136dc4cdd9fe4e2cc2625c256978018"
+          },
+          "roughness": {
+            "bytes": 13072,
+            "sha256": "c3ecaa92848a923b831f404dcf99dd50c9887abe6b47b3801513230aadd7f1de"
+          },
+          "thumbnail": {
+            "bytes": 11910,
+            "sha256": "87c48c1b4b836d95a44df43b88de7455e66a7653dfcb268ca2b80e1e67ba8f73"
+          }
+        }
+      }
+    },
+    {
+      "order": 21,
+      "id": "tile_deep_matte_monochrome_01",
+      "name_zh": "深炭哑光素色大砖",
+      "name_en": "Deep charcoal matte monochrome tile",
+      "material_group": "deep_matte_monochrome",
+      "source_type": "procedural_original",
+      "synthetic_profile": "deep_matte_monochrome",
+      "already_seamless": true,
+      "grout_color": "#3E4142",
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "matte_monochrome_ceramic",
+      "roughness_mean": 0.79,
+      "normal_scale": 0.08,
+      "tint": "#34393D",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "deep_quiet",
+        "large_module",
+        "low_reflection",
+        "wet_area_capable"
+      ],
+      "category": "tile",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "runtime_resolution": [
+        1024,
+        1024
+      ],
+      "master_maps": {
+        "base_color": "output/surfaces_pbr/tile_deep_matte_monochrome_01_basecolor_4k.jpg",
+        "normal": "output/surfaces_pbr/tile_deep_matte_monochrome_01_normal_gl_4k.png",
+        "roughness": "output/surfaces_pbr/tile_deep_matte_monochrome_01_roughness_4k.png",
+        "height": "output/surfaces_pbr/tile_deep_matte_monochrome_01_height_4k.png"
+      },
+      "runtime_maps": {
+        "base_color": "tile_deep_matte_monochrome_01_basecolor_web.jpg",
+        "normal": "tile_deep_matte_monochrome_01_normal_gl_web.webp",
+        "roughness": "tile_deep_matte_monochrome_01_roughness_web.webp",
+        "thumbnail": "tile_deep_matte_monochrome_01_thumb.webp"
+      },
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 379701,
+            "sha256": "61e57cdc257611d98b0f3ea267e87ae6e052674ea8e8a3a140ea0562f3f6c56b"
+          },
+          "normal": {
+            "bytes": 9237284,
+            "sha256": "310d12db1aecea34826009c2ff475371529a7afbf23a4a6a8e46bfd930d694fa"
+          },
+          "roughness": {
+            "bytes": 5985369,
+            "sha256": "d3cdd0a3379f7a4215a1f26ce9ee4fc8998ae6aa64751b0acd2e75741debf960"
+          },
+          "height": {
+            "bytes": 5179056,
+            "sha256": "4519f5c9b4465a4437983b01bd61f009cbf47c1b66358073c1d5387a4cf063e8"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 33542,
+            "sha256": "4af5b5580735dd4f9703232e8d8c8992c777ac878ac16685a0c8f0cd7640f3f8"
+          },
+          "normal": {
+            "bytes": 48958,
+            "sha256": "99532e92de320e37da84cbc3d9295be52a78ebf5126fba543bedee85d29322a7"
+          },
+          "roughness": {
+            "bytes": 2760,
+            "sha256": "316c5c245bafcbb73a7053da508cb4c129940828a1e3aed4e5c5e10d3e2db099"
+          },
+          "thumbnail": {
+            "bytes": 650,
+            "sha256": "9f9d10245064085cbb88c5c309e90c63ad7cd672be9f7fcfaa6041495318cbcb"
+          }
+        }
+      }
+    }
+  ],
+  "source_and_license": {
+    "floors": {
+      "new_texture_sources": "Codex built-in ImageGen, project-owned generated masters",
+      "existing_oak_reference": "Poly Haven CC0 texture already recorded in docs/ASSET_LICENSES.md",
+      "license": "mixed_project_owned_and_cc0",
+      "brand_association": null
+    },
+    "tiles": {
+      "new_texture_sources": "Codex built-in ImageGen, project-owned generated masters",
+      "existing_procedural_sources": "project-owned deterministic procedural materials",
+      "license": "project_owned",
+      "brand_association": null
+    }
+  }
+}

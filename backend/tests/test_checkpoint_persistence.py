@@ -8,22 +8,9 @@ from unittest.mock import patch
 
 from backend.agent_api.agent.graph import build_graph
 from backend.agent_api.store.checkpoints import open_async_checkpointer
+from backend.tests._responses_mock import responses_side_effect
 
 from langchain_core.messages import AIMessage, HumanMessage
-
-
-class FakeModel:
-    def __init__(self, responses: list[AIMessage]) -> None:
-        self._responses = list(responses)
-        self._index = 0
-
-    def bind_tools(self, tools):
-        return self
-
-    def invoke(self, messages):
-        response = self._responses[self._index]
-        self._index += 1
-        return response
 
 
 def _run_graph(db_path: Path, responses: list[AIMessage]) -> list:
@@ -35,8 +22,8 @@ def _run_graph(db_path: Path, responses: list[AIMessage]) -> list:
             graph = build_graph(checkpointer=checkpointer)
             config = {"configurable": {"thread_id": "persist-test"}}
             with patch(
-                "backend.agent_api.agent.graph.get_model",
-                return_value=FakeModel(responses),
+                "backend.agent_api.agent.graph.call_responses",
+                side_effect=responses_side_effect(responses),
             ):
                 await graph.ainvoke(
                     {"messages": [HumanMessage(content="hi")]}, config=config

@@ -15,6 +15,9 @@ __pycache__/
 viewer/dev.stderr.log
 viewer/dev.stdout.log
 
+# 本地启动脚本运行时产物(日志 + PID)
+scripts/.run/
+
 # 大体积生成物（.blend/.glb/4K 贴图，GitHub 单文件上限 100MB）
 output/
 
@@ -25,9 +28,13 @@ viewer/build/
 viewer/.next/
 viewer/db/
 viewer/tsconfig.tsbuildinfo
+.vite/
 
-# 后端运行时数据（SQLite checkpoint）
+# 后端运行时数据（SQLite checkpoint）+ eval 运行产物
 backend/data/
+evals/**/results/
+evals/**/results_parallel/
+evals/**/natural_close_probes/
 
 # 废弃内容归档（详见 exp/README.md）
 exp/

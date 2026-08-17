@@ -35,8 +35,8 @@ const FLOOR_TARGETS = [
 ];
 
 const ASSET_COLORS: Record<string, string> = {
-  paint_warm_cream_matte_01: "#d8cdb7",
-  paint_light_greige_eggshell_01: "#aaa398",
+  paint_warm_white_01: "#F5F2EB",
+  paint_greige_01: "#E5DDD1",
   wallpaper_linen_natural_01: "#c9b99f",
   wallpaper_linear_geometry_01: "#c6bba7",
   floor_light_oak_matte_01: "#c89c63",
@@ -189,7 +189,7 @@ export function HouseViewer() {
   const [cutaway, setCutaway] = useState(true);
   const [ceilings, setCeilings] = useState(false);
   const [floorChoice, setFloorChoice] = useState("floor_light_oak_matte_01");
-  const [wallChoice, setWallChoice] = useState("paint_warm_cream_matte_01");
+  const [wallChoice, setWallChoice] = useState("paint_warm_white_01");
   const [selected, setSelected] = useState<SelectedSurface | null>(null);
   const [assets, setAssets] = useState<AssetEntry[]>([]);
   const [stats, setStats] = useState({ meshes: 0, surfaces: 0 });
@@ -565,10 +565,10 @@ export function HouseViewer() {
             <div><h3>墙面基调</h3><p>保留两处墙纸焦点面</p></div>
           </div>
           <div className="swatch-row">
-            <button type="button" className={wallChoice.includes("cream") ? "selected" : ""} onClick={() => chooseWall("paint_warm_cream_matte_01")}>
+            <button type="button" className={wallChoice === "paint_warm_white_01" ? "selected" : ""} onClick={() => chooseWall("paint_warm_white_01")}>
               <i className="swatch paint-cream" /><span>暖奶油</span>
             </button>
-            <button type="button" className={wallChoice.includes("greige") ? "selected" : ""} onClick={() => chooseWall("paint_light_greige_eggshell_01")}>
+            <button type="button" className={wallChoice.includes("greige") ? "selected" : ""} onClick={() => chooseWall("paint_greige_01")}>
               <i className="swatch paint-greige" /><span>浅 Greige</span>
             </button>
           </div>

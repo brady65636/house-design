@@ -1,11 +1,14 @@
 {
-  "schema_version": "1.0.0",
-  "catalog_id": "project_wall_paint_v1",
-  "description": "项目原创的参数化内墙漆色彩与漆面系统，不对应任何品牌或实体 SKU。",
+  "schema_version": "2.0.0",
+  "catalog_id": "project_wall_paint_v2",
+  "description": "综合色 Asset 为参数化墙漆；明度、饱和度与漆面是 Scheme 参数，不再展开为独立 Asset。",
   "color_notice": "所有颜色均为经过色彩管理的屏幕预览值，不是实体色卡、光谱测量值或施工承诺；真实观感会随底材、光源、批次和施工方式变化。",
   "texture_set": {
     "id": "paint_roller_microfinish_01",
-    "physical_size_m": [1.0, 1.0],
+    "physical_size_m": [
+      1.0,
+      1.0
+    ],
     "resolution_px": 4096,
     "base_color": "/assets/paints/paint_micro_basecolor_4k.jpg",
     "normal": "/assets/paints/paint_micro_normal_gl_4k.jpg",
@@ -15,17 +18,58 @@
     "generator": "viewer/scripts/build-paint-pbr.mjs"
   },
   "tones": [
-    { "id": "light", "name_zh": "浅色", "name_en": "Light" },
-    { "id": "mid", "name_zh": "中色", "name_en": "Mid" },
-    { "id": "deep", "name_zh": "深色", "name_en": "Deep" }
+    {
+      "id": "light",
+      "name_zh": "浅色",
+      "name_en": "Light"
+    },
+    {
+      "id": "mid",
+      "name_zh": "中色",
+      "name_en": "Mid"
+    },
+    {
+      "id": "deep",
+      "name_zh": "深色",
+      "name_en": "Deep"
+    }
   ],
+  "parameter_schema": {
+    "lightness": {
+      "type": "enum",
+      "values": [
+        "light",
+        "mid",
+        "deep"
+      ],
+      "default": "light"
+    },
+    "saturation": {
+      "type": "number",
+      "minimum": 0.35,
+      "maximum": 1.25,
+      "default": 1.0,
+      "step": 0.05
+    },
+    "finish": {
+      "type": "enum",
+      "values": [
+        "matte",
+        "eggshell"
+      ],
+      "default": "matte"
+    }
+  },
   "finishes": [
     {
       "id": "matte",
       "name_zh": "哑光",
       "name_en": "Matte",
       "roughness_mean": 0.88,
-      "roughness_range": [0.79, 0.96],
+      "roughness_range": [
+        0.79,
+        0.96
+      ],
       "normal_scale": 0.07,
       "env_map_intensity": 0.16
     },
@@ -34,83 +78,263 @@
       "name_zh": "蛋壳光",
       "name_en": "Eggshell",
       "roughness_mean": 0.63,
-      "roughness_range": [0.50, 0.76],
+      "roughness_range": [
+        0.5,
+        0.76
+      ],
       "normal_scale": 0.055,
       "env_map_intensity": 0.24
     }
   ],
-  "families": [
+  "specialty_products": [
+    {
+      "order": 11,
+      "id": "paint_limewash_cool_neutral_01",
+      "coating_system": "limewash",
+      "name_zh": "冷中性石灰洗涂层",
+      "name_en": "Cool-neutral limewash coating",
+      "description": "冷灰米底色中的低对比矿物云雾，极哑光、连续且吸光；远看安静，近看才读到薄层叠刷。",
+      "color_srgb": "#B9BBB6",
+      "finish": "mineral_matte",
+      "physical_size_m": [
+        1.2,
+        1.2
+      ],
+      "roughness_mean": 0.91,
+      "roughness_range": [
+        0.84,
+        0.97
+      ],
+      "normal_scale": 0.045,
+      "env_map_intensity": 0.1,
+      "texture_set_id": "paint_limewash_cool_neutral_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "cool_neutral",
+        "low_contrast",
+        "dry_room_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "limewash_cool_neutral"
+    },
+    {
+      "order": 12,
+      "id": "paint_clay_plaster_earth_01",
+      "coating_system": "clay_plaster",
+      "name_zh": "暖土黏土灰泥涂层",
+      "name_en": "Warm earth clay-plaster coating",
+      "description": "低彩度暖土灰泥，细砂颗粒和干燥吸光感形成连续背景，不依赖木纹制造自然温度。",
+      "color_srgb": "#B7A38D",
+      "finish": "mineral_matte",
+      "physical_size_m": [
+        1.0,
+        1.0
+      ],
+      "roughness_mean": 0.89,
+      "roughness_range": [
+        0.81,
+        0.96
+      ],
+      "normal_scale": 0.075,
+      "env_map_intensity": 0.11,
+      "texture_set_id": "paint_clay_plaster_earth_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "warm_earth",
+        "tactile_matte",
+        "dry_room_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "clay_plaster_earth"
+    },
+    {
+      "order": 13,
+      "id": "paint_marmorino_deep_01",
+      "coating_system": "marmorino",
+      "name_zh": "深中性抛光灰泥涂层",
+      "name_en": "Deep-neutral polished plaster coating",
+      "description": "深炭褐连续灰泥，以低对比镘刀运动和克制柔光建立包裹感，不使用强图案或镜面高光。",
+      "color_srgb": "#4A4743",
+      "finish": "polished_mineral",
+      "physical_size_m": [
+        1.4,
+        1.4
+      ],
+      "roughness_mean": 0.54,
+      "roughness_range": [
+        0.42,
+        0.68
+      ],
+      "normal_scale": 0.035,
+      "env_map_intensity": 0.18,
+      "texture_set_id": "paint_marmorino_deep_pbr_01",
+      "source_type": "project_owned_procedural",
+      "design_roles": [
+        "anchor",
+        "support"
+      ],
+      "relationship_tags": [
+        "continuous_mineral",
+        "deep_quiet",
+        "soft_reflection",
+        "feature_wall"
+      ],
+      "supported_rooms": [
+        "all_dry_rooms"
+      ],
+      "slug": "marmorino_deep"
+    }
+  ],
+  "paints": [
     {
       "id": "warm_white",
+      "asset_id": "paint_warm_white_01",
       "name_zh": "暖白与奶油白",
       "name_en": "Warm white & cream",
       "description": "克制的近白暖中性，不以明显黄调制造温度；用于扩大自然光感并减轻纯白墙面的生硬。",
-      "colors": { "light": "#F5F2EB", "mid": "#E7E1D7", "deep": "#C6BDAF" },
-      "id_overrides": { "light_matte": "paint_warm_cream_matte_01" }
+      "colors": {
+        "light": "#F5F2EB",
+        "mid": "#E7E1D7",
+        "deep": "#C6BDAF"
+      },
+      "legacy_asset_ids": [
+        "paint_warm_cream_matte_01",
+        "paint_warm_white_light_eggshell_01",
+        "paint_warm_white_mid_matte_01",
+        "paint_warm_white_mid_eggshell_01",
+        "paint_warm_white_deep_matte_01",
+        "paint_warm_white_deep_eggshell_01"
+      ]
     },
     {
       "id": "cool_white",
+      "asset_id": "paint_cool_white_01",
       "name_zh": "冷白与浅冷灰",
       "name_en": "Cool white & pale grey",
       "description": "微蓝的冷中性，不带绿雾感；在偏暖木作和强日照空间中保持清爽。",
-      "colors": { "light": "#F4F6F7", "mid": "#E2E5E7", "deep": "#B9C0C4" }
+      "colors": {
+        "light": "#F4F6F7",
+        "mid": "#E2E5E7",
+        "deep": "#B9C0C4"
+      }
     },
     {
       "id": "greige",
+      "asset_id": "paint_greige_01",
       "name_zh": "米色与 Greige",
       "name_en": "Beige & greige",
       "description": "低饱和的灰米中性，不偏黄也不脏灰；适合自然木、亚麻和石材的安静背景。",
-      "colors": { "light": "#EAE5DD", "mid": "#D4CCC1", "deep": "#AAA093" },
-      "id_overrides": { "light_eggshell": "paint_light_greige_eggshell_01" }
+      "colors": {
+        "light": "#EAE5DD",
+        "mid": "#D4CCC1",
+        "deep": "#AAA093"
+      },
+      "legacy_asset_ids": [
+        "paint_greige_light_matte_01",
+        "paint_light_greige_eggshell_01",
+        "paint_greige_mid_matte_01",
+        "paint_greige_mid_eggshell_01",
+        "paint_greige_deep_matte_01",
+        "paint_greige_deep_eggshell_01"
+      ]
     },
     {
       "id": "taupe",
+      "asset_id": "paint_taupe_01",
       "name_zh": "驼色、灰棕与 Taupe",
       "name_en": "Camel, grey-brown & taupe",
       "description": "带泥土感的中性棕灰，为低照度空间提供包裹感而不过度泛黄。",
-      "colors": { "light": "#D8CCBE", "mid": "#B2A08E", "deep": "#76685D" }
+      "colors": {
+        "light": "#D8CCBE",
+        "mid": "#B2A08E",
+        "deep": "#76685D"
+      }
     },
     {
       "id": "charcoal",
+      "asset_id": "paint_charcoal_01",
       "name_zh": "中灰与炭灰",
       "name_en": "Mid grey & charcoal",
       "description": "从不偏棕、不偏绿的中性灰到低反射炭灰，适合现代背景和局部强调墙。",
-      "colors": { "light": "#D9D9D7", "mid": "#A7A7A5", "deep": "#5B5C5C" }
+      "colors": {
+        "light": "#D9D9D7",
+        "mid": "#A7A7A5",
+        "deep": "#5B5C5C"
+      }
     },
     {
       "id": "sage_olive",
+      "asset_id": "paint_sage_olive_01",
       "name_zh": "鼠尾草绿与橄榄绿",
       "name_en": "Sage & olive",
       "description": "低彩度植物绿，在自然材料旁呈现稳定、安静的综合色感。",
-      "colors": { "light": "#D9DFD2", "mid": "#A7B29A", "deep": "#66715C" }
+      "colors": {
+        "light": "#D9DFD2",
+        "mid": "#A7B29A",
+        "deep": "#66715C"
+      }
     },
     {
       "id": "slate_blue",
+      "asset_id": "paint_slate_blue_01",
       "name_zh": "灰蓝与深蓝",
       "name_en": "Grey blue & deep blue",
       "description": "降低纯蓝饱和度并加入灰度，适合卧室、书房和沉静焦点墙。",
-      "colors": { "light": "#D6DEE1", "mid": "#9AAEB7", "deep": "#536A78" }
+      "colors": {
+        "light": "#D6DEE1",
+        "mid": "#9AAEB7",
+        "deep": "#536A78"
+      }
     },
     {
       "id": "terracotta",
+      "asset_id": "paint_terracotta_01",
       "name_zh": "陶土与锈红",
       "name_en": "Terracotta & rust",
       "description": "带矿物感的暖红棕，用低彩度避免墙面在大面积使用时过度刺激。",
-      "colors": { "light": "#E5C8B7", "mid": "#BD8268", "deep": "#824D3F" }
+      "colors": {
+        "light": "#E5C8B7",
+        "mid": "#BD8268",
+        "deep": "#824D3F"
+      }
     },
     {
       "id": "dusty_rose",
+      "asset_id": "paint_dusty_rose_01",
       "name_zh": "灰粉与藕紫",
       "name_en": "Dusty rose & muted mauve",
       "description": "混入灰度的粉紫色，不甜腻，适合柔和但成熟的空间氛围。",
-      "colors": { "light": "#E4D2D1", "mid": "#B89A9F", "deep": "#745D6A" }
+      "colors": {
+        "light": "#E4D2D1",
+        "mid": "#B89A9F",
+        "deep": "#745D6A"
+      }
     },
     {
       "id": "ochre",
+      "asset_id": "paint_ochre_01",
       "name_zh": "黄赭与柔和芥末黄",
       "name_en": "Ochre & muted mustard",
       "description": "低饱和矿物黄，从浅麦秆色过渡到深黄赭，适合温暖局部强调。",
-      "colors": { "light": "#E7D8B4", "mid": "#C4A66A", "deep": "#806A3E" }
+      "colors": {
+        "light": "#E7D8B4",
+        "mid": "#C4A66A",
+        "deep": "#806A3E"
+      }
     }
   ]
 }

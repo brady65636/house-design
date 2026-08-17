@@ -1,13 +1,12 @@
 """SchemeStore:并发安全的当前方案存储,替代旧的模块级 CURRENT_SCHEME 单例。
 
-产品事实是一套住宅、一个 live Scheme、一个共享 3D 场景,所以不按会话隔离
-(否则会出现多个互相冲突的方案版本,破坏"改方案→viewer 实时更新"的闭环)。
+基础类仍支持单一 Scheme 文件；生产运行由 VersionedSchemeStore 包装，按
+Design Run 隔离并把每次成功写入保存为不可变版本。
 
 并发修改用 RLock 串行化 read-modify-write;写盘用"临时文件 + os.replace"
 原子替换,避免读者读到半截 JSON。
 
-取舍:并发改同一方案是"后写覆盖先写",无版本回滚。Demo 可接受,后续可演进
-为 per-project Scheme + 版本/撤销(Level 8 话题)。
+同一 Design Run 内并发修改仍以 RLock 串行化；跨运行互不覆盖。
 """
 
 from __future__ import annotations
@@ -20,7 +19,7 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from .schema import Scheme
+from .schema import PaintParameters, Scheme
 from .validator import validate_scheme
 
 
@@ -60,8 +59,8 @@ class SchemeStore:
                 self._current = read_json(self._path)
             return self._current
 
-    def update(self, target_id: str, asset_id: str) -> str:
-        """修改一个 target 的 asset_id,执行 Validator,原子写盘并更新内存。"""
+    def update(self, target_id: str, asset_id: str, parameters: dict | None = None) -> str:
+        """修改一个 target 的 Asset 与可选参数，执行 Validator 后原子写盘。"""
         with self._lock:
             current_scheme = Scheme.model_validate(self.get())
 
@@ -69,6 +68,7 @@ class SchemeStore:
             for assignment in current_scheme.assignments:
                 if assignment.target.id == target_id:
                     assignment.asset_id = asset_id
+                    assignment.parameters = PaintParameters.model_validate(parameters) if parameters is not None else None
                     target_found = True
                     break
 
@@ -88,13 +88,36 @@ class SchemeStore:
             if errors:
                 return str(errors)
 
-            # 更新 scheme_id 以便前端检测变化
+            # 更新 scheme_id 以便前端检测变化；VersionedSchemeStore 会改用不可变版本 ID。
             scheme_dict = json.loads(current_scheme.model_dump_json())
-            base_id = scheme_dict["scheme_id"].rsplit("_", 1)[0]
-            scheme_dict["scheme_id"] = f"{base_id}_{int(time.time())}"
-            self._write_atomic(scheme_dict)
+            scheme_dict["scheme_id"] = self._new_scheme_id(scheme_dict)
+            self._commit(scheme_dict, f"update:{target_id}:{asset_id}")
             self._current = scheme_dict
             return f"修改scheme成功，新方案ID：{scheme_dict['scheme_id']}"
+
+    def replace(self, scheme_dict: dict, *, reason: str, title: str | None = None) -> dict:
+        """Validate and atomically replace the complete Scheme, preserving version history."""
+        with self._lock:
+            candidate = json.loads(json.dumps(scheme_dict, ensure_ascii=False))
+            if title:
+                candidate["title"] = title
+            candidate["scheme_id"] = self._new_scheme_id(candidate)
+            model = Scheme.model_validate(candidate)
+            errors = validate_scheme(model, self._scene_manifest, self._asset_manifest)
+            if errors:
+                raise ValueError(str(errors))
+            candidate = json.loads(model.model_dump_json())
+            self._commit(candidate, reason)
+            self._current = candidate
+            return candidate
+
+    def _new_scheme_id(self, current: dict) -> str:
+        base_id = current["scheme_id"].rsplit("_", 1)[0]
+        return f"{base_id}_{int(time.time())}"
+
+    def _commit(self, scheme_dict: dict, reason: str) -> None:
+        del reason
+        self._write_atomic(scheme_dict)
 
     def _write_atomic(self, scheme_dict: dict) -> None:
         """临时文件 + os.replace 原子替换,避免读者读到半截 JSON。"""

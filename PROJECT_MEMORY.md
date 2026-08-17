@@ -1,6 +1,6 @@
 # AI 驱动的可编程 3D 住宅装修设计 Demo：项目记忆
 
-更新时间：2026-08-04
+更新时间：2026-08-14
 
 这份文档保存目前已经讨论并基本敲定的方向，供新对话直接接续。若它与最初附件冲突，以本文件中的最新决策为准。
 
@@ -1142,3 +1142,414 @@ Tool Calling
 - 改动：① 新增 `viewer/app/components/renderBridgeWorker.ts`，心跳+命令轮询移入 Web Worker（Worker 定时器不受隐藏页节流，后台保持 1 秒级）；Worker 只做网络 I/O，取到命令 `postMessage` 给主线程，渲染仍在主线程；② `waitForStableRender` 改为：可见时走原双 rAF，一旦页面切 hidden 立即用 MessageChannel 宏任务（不受定时器节流）解开等待，再显式 `composer.render()` 截单帧；③ `render_bridge.py` 的 `is_online` 新鲜度窗口 15s→90s 作为兜底。
 - 验证：`npm run build` 通过、5 项前端单测全过（字符串契约未破坏）；前台 `observe_home_harmony` 1.28 秒完成（此前 90 秒超时）；用 Edge headless（`visibilityState=hidden`，等价后台标签页）加载 `?render_session=headless-probe`，提交 `observe_room("open_public")` 成功返回 completed 客厅多视角截图（SwiftShader 软渲染 67.6s），证明隐藏状态下心跳在线、命令可取、渲染可出图。
 - 现状与剩余约束：第 47 条的"标签页必须可见/置前"约束**已解除**——后台标签页也能渲染；但第 47 条根因 2（多个标签页轮询同一 render session 会竞争命令）**仍未处理**，多窗口/多浏览器场景仍建议保持唯一会话标签页。headless 浏览器已实测可完成渲染，未来如需无头/自动化渲染可直接复用 `--headless=new` + `--use-angle=swiftshader` 路线。
+
+## 49. 全屋墙纸跨朝向色彩一致性修复（2026-08-09）
+
+- 用户发现横厅中两面都使用“雾野草本”的墙纸，一面呈深棕、一面接近白底。浏览器用横厅入口与整体回看端点复现后，确认两面墙实际引用同一 `wallpaper_botanical_meadow_01` 材质实例，米制 UV、重复尺寸和 PBR 贴图一致；差异不是 Scheme 串线、纹理文件或法线错误。
+- 根因是墙漆已有 `PAINT_APPEARANCE_CALIBRATION` 将目录颜色锚定到统一显示基准，而墙纸 Base Color 仍 100% 乘以物理方向光。当前横厅太阳方向使东向墙获得强直射、接近洗白，西向背光墙只剩较弱间接光、被压成深棕；同一印刷品因此看起来像两个色号。
+- 新增 `WALLPAPER_APPEARANCE_CALIBRATION`：`78%` 基础色作为跨朝向一致的印刷色基准，`22%` 保留方向光塑形。全部 8 款墙纸统一使用该规则；Normal、Roughness、sheen、HDR 反射和真实尺度 UV 不变，因此墙角和微表面仍可读，但不会再因朝向变成另一款颜色。
+- PBR 按需加载时 Base Color 同时绑定到受控的印刷色基准通道；释放未使用墙纸贴图时同步清空 `emissiveMap`，避免引用已 dispose 的基础色贴图。新增结构回归测试，锁定校准比例、运行时接线和释放行为，防止未来调灯光或重构懒加载时复发。
+- 验证：正式构建通过；墙纸目录与视觉观察专项测试 11/11 通过。浏览器重载后抽查横厅进度 `0% / 24% / 50% / 76% / 100%`，东西向两面“雾野草本”均保持同一暖白印刷底色，图案、墙角转折与近景纹理仍可读；应用级 error 为 0。仅有本地未启动 render bridge 时的既有 404 轮询 warning，不属于材质/WebGL 错误。
+
+## 50. 第一批跨风格硬装资产扩充与一致性门禁（2026-08-09）
+
+- 在不增加家具、不改变活动户型、55 个设计目标或 34 个稳定墙面 ID 的前提下，完成第一批 12 个硬装资产：4 款墙纸（留白墨枝、琥珀构成、海岸木刻叶、夜幕扇影）、3 款木地板（漂白白蜡木宽板、焦糖柚木、乌木化橡木）和 5 款瓷砖（手工赤陶、翠玉手工釉、青花笔触陶、酒红小规格釉、黑象牙棋盘）。五品类资产总量由 87 增至 99：墙漆 60、墙纸 12、地板 9、瓷砖 13、吊顶 5。
+- 新墙纸、木地板与前四款瓷砖使用 ImageGen 生成的无方向光、正投影材质母图，再由确定性脚本派生 Base Color、Normal、Roughness、缩略图和无缝重复检查；黑象牙棋盘最终使用严格周期的程序化母图，并跳过通用边缘平均，消除黑白边缘被混成灰色十字接缝的问题。源图、生成提示、真实尺寸、铺法与表面 profile 均已记录在 `docs/WALLPAPER_TEXTURE_PROMPTS.md`、`docs/SURFACE_TEXTURE_PROMPTS.md` 和目录 JSON。
+- “同一 asset 跨墙一致”成为硬门禁：墙纸继续使用 `78%` 印刷色基准 + `22%` 方向光；湿区墙砖新增 `55%` 材质色基准 + `45%` 方向光。同一墙纸或墙砖 ID 在全部墙面复用同一个校准材质实例和同一组 Base Color / Normal / Roughness 映射，地面仍使用完整物理材质响应；结构测试同时锁定贴图共享、墙面分支和释放行为。
+- Blender v4 隐藏资产库已重建为 94 个材质资产 + 5 个吊顶几何预设，并恢复此前归档时误删、但 v4 仍实际依赖的 `blender/generate_house_assets.py` 与 `asset_knowledge.py`，使全新工作区也能复现 99 资产生成链路。轻量索引、资产卡、GLB 与 viewer 模型已同步，当前 Scheme 文件未被覆盖。
+- 验证：viewer 正式构建和 26/26 测试通过；Blender/GLB 41/41 通过。浏览器实景复核横厅 `00:08 / 00:20`，同一 `wallpaper_botanical_meadow_01` 在相反观察方向保持相同暖白底色和图案密度。公卫抽查同时发现窗下北外墙没有独立 `wall_face`、显示的是中性墙芯；这是既有 34 墙面目标覆盖范围问题，不是同材质变色，若修复必须先审批是否扩展稳定设计目标，不能在资产批次中暗改 ID。
+- 后端回归环境现状：3 个 Scheme Store 测试通过；其余 3 个 Agent API 测试因当前系统 Python 未安装项目声明的 `langgraph` / `langchain-core` 而在导入阶段中止，未观察到由本批前端或资产改动引起的后端逻辑失败。
+
+## 51. D1 高差异硬装资产与增量生产管线（2026-08-09）
+
+- 用户批准继续扩展“真正能改变设计语言”的资产，而不是增加近似色或家具。在不修改活动户型、当前 Scheme、55 个稳定设计目标和 34 个墙面 ID 的前提下，新增 15 个家族：墙纸 3、木地板 3、瓷砖 5、吊顶 4。总目录由 99 增至 114：墙漆 60、墙纸 15、地板 12、瓷砖 18、吊顶 9；Blender 隐藏库为 105 个材质资产 + 9 个几何预设。
+- 新增设计轴包括深色大植物、非循环色域壁画、纤维浮雕；高变异结疤宽板、低变异径切直纹、端纹块材；深绿角砾石、象牙竖槽、暖白手工釉、大颗粒水磨石、深蓝云纹石；木格栅、浅井格、清水混凝土双阴影轨道和弧形灯槽。这些差异同时覆盖颜色、图案尺度、材料触觉、模块尺度、天然变异和几何构造，不把铺法复制成新材质。
+- 11 张 ImageGen 图分别生成并进入项目源图目录。象牙竖槽图因视觉复核发现固定方向明暗，只保留为设计参考；正式资产使用确定性 `ivory_fluted_relief` 无光照色高和正弦槽形 Height。大颗粒水磨石使用 20px 窄边周期融合，修复通用 84px 融合造成的骨料抹糊。所有重复资产通过首尾像素数值无缝门禁。
+- 墙纸运行时 Normal/Roughness 从 2K 调整为 1.5K 和有损 WebP，4K PBR 与 8K 壁画母版保持不变；15 套运行时包由 45.27 MB 降至 32.22 MB。地面构建器新增 `SURFACE_ASSET_IDS` 增量模式，可只重建指定资产并按产品顺序合并回完整 30 项清单，避免调试单一资产时全量重算。
+- Blender 与 Three.js 同步实现 4 套新吊顶实际几何；目录预览改为 X-Z 九宫格，材料目录画幅扩展到完整 45 项，并增加只渲染 material/paint/ceiling 单个目标的目录模式。v4 生成器新增原子激活步骤，自动同步 GLB、活动场景清单、资产清单和资产卡到 `output`、根目录与 `viewer/public/models`；最终 7 组源/目标 SHA-256 全部一致。v4 源文件、GLB、114 张资产卡和清单已重建；Blender/GLB 41/41 通过，地面/瓷砖 7/7、墙纸 5/5、前端完整回归 28/28 与 5/5 墙漆质量审计通过。当前 Scheme 未覆盖，稳定目标未变化。
+
+## 52. D2 感知 Family 重构与缺口扩展（2026-08-09）
+
+- 用户明确要求扩展资产设计自由度但不新增品类。D2 严格保留 `wall_paint`、`wallpaper`、`wood_floor`、`tile`、`ceiling` 五类；新增石灰洗、黏土灰泥和 Marmorino 均归 `wall_paint`，通过客观字段 `coating_system` 区分，不建立第六品类。踢脚/墙地收口、填缝、门槛过渡和边缘轮廓被定义为 `designConfigurations.json` 中的关系 Configuration，不进入 Asset 计数，Scheme v2 之前不执行。
+- 新增 8 个真正不同的 Family：3 个连续矿物墙面（冷中性石灰洗、暖土黏土灰泥、深中性 Marmorino）、1 个深色安静草编墙纸、1 个天然细颗粒软木地面、3 个瓷砖（冷灰蓝指形马赛克、烟灰圆点马赛克、深炭哑光素色大砖）。总目录由 114 增至 122：墙漆/连续涂层 63、墙纸 16、地板 13、瓷砖 21、吊顶 9；仍是五类。
+- `asset_manifest.json` 升级为双层索引：保留 122 个执行 Asset，同时提供 71 个感知 Family。墙漆折叠为 13 个 Family；两款视觉高度接近的浅白蜡木工程变体保留各自 ID，但统一归入 `pale_ash_quiet` 感知组，地板 13 个 Asset 因而只有 12 个 Family。Family 记录 `variant_ids`、`design_roles`、`relationship_tags`、适配和冲突；Agent 新增 `get_asset_families_by_category`，Prompt 强制先选 Family 再进入 Variant，原平铺查询保留作兼容与 ID 核验。
+- 深草编和天然软木使用逐资产 ImageGen 原创无光照材质基底；完整提示词已存档。三种矿物涂层和三种几何瓷砖使用确定性周期程序生成，Base Color 不烘焙方向光，物理模数、砖缝、Height、OpenGL Normal 和 Roughness 分离。Three.js 方案面板可选择 60 个综合色 Variant 与 3 个独立矿物涂层；独立涂层 PBR 按需加载。Blender v4 隐藏库、目录板、GLB、资产卡和活动清单全部重建并同步。
+- 验证结果：墙漆/墙纸/地面专项共 21/21；viewer 完整构建与回归 31/31；Blender/GLB 41/41；122 Asset / 71 Family 清单契约和 Agent Family 工具手工调用通过；GLB、资产清单、资产卡和四份活动场景清单的各组 SHA-256 一致。后端 Scheme Store 3/3 通过；其余 API 测试仍因本机环境缺少 `langgraph` / `langchain-core` 在导入阶段中止，不是本轮逻辑失败。活动 Scheme、55 个稳定设计目标和 34 个墙面 ID 未改变。
+
+## 53. 墙漆 Asset 参数化重整（2026-08-09）
+
+- 用户要求对资产库做较大重整：综合色墙漆不再因不同饱和度、明度或漆面形成独立 Asset；并再次明确漆面也必须降级为参数。五个既有品类不变，没有新增品类。
+- 10 个综合色 Family 现在各自只有一个稳定 Asset ID，例如 `paint_greige_01`。实例差异统一写入 Scheme 的 `parameters`：`lightness` 为 `light | mid | deep`，`saturation` 为 `0.35–1.25` 连续数值，`finish` 为 `matte | eggshell`。石灰洗、黏土灰泥和 Marmorino 因材料语言与独立 PBR 不同，继续各保留一个独立 Asset。
+- 墙漆/连续涂层由 63 Asset 重整为 13 Asset，五品类总目录由 122 降为 72 Asset；感知 Family 仍为 71。所有综合色 Family 的 `variant_count` 均为 1，运行时索引不再包含编码明度或漆面的旧墙漆 ID。
+- `paintCatalog.json`、Three.js 材质解析与交互面板、Scheme Schema/Store/Validator、Agent 工具与 Prompt、Blender 资产库/色板、PBR manifest、资产卡和轻量索引均改为同一参数契约。新增可复现迁移脚本 `scripts/migrate_paint_asset_parameters.py`，已把当前 Scheme 的 19 个旧墙漆分配迁移为 Family Asset + 参数；Scheme 仍为 55 个目标，34 个稳定墙面 ID 未变化。
+- 验证：viewer 正式构建与完整回归 32/32、墙漆质量审计通过；Blender/GLB 41/41；Scheme 55 个分配中 19 个参数化墙漆且 Validator 无错误。完整 Agent API 测试仍受本机缺少 `langgraph` / `langchain-core` 限制，Scheme Store 可独立回归。
+
+## 54. Retriever 保守否决过滤器 v1（2026-08-10）
+
+- 用户明确 Retriever 的唯一职责是减少明显不适合的候选，最终审美仍由 Design Agent 对真实渲染进行视觉检查与比较；因此没有采用 LAB + 单一复杂度排序、向量数据库或加权总分，改为“硬兼容与高置信关系否决 + 分层多样性候选预算”。
+- 新增 `asset_family_filter_profiles.json`，用人工校准的离散字段描述色温、彩度档、明度档、综合活动度、尺度、方向、材料语言与是否要求连续墙面。`activity` 必须综合 Base Color、Normal/Height、图案尺度与真实目录预览；这些字段不是美学分数，也不替代实际渲染。
+- 新增纯函数 `backend/agent_api/retrieval/family_filter.py` 与只读 Agent 工具 `filter_asset_families`。输入为真实 target、category、ANCHOR/SUPPORT/QUIET 角色、可选 anchor Family 和颜色关系意图；输出明确区分 `eligible`（送视觉比较）、`rejected`（明确冲突）与 `deferred`（本身不坏，仅因 70% 候选预算暂缓），并返回稳定原因码和缩减指标。
+- 高置信规则覆盖：目标类别兼容、湿区/阳台木地板排除、吊顶房间适配、连续壁画遇门窗切割墙面排除、QUIET 排除高活动候选、高活动 ANCHOR 排除高活动 SUPPORT，以及仅在明确 harmonious 意图下启用的极端高彩冷暖冲突。强方向竞争、双深色和 QUIET 中活动只提示 warning，不直接误删。
+- Design Agent Prompt 与住宅设计 Skill 已改为先调用过滤器，再对 eligible 候选读取资产卡、应用 Scheme、渲染并视觉比较；过滤器不拥有最终选择权。完整说明见 `docs/ASSET_FAMILY_FILTER.md`。
+- 验证：过滤器 10 项测试与 Scheme Store 3 项回归通过；活动住宅全部 273 组 target × 允许品类 × 关系角色矩阵中，最低缩减率 71.43%、平均 76.48%、低于 70% 的查询为 0。9 组零候选均来自公卫/主卫/阳台请求木地板，属于显式湿区硬冲突。完整 Agent API 测试仍因本机缺少 `langgraph` / `langchain_core` 在导入阶段中止，不是本过滤器逻辑失败。
+
+## 55. Design Agent + final-only Critic 工作流（2026-08-10）
+
+- 用户确认只需一次方向/实施规划批准。Design Agent 在获批范围内可反复应用候选 Scheme、真实渲染和定性图像比较；Retriever 继续只做保守否决，不产生最终审美排序或伪精确分数。
+- 新增显式阶段：`design_execution -> ready_for_delivery -> critic_review -> deliver`；Critic 给出 `REVISE` 时才回到 Design Agent，最多两轮，超过上限明确停止并交回用户。
+- `DeliverySubmission` 是 Pydantic 契约：含获批范围、用户约束、SchemeStore 注入的最终 Scheme 摘要、Design Agent 自评与真实单屋/全屋证据；未同时拥有 `observe_room` 和 `observe_home_harmony`、P0 未过或存在 self-assessment fail 均不能启动 Critic。
+- Critic 使用独立模型实例和专用 `critic_tools`；该工具集只有结构化 `return_critic_verdict`，没有 `update_scheme` 或其他 Scheme 写工具。PASS 后系统直接交付；REVISE 返回问题和允许修订范围，不由 Critic 执行修改。
+- 用户批准规划后，Design Agent 必须调用一次 `begin_design_execution`；Graph 校验并锁定真实 `approved_target_ids` 与约束。未锁、重复锁、普通执行越界和 Critic 修订越界都会在 `update_scheme` 真正执行前被拒绝；锁只在 PASS 交付后清空。
+- 候选比较不是模型自报：每个候选必须先被实际应用，并用 `observe_room(..., focus_target_ids=[target_id])` 取得带图回执，`record_visual_comparison` 才能写入 Graph 权威记录。最终 Scheme 之后还必须重新取得带 JPEG 的单屋和全屋回执；任何成功写入或 REVISE 都使旧回执失效。
+- 最终工具提交只包含自评与 `comparison_target_ids`；范围、约束、Scheme 摘要、已验证比较和 JPEG 由 Graph 注入 Critic 上下文。使用临时隔离安装的项目锁定依赖，完整后端 29/29 通过，其中包含从一次范围锁、双候选真实回执、权威比较、最终单屋/全屋证据到 Critic PASS 直接交付的状态图闭环；本机默认系统 Python 仍未安装 `langgraph` / `langchain-core`。
+
+## 56. 资产卡多模态预览（2026-08-10）
+
+- 用户明确每个资产卡必须配一张图片，并在 Agent 读取资产卡时把卡片 JSON 与图片一起传给模型。资产卡库 Schema 由 `1.0.0` 升为 `1.1.0`；72 张卡全部新增 `preview_image`，包含项目相对路径、媒体类型、`parameter_swatch | material_thumbnail | geometry_preview` 描述类型与用途边界 alt 文本。
+- 新增确定性生成命令 `npm run assets:cards`：墙纸、地板、瓷砖和固定矿物涂层从现有真实目录缩略图标准化；10 个参数化综合色墙漆生成浅/中/深三档色阶图；9 个吊顶从 Blender 几何目录预览切出单资产图片。最终 72 张 WebP 共约 1.0MB，单图最大约 55KB。
+- `get_asset_card_by_id` 现在返回 `VisualToolOutput`：ToolMessage 保留完整卡片 JSON，Graph 另注入一张 `image_url` 多模态图片块。路径必须位于项目目录，格式限 WebP/JPEG/PNG，单图不超过 4MB；缺图、路径越界或格式错误会显式失败。
+- 资产卡图片只说明候选本身外观，不是当前 Scheme 的房间渲染证据。Graph 只允许 `observe_room` / `observe_home_harmony` 写 RenderReceipt，资产参考图不能绕过候选实景比较或 final-only Critic 门禁。完整后端 32/32 通过，包含“卡片 JSON + 图片同返”和“资产图不计入终审回执”回归测试。
+
+## 57. 取消 Family 概念，降级为单一 asset 层（2026-08-10）
+
+- 用户要求取消 family 概念、降级为 asset，且信息密度一点不少，仅取消 family 概念；选择全链路取消（后端索引/Agent + viewer 目录类型与 UI + 生成/构建脚本 + 文档）。
+- 关键事实：`asset_manifest.json` 的 `families[]` 只是 `asset_knowledge.build_asset_knowledge()` 按 `(category, family_id)` 对已含全部富字段的 asset 卡片做的投影层（取组内第一张卡字段）；70/71 个 family 与 asset 一一对应，唯一多 variant 案例是 `pale_ash_quiet`（浅白蜡木细纹 + 漂白白蜡木宽板两块地板）。
+- 数据变换：manifest `families[]`/`family_count` 删除，`assets[]` 每项内联 `name_zh/name_en/design_roles/relationship_tags/visual_description/works_well_with/avoid_when`（墙漆另带参数化字段）；cards 删除顶层 `family_id` 与 `objective_facts` 里的 `family/family_id/perceptual_group_id`，`style_roles` 统一为 `design_roles`；`asset_family_filter_profiles.json`→`asset_filter_profiles.json`，`family_overrides` 按旧 variant_ids 展开为按 asset_id 的 `asset_overrides`。多 variant 成员继承 family 级富字段，保证信息不减。
+- 后端：`family_filter.py`→`asset_filter.py`（`filter_asset_families`→`filter_assets`、`anchor_family_id`→`anchor_asset_id`、返回键 `family_id`→`asset_id`、去 variant_ids）；删除 `get_asset_families_by_category` 工具（被富化的 `get_asset_by_category` 取代）；`FamilyFilterError`→`AssetFilterError`；Prompt/Skill/文档去掉“先选 Family 再进 Variant”。
+- viewer：paint 目录 `families`→`paints`（1 family = 1 参数化 asset），选择器改按 `asset_id`；floor/tile 目录 `family`→`material_group`；wallpaper `family`→`slug`；ceiling 几何 `family`→`preset`（本是与后端无关的几何预设概念，一并改准语义）；`paint_manifest.json` 键 `family_id`→`slug`/`family_name_zh`→`name_zh`，wallpaper/surface manifest 的 `family`→`slug`/`material_group`。
+- 迁移：新增 `scripts/migrate_family_to_asset.py`（幂等）转换现有 JSON；`asset_knowledge.py`/`generate_house_assets.py` 同步更新保证未来再生成输出一致（Blender 生成器不重跑）。
+- 验证：后端 asset 过滤器 10 项 + Scheme Store 3 项通过；viewer 目录 22 项测试通过；`test_api_chat` 仍因本机缺 `langgraph` 在导入阶段中止（预存环境问题，与本次无关）。
+
+## 58. 工作流改版：风格语言先行 + 端到端自主执行（2026-08-11）
+
+- 用户要求把用户确认点从「逐墙 asset 分配」上移到「设计风格语言」：Design Agent 只从用户确定整体风格与感觉，动手前呈现一份「设计风格语言」规划（空间感受/色彩光感/材料角色/层级连续性/克制规则，不逐墙分配 asset）；用户认可后一次 `begin_design_execution(style_brief, user_constraints)` 锁定整屋为实施范围，随后 Design Agent 端到端自主执行并与 Critic 迭代，期间不再逐墙确认、不因局部问题回头问用户。
+- 唯一允许中断自动执行的出口是新增工具 `surface_style_gap`：仅当现有房屋/资产确实无法兑现已认可的风格（所需材料角色无可渲染候选、硬约束使风格不可能实现）时调用；Graph 校验报告后经 `style_gap` 节点把具体缺口与一个问题交回用户。
+- 契约改动：`BeginDesignExecutionInput` 的 `approved_target_ids` 改为 `style_brief`（整屋锁定，Graph 从 scene_manifest 取全部真实 target）；`DeliverySubmission` 增加 `style_brief` 供 Critic 据此审查；`write_is_allowed` 逻辑不变（locked=整屋后天然放行真实 target）。
+
+## 59. LLM Provider 环境变量隔离与防串线门禁（2026-08-11）
+
+- 线上 401 的根因不是 OpenAI key 失效，而是旧后端进程继承了系统级 `OPENAI_BASE_URL=https://api.deepseek.com/v1`，把有效 OpenAI key 发给 DeepSeek；错误指纹与 DeepSeek 401 完全一致，而同一 key 请求官方 OpenAI `/v1/models` 返回 200。删除注册表变量不会更新已运行进程。
+- 后端 LLM 配置改为项目专属命名空间：`HOUSE_DESIGN_LLM_PROVIDER`、`HOUSE_DESIGN_OPENAI_API_KEY`、`HOUSE_DESIGN_OPENAI_BASE_URL`、`HOUSE_DESIGN_OPENAI_PROXY`、`HOUSE_DESIGN_OPENAI_MODEL`、`HOUSE_DESIGN_REASONING_EFFORT`。通用 `OPENAI_*` 与 `DEEPSEEK_*` 进程变量被刻意忽略，避免 IDE、CLI 或其他 Agent 工具污染本项目。
+- 当前 provider 只允许 `openai`，Base URL 必须严格等于 `https://api.openai.com/v1`；DeepSeek、兼容网关、HTTP、非标准端口、凭据内嵌、query/fragment 均在 Settings 构造阶段拒绝，请求不会发出。未来若支持 DeepSeek，必须新增独立 provider、独立 key 和独立模型适配，不能通过替换 OpenAI Base URL 实现。
+- LangChain 的同步/异步 httpx 客户端都显式 `trust_env=False`，只接受 `HOUSE_DESIGN_OPENAI_PROXY`，不再自动继承系统 `HTTP_PROXY`/`HTTPS_PROXY`。缺少项目专属 key 时显式失败，不允许底层 SDK 回退读取通用 `OPENAI_API_KEY`。
+- 启动日志只记录 provider、官方 Base URL、模型、key 后四位和代理开关；`/api/health` 返回 provider 与模型，不暴露密钥。Docker、AWS compose、环境模板、README 和部署文档已同步迁移。
+- 验证：环境污染/端点拒绝测试 4/4，通过真实官方模型最小调用 `OPENAI_ROUTE_OK`；后端重启后 `/api/health` 报告 `llm_provider=openai`，真实 `/api/chat` 返回 `OPENAI_BACKEND_OK`。配置/API/SSE/checkpoint 专项 11/11 与两份 Docker Compose 配置校验通过。完整后端 38 项中 37 项通过，唯一失败是既有资产卡测试仍写死 Schema `1.1.0`、实际数据已为 `1.2.0`，与本次配置修复无关。
+
+## 60. 对话与设计版本解耦：默认从零、分支、继续（2026-08-11）
+
+- 旧实现虽然按 `thread_id` 隔离 LangGraph checkpoint，但所有对话共用一个 `SchemeStore/current_scheme.json`；“新对话”只清聊天，删除只删 checkpoint，方案没有真正不可变版本，因此 Agent 天然会在现有方案上保守修改。
+- 新契约拆成 `ChatSession`、`DesignRun`、`SchemeVersion`：会话只保存聊天；设计运行拥有独立 `head.json`；每次成功写入产生完整不可变版本记录（含 parent 和 reason）。删除会话只解除绑定，不删除设计；恢复旧版会创建一个新版本，不覆盖历史。
+- 新对话提供三种显式模式：`fresh`（默认，中性技术基线、新运行）、`branch`（复制当前完整版本到独立运行）、`continue`（新聊天继续同一运行）。旧 `current_scheme.json` 首次启动只导入为 `imported` 运行，保证既有成果不丢。
+- “从零”不是换一个 prompt：中性基线只满足 55 个稳定 target 的 Schema/渲染完整性；首轮系统上下文明确禁止把它当设计结论，Graph 在 `submit_for_critic` 前硬校验 fresh 运行的全部锁定 target 都经过本运行的显式 `update_scheme`，少一个也不能终审。
+- Agent 工具通过 ContextVar 解析当前 run 的 `VersionedSchemeStore`；聊天 JSON/SSE 都注入 run/mode。视觉命令携带 `design_run_id`，Three.js 在截图前加载该 run；聊天 iframe、轮询与“返回 3D 查看”也带同一 ID，防止并行对话串方案。
+- 后端新增 Design Run 列表、激活、版本列表和恢复 API；`/api/scheme` 支持按 run 读取。聊天 UI 新增“从零设计（默认）/复制当前为独立分支/新对话继续当前方案”选择器。完整设计说明与验收见 `docs/DESIGN_VERSIONING.md`。
+- 验证：新增版本/隔离/API/全 target 门禁 6/6；相关 API、配置和 Store 18/18；viewer 正式构建通过；本地生产后端重启后真实 API 验证 fresh 默认、branch run 不同、continue run 相同、55 项基线和版本列表均正确。完整后端 44 项中 43 项通过，唯一失败仍是既有资产卡测试写死 `1.1.0`、数据为 `1.2.0`。
+
+## 61. Agent 上下文三层职责拆分（2026-08-11）
+
+- 用户明确确定唯一职责边界：System Prompt 只定义身份、职能、目标与最小事实边界；`skills/residential-aesthetic-design/SKILL.md` 只定义咨询/轻量直改/完整设计、风格批准、自主执行、自评终审、暂停与反馈修订流程；`design.md` 只定义空间、色彩、CMF、五类材料、组合、失败模式和审美验收知识。
+- 运行时首轮上下文不再把三层拼成一段文字；`build_initial_messages()` 分别发送核心身份、流程规范和审美知识三个 SystemMessage。工具参数与返回契约继续由实时 Tool Schema 提供，Graph/Validator 继续拥有状态转换和写入权限，三层文档不再重复这些代码规则。
+- `design.md` 删除访谈流程、工具执行、交付结构、Agent 架构和项目落地次序，保留并补全“用户反馈词对应设计变量”和六维审美验收知识；Skill 删除重复的审美教材、工具参数手册和开发说明。Skill YAML frontmatter 在运行时注入前会被剥离。
+- 上下文由 36,340 字符降至 18,104 字符：核心 System Prompt 2,002、Skill 2,749、设计知识 13,353，约减少 50%。新增 `test_prompt_layers.py` 锁定三层边界和体积上限；相关后端 26 项通过、5 项按环境跳过，Skill 官方校验通过。完整测试仍受默认 Python 缺少 `langgraph/langchain_core` 和既有资产卡 Schema `1.1.0` 断言影响。
+
+## 62. Design Workflow 状态机 V2 落地（2026-08-11）
+
+- 把此前只停留在设计说明里的状态机落实为代码所有权：新增集中式 `WorkflowStage`、`WorkflowEvent` 和纯函数 `transition_stage()`；Graph 只能通过合法事件修改阶段，并为每次迁移记录序号、前后状态、actor、reason 与时间。模型没有修改 `workflow_stage` 的工具。
+- 完整设计改为 `propose_style_brief -> awaiting_approval`。Graph 为提案生成递增版本、ID 和 SHA-256；待批准回复不再使用固定短语匹配，而由隔离的 LLM 意图节点结合当前提案与用户原话，通过专用结构化工具返回 `APPROVE / REVISE / CANCEL / CONTINUE_DISCUSSION`。Graph 只在合法 `APPROVE` 后保存批准快照、锁定真实整屋 target 并进入 `autonomous_design`，意图模型不能改状态，且不再存在模型侧 `begin_design_execution` 或第二次确认。
+- 新增执行态协议门禁：`light_editing`、`autonomous_design`、`critic_revision` 中模型只说承诺性文字不能结束；Graph 最多修复重试两次，仍不调用合法工具则进入 `failed/agent_protocol_violation`。轻量直改在首次真实写入成功后才进入 `light_editing`，并必须用 `complete_light_edit` 验证结束；无效首写不会把状态卡死。
+- 所有写入按当前阶段检查授权范围。完整设计同时记录每个 target 的 `change` 或显式 `keep` 决定；终审提交继续校验批准凭证、真实比较、当前 Scheme 一致性、房间/全屋回执和自评。Critic 只有结构化 verdict 工具；REVISE 只开放授权子集，最多两轮，超限保留上下文进入 `paused_for_user`。
+- 状态机文档重写为 `docs/DESIGN_CRITIC_WORKFLOW.md`，住宅设计 Skill 和聊天工具标签同步新协议。隔离依赖下状态机/API/SSE/checkpoint/prompt 专项 26/26、viewer 正式构建通过；完整后端 46 项中 45 项通过，唯一失败仍是既有资产卡测试写死 Schema `1.1.0`、实际数据为 `1.2.0`，与状态机无关。
+
+## 63. 撤销业务状态机，回归开放 Agent Loop（2026-08-11）
+
+- 用户否定以固定阶段、批准协议、执行门禁和 Critic 回路主导 Agent 行为的方案；第 62 节保留为历史记录，但对应运行时代码、测试和文档已撤销，不再代表当前架构。
+- `graph.py` 回归单一开放循环：模型根据完整对话自主决定直接回答或调用工具；存在工具调用时由工具节点执行并把结果送回模型，模型输出普通文本时结束本轮。Graph 不再持有 `WorkflowStage`、`WorkflowEvent`、状态迁移表、批准意图节点、协议重试或 Critic 节点。
+- 删除 `workflow.py`、状态机/Critic 专项测试和 `DESIGN_CRITIC_WORKFLOW.md`；移除批准、提案、目标决策、视觉比较登记、终审提交、轻改完成和风格缺口上报等流程专用工具，也移除独立 Critic 模型。当前只保留查询空间与资产、读取方案、真实渲染观察和更新方案等通用能力工具。
+- `SKILL.md` 改为高自由度工作原则，只约束理解需求、事实取证、工具使用、验证和汇报，不规定固定路线或批准关卡。System Prompt 继续只负责身份、职能、目标和事实边界；`design.md` 保持为设计知识，不因本次回退改写。
+- 保留确定性基础设施：Scheme/Target/Asset Schema 与 Validator、Design Run 隔离、不可变版本、真实渲染桥和资产事实边界。这些是工具执行和数据完整性约束，不是对模型思考路径的状态机。
+- 验证：住宅设计 Skill 校验通过；完整后端测试 32/32 通过；viewer 正式构建通过。资产卡测试中的旧 Schema 断言已同步到实际 `1.2.0`。
+
+## 64. 恢复独立只读 Critic Agent（2026-08-11）
+
+- 用户指出第 63 节回退时把 Critic 能力一并删除属于过度删除。需要移除的是 Critic 对状态迁移和交付资格的控制，不是独立第二意见本身。
+- 新增独立 `critic.py`。Critic 拥有自己的开放工具循环，可自主读取当前 Scheme、房间、资产卡并观察单屋或全屋真实渲染；其工具集严格只读，不包含 `update_scheme`，也不能递归调用自己。
+- 主 Agent 新增通用工具 `ask_design_critic(review_request)`，由主 Agent 根据任务复杂度和判断价值自主决定是否调用。Critic 返回总体判断、证据、问题、修改建议和未验证事项；结果是供主 Agent吸收或质疑的审查意见，不是 PASS/REVISE 门禁，不触发阶段变化，也不强制每个任务调用。
+- Critic 使用独立缓存的模型实例和独立上下文，读取与主 Agent 相同的住宅设计知识，但不注入住宅设计 Skill，避免把主设计执行方法误当成审查流程。工具循环上限只是防止失控调用的运行保护，不是业务状态机。
+- 住宅设计 Skill 仅增加“复杂、影响范围大或容易自洽时可请求独立第二意见”的高自由度原则；System Prompt 和 `design.md` 均未因 Critic 恢复而增加流程职责。
+- 验证：Critic 只读边界、真实图片回传和独立结论测试通过；完整后端 34/34 通过；住宅设计 Skill 校验通过；viewer 正式构建通过。
+
+## 65. 按任务尺度使用 Critic（2026-08-11）
+
+- 用户明确要求主 Agent 进行完整设计时必须使用 Critic 审查，轻度修改不需要 Critic。该判断由主 Agent 根据用户意图和修改范围进行语义判断，不新增状态枚举或模式匹配器。
+- 完整设计包括整屋设计、单个房间的系统性重做、多个表面联动换向，或准备作为完整方案交付的任务。主 Agent 完成修改并取得真实渲染后调用 `ask_design_critic`，再自行判断是否采纳建议；采纳并修改后重新观察受影响空间。
+- 轻度修改是用户明确指定的一处或少数目标修改，且不改变整体材料关系。此类任务修改、观察受影响空间后直接汇报，不调用 Critic；只有用户明确要求独立审查时例外。
+- Critic 仍不是审批门禁：它没有 Scheme 写权限、不触发流程状态，主 Agent 对是否采纳其意见和最终交付负责。规则只写入住宅设计 Skill 与工具语义，System Prompt 和 `design.md` 保持原有职责。
+
+## 66. LangSmith 可观测性接入（2026-08-12）
+
+- Agent API 已接入 LangSmith tracing，但默认关闭；使用项目专属 `HOUSE_DESIGN_LANGSMITH_*` 配置，不读取系统级 `LANGSMITH_*` / `LANGCHAIN_*`，避免其他开发工具污染本项目。启用 tracing 时必须提供项目专属 API key，endpoint 只允许 LangSmith 官方 US/EU/APAC/AWS HTTPS 地址。
+- JSON 与 SSE 两条聊天链路都在完整 LangGraph 调用外围建立 `tracing_context`，写入项目名、`thread_id`、`design_run_id`、`design_mode`、传输方式、模型和 provider 等非密钥标签/元数据；同一 trace 自动包含 LangGraph 节点与 ChatOpenAI 模型调用。
+- 当前工具不是 LangChain 预建 Tool，而是手写字典 + `execute_tool` 分发，因此新增显式动态 tool span；主 Agent 的房间/资产查询、Scheme 写入、渲染观察和 `ask_design_critic`，以及 Critic 内部再次调用的只读工具都可在 trace 中识别。视觉工具的专用 tool span 只记录摘要、图片数量和标签，不重复写入 Base64；模型实际接收的视觉消息仍可能出现在上层 trace。
+- `langsmith==0.4.31` 已显式锁入后端依赖；本地/完整 Docker/AWS 精简部署均支持可选透传。启动日志与 `/api/health` 只报告 tracing 开关、endpoint/project/workspace 和密钥指纹，不暴露完整密钥；进程正常退出时 flush 后台 trace。
+- 启用 LangSmith 表示对话、工具参数/结果及模型实际接收的实时渲染证据会发送到配置的 workspace，生产数据必须先确认授权、访问权限和保留策略。未配置时保持 `HOUSE_DESIGN_LANGSMITH_TRACING=false`，不影响 Agent 主链路。
+- 验证：新增配置隔离、缺 key 拒绝、官方区域 endpoint、trace 元数据和动态工具 span 测试；后端完整 42/42 通过，Python 编译通过，两份 Docker Compose `config --quiet` 校验通过。因当前环境未提供 LangSmith API key，本轮没有向远端发送真实 smoke trace。
+
+## 67. 第一维规划评估集 v1（2026-08-12）
+
+- 第一维只评估“用户提出完整设计需求 → 多轮需求理解 → Agent 交付实施前规划”，不进入 Asset 选择、Scheme 成品或视觉质量。采用 5 个 PASS/FAIL 硬门禁与 4 个 0–4 软 Rubric：需求理解充分性、提问质量与效率、规划忠实度、规划完整性与可执行性。
+- 新增 `evals/planning_dimension/dataset_v1.json`，首版 12 个场景：4 个信息不足、3 个信息充分、3 个冲突或用户不知道、2 个产品边界；范围包括 8 个整屋、2 个单房间系统重做和 2 个相连公共区任务。信息充分场景专门检查 Agent 是否停止机械追问，边界场景覆盖品牌复刻/SKU/报价与拆墙/结构安全。
+- 每个场景只保存初始消息、稳定用户事实（`initial` / `if_asked`）、`must_resolve`、`must_reflect_in_plan`、`forbidden` 和最大用户轮数，不规定唯一设计方案或 Asset ID。模拟用户只维持事实和产生 `RESPOND/CLOSE`；`CLOSE` 仅终止测试，不代表规划合格。
+- 控制器未来必须在规划前成功调用 `update_scheme` 时立即判硬门禁失败；达到轮数仍未规划则以“未形成规划”结束。数据集 JSON 已校验可解析、12 个 ID 唯一、类别分布正确、所有 `must_resolve` 均引用有效 fact。
+- `max_user_turns` 已统一放宽为初始请求之后最多 8 次模拟用户回复，只由代码控制器作为防失控硬上限，不直接参与评分；上限以内是否冗长，仍由“提问质量与效率”软 Rubric 评价。
+
+## 68. 第一维规划评估运行器 v1（2026-08-12）
+
+- 新增 `evals/planning_dimension/run_eval.py`，通过现有 FastAPI 的 fresh session、chat、message history 与 design run 接口驱动真实 Agent；不直接导入 `graph.py`，保证评估覆盖与产品一致的会话、持久化和 tracing 链路。
+- 用户模拟器改为 DeepSeek 官方 `deepseek-v4-flash`，复用项目已有 OpenAI Python SDK 调用 DeepSeek 兼容 Chat Completions 接口，并在每次请求中显式发送 `thinking.type=disabled`；使用 SDK 但不调用 OpenAI 模型。模拟器只输出 `RESPOND/CLOSE`；控制器负责最多 8 次用户回复、规划前 `update_scheme` 立即终止、异常保存与逐场景落盘。
+- LLM grader 已从运行器移除。每个场景结束后生成最小 `<scenario_id>.grader.json`：只包含 Rubric、事实披露状态、编号对话、工具调用、停止原因和代码门禁；需要评分时由当前 Codex 任务使用无历史 fork 的独立子 agent 判四个非确定性门禁与四项 0–4 软分，不把项目记忆、源码、LangSmith trace 或模拟器理由传给 grader。
+- “规划前不得成功写 Scheme”仍由代码根据 fresh run 版本变化判定；达到最大用户轮数时由代码强制 `plan_delivered=FAIL`。`finalize_subagent_grade()` 校验子 agent JSON、合并代码门禁并按“全部门禁 PASS、均分至少 3、单项不低于 2”计算最终结果。
+- 每次评估保存完整 transcript、模拟器决策、工具调用摘要与停止原因；原始结果和 grader packet 写入 `evals/planning_dimension/results/` 并被 Git 忽略。支持列出场景、dry-run、指定单条/多条或全量运行。
+- 离线测试覆盖数据集选择、DeepSeek V4 Flash 非思考请求、工具轨迹提取、grader packet 最小上下文、确定性门禁与最终通过规则。由于验证时本机 FastAPI 未运行，本轮未执行会产生真实模型调用的端到端场景。
+
+## 69. 第一维规划评估首轮实测（2026-08-12）
+
+- 已通过本地 FastAPI 对 12 个场景完成真实运行；被测 Agent 使用项目现有 `gpt-5.6-luna`，模拟用户使用 DeepSeek `deepseek-v4-flash` 且显式禁用思考。主批次第 10 条首轮遇到 300 秒 API 超时，随后以 600 秒上限单独重跑成功；汇总采用成功重跑记录，不把基础设施超时当作 Agent 失败。
+- 12 份 grader packet 均由无历史 fork 的 Codex 子 agent 只读评分，代码随后校验 judgment、合并确定性门禁并生成 `evaluation_summary.json`。最终 0/12 通过；12/12 都在交付规划前成功调用 `update_scheme`，因此全部触发 `no_premature_update=FAIL`。
+- 其他门禁结果：`plan_delivered` 1/12 失败，`no_requirement_violation` 4/12 失败，`no_fabrication` 0/12 失败，`within_product_boundary` 0/12 失败。说明事实边界和产品边界总体稳定，但需求冲突与明确约束仍会被跳过或错误落实。
+- 四项软分平均值：需求理解 2.25、提问质量与效率 1.58、规划忠实度 2.42、规划完整性与可执行性 3.25；场景平均分 2.38。核心诊断是 Agent 能产出具体可执行方案，但当前开放循环倾向首轮直接执行，尤其在信息不足和冲突场景中几乎不先澄清。
+- 主结果目录为 `evals/planning_dimension/results/20260812_122155/`，第 10 条成功重跑源目录为 `20260812_123932/`；两目录都被 Git 忽略。运行器新增 `--finalize-run`，可读取子 agent judgment、应用确定性覆盖并生成合并汇总。
+
+## 70. 按第一维结果修订规划行为（2026-08-12）
+
+- System Prompt 新增完整设计的核心边界：整屋、单房系统重做或多表面联动必须先解决关键缺口、交付实施前规划并结束该回复；交付规划的同一轮不得调用 `update_scheme`，最早从用户下一条消息开始执行。轻度明确修改仍可直接行动，不引入代码状态机。
+- 住宅设计 Skill 将完整设计拆成可自由调整但不可颠倒的两段：先使用只读事实、少量高价值问题和普通用户可回答的取舍完成需求理解；再交付范围、确认约束、Agent 假设、材料/明度关系、空间主次、执行验证和未验证事项。需求充分时不机械追问；用户不知道或授权决定时不重复逼问；冲突未解决的回复只提问，不同时给完整提案诱导事后确认。
+- 修订后用新启动的 FastAPI 做 3 条代表性 smoke：信息不足场景经过 2 次模拟用户回复后 `close`，信息充分场景首轮 `close`，冲突场景先取得“明亮优先、深色局部、公共区浅中木”的事实后再 `close`；三条均 `update_scheme_succeeded=false`。首次 smoke 曾误连到占用 8000 端口的旧 uvicorn，结果无效，已精确停止旧进程并以新服务重跑。
+- smoke 同时发现 DeepSeek 模拟器会在数据集没有事实时顺着 Agent 选项补充新偏好；模拟器提示已收紧为每项确定陈述必须对应本轮披露事实，无对应事实只能回答不确定。完整后端回归 48/48、Python 编译与差异检查通过；验证服务已停止。
+
+## 71. Prompt/Skill 修订后六场景复测（2026-08-12）
+
+- 选取 6 条代表场景复测：2 条信息不足、2 条信息充分、1 条多焦点冲突、1 条品牌/报价边界。主批次目录为 `evals/planning_dimension/results/20260812_150745/`；`sparse_public_agent_choice_04` 因模拟器在规划后错误续聊并主动补事实而单独修正重跑，目录为 `20260812_151427/`，权威汇总使用 `evaluation_summary_corrected.json`。
+- 修正后的最终结果为 4/6 通过。6/6 均在规划阶段保持 `update_scheme_succeeded=false`，所有五项硬门禁全部 PASS，说明“先规划、后动手”、事实边界和产品边界在该样本中已经稳定。
+- 通过场景：信息充分整屋 4.0、信息充分主卧 3.5、多焦点冲突 4.0、品牌边界 4.0。失败场景：宽泛“温暖高级”整屋 1.75、用户授权决定的公共区 1.75；二者都没有提问，需求理解 2、提问质量 0、规划忠实度 2、可执行性 3。
+- 六条平均软分为：需求理解 3.33、提问质量与效率 2.67、规划忠实度 3.17、规划完整性与可执行性 3.50，场景平均 3.17。残余问题已从“首轮直接写 Scheme”收敛为“宽泛目标下虽先规划，但仍以 Agent 假设替代高价值需求询问”。
+- 模拟器终止规则进一步明确：只要 Agent 已给出具体规划，无论规划质量如何都必须 CLOSE，不能继续补齐遗漏事实或发送执行许可；遗漏由 grader 扣分，不由模拟用户帮 Agent 修正。
+
+## 72. 第一维六场景迭代至全通过（2026-08-12）
+
+- 用户授权继续调整直到通过，并要求节省 token；采用定向复测而非反复全量跑：先只跑此前失败的两条，再跑其余四条防回归，基础设施或 grader 上下文问题只重跑/重评受影响场景。
+- Prompt/Skill 进一步明确宽泛审美词与“你来决定”不代表信息充分：完整设计应以一组 2–4 个普通用户可答的问题覆盖最相关边界；宽泛整屋不能只问颜色纹理，还需覆盖空间主次/重点和家庭使用/清洁维护。反向规则同时定义充分条件：范围、整体感受/明暗、主要材料/纹理、主次重点、相关禁忌/生活约束已明确时，不得继续索取可选偏好，具体深浅和材料表达由 Agent 判断。
+- DeepSeek 模拟器增强事实与终止纪律：具体规划一出现即 CLOSE；纯需求问题必须 RESPOND；无对应事实时回答不确定；JSON 解析失败和字段契约失败均最多自动重试一次。这样不再用模拟器补事实或执行许可帮助 Agent，也不把无效 JSON 当 Agent 失败。
+- Grader packet 新增极小 `product_facts`（System Prompt 已知的可设计空间数量与房间列表），避免 grader 因看不到 Agent 的系统事实，把“11 个空间”等真实陈述误判为编造；不加入源码、项目记忆或其他无关上下文。
+- 最终有效 6 条全部通过，权威汇总为 `evals/planning_dimension/results/20260812_153520/evaluation_summary_6of6.json`：硬门禁 6/6 全 PASS；场景平均 3.88。软分平均为需求理解 4.00、提问质量 3.67、规划忠实度 3.83、规划完整性与可执行性 4.00。
+
+## 73. 第二维最终成果评估 Rubric v1（2026-08-12）
+
+- 第二维范围固定为“用户确认实施前规划并要求执行 → 最终 Scheme、真实渲染、Critic 审查与最终汇报完成”，不重复评价需求访谈或规划文案。视觉质量不另造新标准，直接复用生产 Critic 的 12 条大白话检查项。
+- 12 条视觉标准已从 `critic.py` 抽取到共享唯一源 `backend/agent_api/agent/visual_criteria.py`，带稳定 `criterion_id`；生产 Critic 继续由该源生成原自然语言提示。`evals/outcome_dimension/rubric_v1.json` 是锁定快照，测试确保快照、共享常量与 Critic 提示不漂移。
+- 新增 7 项言行一致硬门禁：规划与最终 Scheme 一致、渲染属于同一 run 的最终版本、无范围外修改、最终汇报与工具结果一致、视觉验证声明有图片、偏离规划有披露、失败未冒充成功。确定性项优先由代码判断，规划/图片语义由具备看图能力的 grader 判断，代码结论不可被覆盖。
+- 每个场景只声明适用的 `required_visual_criteria`；这些必查项必须全部 PASS，`UNABLE_TO_JUDGE` 也视为不通过，因为表示缺少验收所需视角。七项一致性门禁也必须全部 PASS；维度二不增加 0–4 总分。
+- 新增 `evidence_packet_schema_v1.json` 与 `grader_output_schema_v1.json`：证据包包含确认需求、批准规划、允许目标、Scheme 前后版本与 diff、工具轨迹、绑定 run/version 的本地图片路径、Critic 结果和最终汇报；Grader 输出逐项视觉证据、门禁证据、优先问题和未验证事项。`rubric.py` 负责严格校验并计算最终 PASS/FAIL。
+- 新增共享标准、JSON 快照、Schema 和通过规则测试；Critic/维度二专项 7/7、后端完整回归 52/52、Python 编译和差异检查均通过。当前尚未设计维度二场景集，也未搭建需要真实浏览器渲染会话的执行采集器。
+
+## 74. 第二维测评集 v1（2026-08-12）
+
+- 新增 `evals/outcome_dimension/dataset_v1.json` 与 `dataset_schema_v1.json`。维度二采用固定已审批规划作为入口，不重跑需求访谈，避免维度一波动干扰对执行、成品、视觉质量和最终汇报的定位；以后端到端评估再串接 Agent 实际生成的规划。
+- 主集共 12 条：明亮公共区、包裹感主卧、小次卧低复杂度、单一墙纸焦点、狭长玄关方向、客餐厅连续性、厨房木/砖过渡、主卧套间连续性、公卫低复杂度、仅吊顶局部修改、单墙色温一致性、全屋综合方案。全部限定在当前真实五类表面、房间和 target ID 内。
+- 每条场景声明确认需求、审批规划、允许房间/目标、必查视觉项、标准化截图计划和 grader 关注点。正式画面由评测器在任务结束后独立调用 `observe_room` / `observe_home_harmony` 采集，不依赖 Agent 是否主动截图。
+- `smoke_6` 用 6 条场景合计覆盖生产 Critic 的全部 12 项视觉标准；`full_12` 补充单点范围控制、更多跨房间关系和全屋综合回归。离线测试验证 12 条 ID 唯一、subset 有效、Rubric 覆盖完整、截图覆盖无缺口、房间和 target 均存在于当前场景；3/3 通过。
+
+## 75. 第二维 Runner 与 smoke_6 首轮实测（2026-08-12）
+
+- 新增 `evals/outcome_dimension/run_eval.py`：通过生产 FastAPI 创建 fresh Design Run 并执行固定审批规划，保存会话、Scheme 前后版本与 diff、工具调用及结果；通过现有 Render Bridge + Playwright 无头 Three.js worker 独立执行场景 `capture_plan`，把 Data URL 落盘为本地 JPEG 并组装 `evidence_packet.json`。Codex 子 agent 看图写 `grader_judgment.json`，Runner 以代码覆盖版本绑定、范围完整性和截图覆盖门禁后生成 `grade.json` 与汇总。
+- 主批次为 `evals/outcome_dimension/results/20260812_162200/`。第一条期间人工 API 探活误创建 probe run，污染了首次截图版本元数据；没有把该基础设施污染算作 Agent 失败，而是只定向重跑至 `20260812_170913/`。权威结果为主目录下 `evaluation_summary_corrected.json`，明确选择纠正后的第一条和主批次其余五条。
+- 最终 6 条全部完成真实 Agent 执行、Scheme/trace 采集、固定视角渲染和看图评分，结果为 0/6 通过。所有 6 条 `intent_matches_image` 均失败；常见视觉问题为偏橙棕地面、深灰/近黑顶面或窗墙区域、墙地关系失调、墙纸放在被门洞切割的墙面且图案过强。
+- 渲染证据链暴露系统问题：纠正后的客厅图片仍不像 40.9㎡横厅；玄关 Scheme 与渲染地面不一致；厨房/公共区图片的房间—材质对应互相矛盾。跨空间 `observe_home_harmony` 在客餐厅连续性和厨房—公共区过渡两条均超过 180 秒，导致两条的跨空间必需证据缺失。
+- 失败门禁分布：`deviation_disclosed` 3 条、`plan_scheme_alignment` 2 条、`visual_claim_has_evidence` 2 条、`report_tool_consistency` 2 条、`no_false_success` 1 条。工具调用数为每条 14–31 次；跨房间场景在同轮串行观察多个房间和全屋，延迟与超时明显。
+- 第二维新增 Runner/数据集后完整后端回归 55/55 通过。评测结束后本地 Agent API、Viewer、Render Bridge、Render Worker 均已停止。
+
+## 76. 两个视觉观察工具证据链重构（2026-08-13）
+
+- `observe_room` 不再把摄像机轨迹的 `focusTargetIds` 当作已经看见目标。渲染器新增 320×180 Object-ID pass：非目标实体作为黑色遮挡物、背景单独编码，逐目标返回像素数、占比、包围盒与 `readable`；同时计算截图亮度、对比度、黑屏比例与遮挡比例。只有有效图片中的真实可读像素才进入 `verifiedCoverage`，否则返回 `incomplete_observation`。
+- 房间证据机位与导览轨迹解耦：去除重复位姿，新增房间内部总览、四向扫视、按墙段几何/饰面朝向生成的墙面专项机位、吊顶抬头专项机位和明确标注的地面隔离补充。真实 WebGL 全量回归中 11/11 房间均 `ready`、无未覆盖目标和无效图片；历史数据中的 `wall_face_real4_028`、`020`、`026` 与所属房间矩形不相邻，工具以 `topologyAnomalyTargetIds` 明示，但仍用饰面朝向专项机位提供真实像素证据。
+- `observe_home_harmony` 不再复用房间轨迹首尾帧。6 组跨空间证据全部由 `scene_manifest` 的真实 opening 和 host wall 几何计算门槛中心与双侧机位；每张图必须同时看见门槛两侧地面才通过。期间发现并修正 `opening_master_suite_door` 的过渡拓扑：它连接横厅与主卧衣帽间，而不是横厅与主卧。
+- 全屋代表图从每房间多个候选中按有效性、地面/墙面可读性、目标多样性、单一表面霸屏和非目标遮挡比例确定性选优；无墙面的南向阳台使用合法的仅地面合同，狭小服务空间遮挡超过 72% 则硬失败。最终真实回归：11 个房间英雄图全部有效，6 个门洞的 12 张双侧图全部 `ready`，全屋证据共 13 张有效图片。
+- 第二维 Runner 现在把图片质量、目标可见性、遮挡质量与 observation status 写入 evidence packet；工具整体或单图未通过时图片仍落盘用于诊断，但 `evidence_valid=false`，不计入最小截图数、版本对齐门禁，也不会发送给视觉 grader。由此杜绝“有 JPEG 文件就算有证据”和失败截图参与评分。
+- 验证：viewer 完整测试 43/43（含正式构建与材质审计），视觉观察与摄像机专项 14/14；新增评估证据门禁测试后相关 Python 离线测试 5/5，Python 编译与 evidence packet JSON Schema 解析通过；真实浏览器/Render Bridge 回归完成。QA 图片保存在 `output/visual_tool_qa/visuals/`。
+
+## 77. Design Agent / Critic 视觉证据同步门禁（2026-08-13）
+
+- Design Agent 与只读 Critic 原本已经共用 `observe_room` / `observe_home_harmony` 的工具定义、Render Bridge 请求和真实图片回注机制，因此前端新增的真实门洞机位、像素可见性、图片质量、遮挡质量、覆盖缺口与拓扑异常元数据会同时到达两边；Critic 仍无 `update_scheme`，也不能递归调用自己。
+- 补齐此前仅在维度二 grader 生效、但主 Agent 链路尚未 fail-closed 的缺口：新增纯函数模块 `backend/agent_api/tools/visual_evidence.py`，在图片进入模型前独立复核整体 `status=ready`、`evidenceLevel=pixel_verified_coverage`、房间计划/验证覆盖、无 uncovered/invalid、所有单图质量有效，以及全屋无失效英雄图、所有门洞 pair ready、双侧图片有效和英雄图遮挡不超过 72%。任一合同不满足，整批图片全部阻断，只保留去除 Data URL 后的诊断摘要。
+- 工具摘要新增 `modelEvidenceReady`、`modelEvidenceImageCount` 与失败原因；主 Agent 和 Critic 只有在 `VisualToolOutput.images` 非空时才创建多模态 HumanMessage，避免“零张合格图但出现一条视觉消息”。System Prompt、Critic Prompt、工具描述和视觉消息声明统一明确：诊断元数据与 `incomplete_observation` 不能支持视觉结论，只能重试或回答“无法判断”。
+- 新增 7 条纯门禁测试，并给主 Agent/Critic 增加零图片不回注的回归用例。Python 编译通过；视觉门禁、维度二证据与数据集相关离线测试合计 12/12 通过。当前系统 Python 未安装项目 requirements 中的 `langsmith/langchain-core/langgraph`，因此本轮未在该解释器执行依赖完整 Agent 框架的测试；纯门禁测试不依赖这些框架。
+
+## 78. 第二维 smoke_6 重构后实测（2026-08-13）
+
+- 使用最新 Design Agent、Critic 和重构后的两个视觉工具完成维度二 `smoke_6` 全量实测。Runner 通过真实 FastAPI fresh Design Run 串行执行 6 条审批规划，并由在线 WebGL Worker 独立采集最终版本证据；6/6 场景均生成 evidence packet，无基础设施场景失败，共取得 136 张且全部 `evidence_valid=true` 的图片。
+- 6 条场景分别交给隔离的 Codex 子 Agent，只读取单场景 evidence packet、必要 Rubric/Schema，并用 `view_image` 检查有效图片后生成严格 `grader_judgment.json`；Runner 再用代码覆盖版本绑定、范围完整性和最小截图数三个确定性门禁。最终结果 2/6 通过：玄关纵向秩序、厨房—公共区木砖过渡通过；明亮公共区、小次卧低复杂度、单一墙纸焦点、客餐厅连续性失败。
+- 所有 6 条的确定性门禁 `scheme_render_version_alignment`、`scope_integrity`、`visual_claim_has_evidence` 均 PASS，证明新版证据链在 final run/version 绑定、范围控制和截图覆盖上稳定。主要残余失败已从“看错房间/材质/门洞、缺证据”转为真实视觉质量：大面积深灰/近黑顶面反复抢戏；小次卧综合视角的深灰棕窗墙与浅墙专项图矛盾；低对比墙纸在远景仍显得重复且过强；部分浅木地面偏黄橙。
+- 厨房—公共区场景中 Agent 自身 `observe_home_harmony` 曾 504，但最终汇报如实披露；评测器随后独立采集的 43 张最终版本证据有效，Codex grader 据真实门洞双侧图判三项视觉标准通过，因此没有把 Agent 工具失败冒充成功，也没有把基础设施延迟误判为视觉失败。
+- 权威结果目录为 `evals/outcome_dimension/results/20260813_164629/`，总汇为其中的 `evaluation_summary.json`。完整依赖的临时 Python 环境下，视觉工具、Critic、资产图片、维度二证据/数据集/Rubric 专项测试 24/24 通过。
+
+## 79. 第二维暴露的非 Agent 问题修复（2026-08-13）
+
+- 平顶发黑的根因是 GLB 使用占位材质导出，而前端只替换墙地材质、漏掉了基础 ceiling mesh。前端现对所有 `surface_role=ceiling` 的 GLB 网格强制应用与几何吊顶共用标准的近白双面材质，并以受控自发光锚定综合色；真实浏览器截图中平顶恢复为浅暖白，不再成为深灰焦点。
+- 场景生成器原先在房间矩形与墙段不相交时静默回退整段墙，制造了 `wall_face_real4_020`、`026` 的错误几何；现改为无交集即抛错，并在不改变稳定 ID 的前提下把 020 绑定到北次卧北外墙、026 绑定到衣帽间西墙。横厅补充通往公卫门的 L 形 `topology_rects` 及对应地面/吊顶实体，使 028 成为真实相邻墙而非诊断例外。GLB、Blend 和三份 Scene Manifest 已重建，几何修订升为 `hard-finish-realism-pass-v4-topology`；所有摄像机墙目标的拓扑异常归零。
+- `observe_home_harmony` 的每房候选从十余张压缩为最多 5 张，英雄图从 960×540 调整为与 320×180 contact sheet 相称的 640×360，同时保留像素可见性和遮挡门禁；返回新增实际耗时/候选数诊断。生产 Render Bridge/HTTP 超时统一为 180s/190s。真实软件 WebGL 回归中全屋取证 6.9s 返回，内部捕获 5.0s，55 张英雄候选、6 组/12 张门洞图全部 ready，0 个无效英雄/不完整房间。
+- 两款浅木重新做综合色：浅白蜡木与自然浅橡木均压低黄橙分量，运行时再使用轻微冷中性乘色；PBR 运行图、4K 母版、缩略图和 manifest 已重建。`build-surface-pbr.mjs` 同时修复了“未指定 SURFACE_ASSET_IDS 时反而把全量构建判为未知 ID”的条件错误。
+- `wallpaper_mineral_wash_01` 的实际铺贴尺度由 1.06m 放大到 2.12m，减少远景重复；更重要的是资产事实改为中高活动度单面焦点、仅 `anchor`，资产卡明确不得用于低对比/安静背景，过滤 profile 改为 `activity=high`，Quiet 查询会硬拒绝。真实页面临时应用验证了扩大后的图案尺度；它仍是明显焦点，不再被元数据伪装成安静材料。
+- 真实页面切房时还发现导览播放按钮的无障碍名称残留上一个房间；按 `activeTrack.roomId` 重建按钮后，DOM 与实际房间一致。最终页面无 console error，横厅平顶与浅木画面正常。
+- 验证：viewer 正式构建、目录/取证/性能/拓扑回归 49/49；完整后端 unittest 67/67；`observe_room(open_public)` 3.4s、16 图、ready、0 uncovered/invalid/topology anomaly；`observe_home_harmony` 6.9s、6/6 transition ready。Agent API 已重启并在 8000 端口健康运行，Viewer/Render Bridge 保持可用，可直接开始下一轮评估。上述修复只涉及场景、资产、渲染、工具性能与 UI，没有修改 Design Agent/Critic 的决策逻辑。
+
+## 80. 第二维真实交互用户模拟器与最终基线 v2（2026-08-13）
+
+- 新增 `evals/outcome_dimension/dataset_v2.json` 与 Schema，默认入口从 v1 的“直接发送固定审批方案”改为真实轨迹：用户只表达任务感觉，Agent 先查看现状/素材并规划，用户审批后再实施；v1 的 12 个场景、范围与固定截图计划继续作为源数据和历史兼容记录。
+- 新增纯文本 DeepSeek `deepseek-v4-flash` 用户模拟器，显式关闭 thinking，输入中不含图片、图片路径或渲染证据。模拟器只能引用场景稳定需求 ID；Agent 提出素材不足与局部替代时，批准/拒绝必须引用最新 Agent 回复原文，需求变化由 Runner 更新可审计 requirement ledger。
+- 为防止交付后按结果倒推标准，引入实施前 plan baseline lock：用户批准规划时必须保存 Agent 规划原文片段、最终批准方案与目标范围；首次 plan approval 若 Scheme 已变化会被代码拒绝。后续批准替代可以更新该锁定快照，但必须留下 negotiation/approval log。
+- `CLOSE` 只允许在三个条件同时成立后出现：已存在实施前审批快照、最终 Scheme 相对 base version 有真实变化、Validator 通过。关闭输出必须逐项等于最终 requirement ledger，且方案与目标范围原样等于已锁定基线；缺项、未知 ID、范围越界、提前关闭或交付后改答案均由代码拒绝并自动要求模拟器重答一次。
+- 新版 Runner 在每条场景保存 `simulator_trace.json`、谈判记录、方案审批记录和最终 baseline；grader evidence packet 的 `confirmed_requirements`、`approved_plan`、`allowed_target_ids` 改为来自 `CLOSE` 基线，并新增 `baseline_provenance`，不再使用固定参考方案作为评分真值。视觉仍由评测器独立采集并交给 Codex grader，DeepSeek 不参与视觉判断。
+- 普通需求问答采用“模型选事实 ID、Runner 用 ledger 原文生成实际用户消息”的 fail-closed 方式；同时保留 `simulator_raw_message` 供审计。最新 Agent 回复包含明确问号时，模拟器不得空引用并催规划，必须至少选择一条稳定需求事实，否则自动重答一次。这避免只校验 JSON 格式却放过漏答或临时编造。
+- 新增离线测试覆盖 V4 Flash 非思考调用、图片上下文隔离、提前 CLOSE、需求账本篡改、替代审批证据、交付后倒填规划、事实消息 grounding、最终 packet 基线来源与 v2 数据集完整性。专项 17/17、完整后端 unittest 75/75 通过，JSON Schema 与 `dataset_v2.json` 实例校验通过，`--subset smoke_6 --dry-run` 通过。另用 DeepSeek 官方 API 做了三次纯协议探针：需求问句能被 Runner 固化为账本原文；不够具体的规划会继续澄清而非误批准；交付完成后 `CLOSE` 能完整复述 4 条需求、锁定方案与目标范围。
+- 准备状态：Agent API 8000、Viewer 3000 与 Render Bridge 8765 均在线；独立 renderer 页面已通过 in-app browser 以 `render_session=worker` 注册，bridge 返回 `online=true`。正式下一轮默认运行 `E:\python\python.exe evals/outcome_dimension/run_eval.py --subset smoke_6 --render-session worker`。
+
+## 81. DeepSeek 自然对话 CLOSE 总结可靠性实测（2026-08-13）
+
+- 新增一次性生产轨迹探针 `evals/outcome_dimension/probe_natural_close.py`：Design Agent 完全不改、只通过 FastAPI 输出自然语言；DeepSeek 在 Agent 发言前生成并锁定普通用户画像，随后自然多轮回复。它不接收 v1 参考方案、需求/目标 ID、Scheme、图片或答案；最终另起一次 DeepSeek 调用，只依据公开对话输出 `CLOSE + final_requested_plan + source_turn_ids`。
+- 实际轨迹中，Agent 识别了碎片化横厅不适合连续雾景壁画，用户选择“B：雾感可见但不抢眼”，接受低对比矿物局部替代并授权 Agent 决定墙面分配；用户随后批准了保留浅橡木地面、平顶、一面/少数完整墙使用冷中性石灰洗、其余墙用暖白/Greige 的自然语言执行规划。执行轮 HTTP 500 发生在多次 Scheme 写入成功之后，同一会话恢复并取得最终文本交付。
+- 对同一公开 transcript 独立生成 3 次 CLOSE 总结并人工逐轮对账。三次均稳定保留核心意图、B 方案、墙面分配授权、浅橡木和平顶，说明核心意图召回较高；但三次都把用户从未要求的“连续雾景壁画”改写成原始选择，并把已批准的石灰洗方案放宽为“矿物涂层或细肌理墙纸”。前两次还错误声称用户拒绝 C，第二次又把 Agent 仅讨论过的深地板/阴影缝顶列为用户拒绝项；source turn 不稳定，只有第三次保留实时视觉验证未完成的事实。用户模拟器本身也在 Agent 明说渲染未验证后错误 CLOSE，并称已通过验证。
+- 结论：DeepSeek 直接从自然对话生成的最终总结可作为可读候选稿，但不够可靠，不能单独作为维度二权威验收基线。核心问题不是 JSON 格式，而是提案与用户原始要求混淆、B/C 选项关系误判、已批准具体方案被重新放宽、来源轮次不稳和 CLOSE 状态误判。完整记录、三次总结与审阅位于 `evals/outcome_dimension/natural_close_probes/20260813_200254/`。
+
+## 82. 完整自然对话直交 Codex grader 的维度二实测（2026-08-13）
+
+- 用户明确决定不增加中间合同提取：DeepSeek 只作为自然语言用户输出 `RESPOND/CLOSE`，Design Agent 不改且只走生产 FastAPI；新增权威 Runner `evals/outcome_dimension/run_direct_dialogue_eval.py`，grader 直接读取完整编号 conversation、Scheme/diff、工具轨迹、最终汇报和最终图片，一次性还原最终审批语义并验收成品。
+- `smoke_6` 全部完成真实多轮对话、Scheme/Validator、Agent 视觉工具及评测器独立截图，Codex 子 agent 逐张查看全部有效图片。首场独立目录 `results/20260813_203213/`，其余五场目录 `results/20260813_204004/`；权威合并汇总为首目录的 `evaluation_summary_direct_dialogue.json`。最终 3/6 通过：明亮安静横厅、玄关纵向秩序、厨房—公共区过渡通过；单一墙纸焦点、客餐厅连续性、小次卧失败。
+- 直评对话证明了语义能力：墙纸场景中，Codex识别到用户后来接受“墙面含开口”，没有用已被修改的旧要求处罚 Agent；玄关识别到用户批准的是克制结构型纵向秩序并接受入口分界/弱方向感；客餐厅识别到 U6 后续批准把厨房加入范围，因此没有被旧 `allowed_target_ids` 误罚。
+- 三个失败原因：墙纸画面没有形成用户最终要求的第一眼单一焦点，且最终报告掩盖 Critic 高优先级失败；客餐厅最终图仍有整面中灰墙，违反后来批准的两面浅暖白并与报告矛盾；小次卧自然对话最终批准并实施南次卧 `bedroom_3`，旧固定 capture plan 却只拍北次卧 `bedroom_2`，五项视觉标准均无法判断，暴露固定截图计划不能假设自然对话后的最终对象仍不变。
+- 自然长工具链多次暴露同步 `/api/chat` 500；Runner允许每场最多 5 次同会话恢复，保留 failed turn、错误与当时 Scheme version 给 grader，不隐藏基础设施中断。有效正式样本中首场使用 1 次恢复，其余五场 0 次；对话长度分别为 7、10、8、6、14、6 个公开轮次，图片数 16、13、16、10、38、43。
+- 动态自然审批改变了确定性门禁边界：固定 target 列表不能覆盖对话中明确批准的范围扩展；固定截图“数量够”也不能证明拍到了最终获批对象。因此直评汇总器只代码覆盖完全确定性的 final run/version 图片绑定；`scope_integrity` 与 `visual_claim_has_evidence` 均保留给 Codex依据完整对话和图片语义判断。最终汇总 3/6，所有 6 条判断和 grader JSON 已落盘。
+
+## 83. 维度二最终对话后的动态取证计划（2026-08-14）
+
+- `run_direct_dialogue_eval.py` 不再在用户 `CLOSE` 后直接使用数据集里的静态房间机位。Runner 现在从成功的最终 `update_scheme` 写入、base→final Scheme 净变化和绑定最终 Scheme 版本的 ready `observe_room` 回执确定性反推最终实施房间，再为每个房间生成独立 `observe_room` 取证；涉及多个房间或原任务要求跨空间关系时，同时生成 `observe_home_harmony`。
+- no-op 写入仍是有效目标证据：只要某目标最后一次成功写入的 asset/parameters 与最终 Scheme 一致，即使相对基线没有 diff，也会进入动态取证。这修复了“小次卧方案与基线相同，但实际实施南次卧、旧计划却拍北次卧”的缺口；已经被后续最终配置覆盖的临时试验不会进入取证范围。
+- 动态取证采用 fail-closed：若成功写入、Scheme diff 和最终版本观察都无法映射出房间，Runner 直接停止该场景，不回退旧静态机位；独立取证返回的 `room_id` 必须等于请求房间，否则不生成 evidence packet。每场额外保存 `capture_plan.json`，packet 中保存 `capture_plan_provenance`，episode 记录推导来源和房间列表。
+- 用上一轮三个失败场景离线重放：墙纸场景生成 `open_public`；客餐厅生成 `dining_room + kitchen + open_public + home_harmony`；小次卧从旧 `bedroom_2` 正确重定向为 `bedroom_3`，焦点覆盖南次卧四墙、地面和顶面。新增 5 条回归测试覆盖 no-op 重定向、多房间及跨空间取证、最终版本观察后备、无法推导时拒绝和返回房间错位拒绝；Python 编译通过，完整后端 unittest 80/80 通过。
+
+## 84. Critic 升级为生产交付阻断门禁（2026-08-14）
+
+- Critic 不再只返回不可执行的自由文本第二意见。其最终回复必须以 `CRITIC_VERDICT: PASS|REVISE|UNABLE_TO_JUDGE` 开头，工具层再封装为含 `verdict/review/machine_verdict_source` 的 JSON；缺 marker、非法 verdict、空回复或达到只读工具调用上限均 fail-closed 为 `UNABLE_TO_JUDGE`。只有全部适用视觉标准有有效证据且通过时才允许 `PASS`。
+- LangGraph 新增持久化 Critic 门禁状态。`REVISE` 或 `UNABLE_TO_JUDGE` 后，主 Agent 的无工具“完成”回复不能结束图，而会收到内部 `DELIVERY_GATE_BLOCKED` 指令，必须根据 Critic 发现继续修改或补证并重新调用 `ask_design_critic`；只有新的 `PASS` 清除门禁。Critic PASS 之后若再次成功 `update_scheme`，旧 PASS 自动变为 `STALE_AFTER_SCHEME_UPDATE`，必须重新观察和复审。
+- 为避免模型拒绝迭代造成无限循环，连续三次无工具规避门禁后由系统返回固定的未交付说明，绝不伪装成功。SSE 同步跟踪门禁状态，阻断期间模型生成的错误成功文本不会作为 `message_delta` 提前流给用户；最终只会流出真正通过后的交付或固定未交付说明。
+- 项目设计技能和 `ask_design_critic` 工具描述已同步更新：完整设计在真实渲染后、交付前必须调用 Critic；轻度修改仍按既有边界不主动调用，除非用户明确要求独立审查。一旦 Critic 已进入某设计的审查链，后续修改必须取得新 PASS。
+- 新增门禁回归覆盖：REVISE→修改→观察→复审 PASS、PASS 后修改导致旧审查失效、模型反复试图直接交付时安全阻断、缺失/非法 verdict fail-closed，以及 SSE 不泄漏被驳回的成功文本。Python 编译通过，完整后端 unittest 85/85 通过。修改完成时本地 8000 端口无 Agent API 监听进程；下次启动服务会加载新门禁。
+
+## 85. 客餐厅灰墙失败归因与墙面覆盖修复（2026-08-14）
+
+- 复核维度二 `public_dining_continuity_06`：最终 Scheme 中餐厅既有目标 `wall_face_real4_005`、`034` 均为 `paint_warm_white_01 + light + matte`，资产浅档锚点为 `#F5F2EB`；目标墙特写也确为浅暖白。因此该失败不是 Design Agent 选错颜色，而是最终 WebGL 画面暴露了未被 Scheme 覆盖的墙体核心。
+- 根因位于 Blender 场景生成器：长外墙 `wall_ext_west` 实际相邻南次卧、玄关和餐厅，但旧 `WALLS` 结构只列并生成前两个房间饰面，餐厅西窗墙没有 `wall_face_id`；Three.js 对裸露 `surface_role=wall_core` 使用固定 `#aaa49a` 建筑收口材质，遂形成整面中灰墙。相同结构还遗漏主卧南窗墙和公卫北窗墙。
+- 在不改变既有 `wall_face_real4_001–034` 稳定 ID 的前提下追加 `035` 餐厅西墙、`036` 主卧南墙、`037` 公卫北墙，并同步房间清单、Design Targets、静态 Scheme 与摄像机取证目标。几何修订升级为 `hard-finish-realism-pass-v5-wall-coverage`，GLB、Blend 和三份 Scene Manifest 已重建。
+- 验证器新增外墙房间饰面完整性门禁，并修正多矩形房间一个 Scheme target 对应多个几何对象时的旧唯一性假设；摄像机测试现在要求每个房间的墙目标集合与 Scene Manifest 完全一致，防止以后再次出现“画面可见但不在 Scheme/取证内”的墙面。
+- 同一餐厅入口 WebGL 机位回归确认中灰窗墙消失，西墙与北墙均由浅色饰面覆盖；Blender/GLB 独立验证 42/42、viewer 正式构建与测试 49/49、完整后端 unittest 85/85 通过。浏览器仅出现未启动 Render Bridge 的预期轮询警告和 Three.js 阴影弃用警告，无场景加载或材质应用错误。
+
+## 86. 工作类型、Scheme 写权限与无污染交付门禁（2026-08-14）
+
+- 用户纠正了第 84 节“Critic 是否调用过”的持久状态设计：同一 `thread_id` 的下一次图调用会继承 checkpoint；若把上轮 Critic 状态持久化，本轮即使是新的轻度任务也会被旧门禁污染。现在 checkpoint 只保存 `messages`；`work_type`、Critic verdict、Scheme 版本、修改范围、视觉证据和交付锁等编排字段全部使用 LangGraph `UntrackedValue`，只在当前 graph invocation 内有效。
+- 唯一显式业务类型为 `NOT_STARTED | LIGHT | HEAVY`，不再增加“工作阶段”字段，也删除 `critic_review_seen`。规划、提问和等待用户审批时默认为 `NOT_STARTED`，允许自然结束回复，但代码拒绝任何 `update_scheme`；用户批准实施后，Agent 必须在独立工具轮次调用 `set_design_work_type`，才能获得 Scheme 写权限。启动工具与写入工具若出现在同一批，写入仍被代码拒绝，防止模型用工具顺序绕过审批边界。
+- 类型转换只允许 `NOT_STARTED→LIGHT/HEAVY` 和 `LIGHT→HEAVY`，不允许降级。`LIGHT` 的代码配额为单房间、最多 2 个不同 target；超过任一配额自动提升为 `HEAVY`。因此模型不能通过自报“轻度修改”逃避完整设计的 Critic 门禁。
+- 一旦进入 `LIGHT/HEAVY`，无工具回复不再天然连到 END：必须至少有一次成功 Scheme 写入，并且每个实际修改房间都取得与当前 Scheme version 一致、`modelEvidenceReady=true` 且确有图片的实时证据；多房间还必须有当前版本的 `observe_home_harmony`。任何后续写入都会清空旧视觉证据，并使已有 Critic 结论变为 `STALE`。
+- `LIGHT` 在从未进入 Critic 审查时，满足“成功写入 + 当前版本单房证据”即可交付；一旦调用过 Critic，无论轻重都必须取得绑定当前 Scheme version 的 `PASS`。`HEAVY` 始终要求当前版本 Critic PASS。`REVISE`、`UNABLE_TO_JUDGE`、`STALE` 或未审查的重度任务都会走 `delivery_guard → agent` 条件边；连续三次拒绝继续工作后进入固定安全未交付节点，SSE 同步屏蔽门禁期间模型生成的错误完成文本。
+- 新增/重写回归覆盖：未开始写入阻断、启动与写入同批阻断、轻度合法交付、轻度超配额自动升级、重度 `REVISE→修改→重取证→PASS`、重复规避安全终止、同一 thread 下一轮只恢复 messages、JSON API 真实写穿与 SSE 文本防泄漏。Python 编译通过，完整后端 unittest 89/89 通过。第 84 节的 Critic 高优先级和版本绑定原则继续有效，但其“门禁状态跨调用持久化”实现由本节替代。
+
+## 87. 工具视觉消息生命周期：模型消费后真正删除（2026-08-14）
+
+### 根因
+
+`tools_node` 把渲染图片包装成含 Base64 `image_url` 的 `HumanMessage`，通过 `add_messages` 写入 LangGraph checkpoint。图片被后续所有模型请求重复携带，单次请求膨胀到 211,224 tokens。`routes_sessions._serialize_message` 只在 API 读历史时剥掉 `image_url` 显示层，checkpoint 里的 Base64 从未真正删除，所以体积问题依旧。
+
+### 图片删除的精确生命周期
+
+新增共享模块 `backend/agent_api/agent/visual_message_lifecycle.py`（主 Agent 与 Critic 共用，无循环依赖）：
+
+- 工具产生图片后，`tools_node` / Critic 用 `build_ephemeral_visual_message(content)` 构造带**唯一 id**（`visual-<uuid4>`）和 `additional_kwargs["ephemeral_visual_evidence"]=True` 的 `HumanMessage`。
+- 主 Agent：`agent_node` 先 `invoke(messages)` 让模型看到图片；**只有 invoke 成功返回后**，才在同一份 `{"messages": [*removals, response]}` state update 里追加 `RemoveMessage(id=...)` 删除这些消息，并保存 `response`。`invoke` 抛异常时不删除，允许同一线程重试。`route_after_agent` 仍以 `response` 为最后一条消息；含 tool-call 时继续走 `tools_node`。
+- Critic：图片不进 SQLite，但会在单次最多 8 轮的本地 `messages` 中累积。每次 `model.invoke` 成功返回后立即 `filter_ephemeral_visual_messages(messages)` 删掉上一轮视觉消息再 `append(response)`；下一轮请求只带本轮刚获得的图片。
+- `_is_ephemeral_visual_message` 同时校验「HumanMessage + 标记 + content 为含 `image_url` 的 list」，普通用户上传图片不带标记，永不误删。
+
+### 工具异常闭合策略
+
+- `tools_node` 每个 tool-call 单独 `try/except`：某工具抛异常时仍生成带正确 `tool_call_id` 的失败 `ToolMessage`（内容含 `TOOL_EXECUTION_FAILED`），同一批次其他 tool-call 照常执行，异常不再逃逸成“只有 AI tool-call、没有 ToolMessage”的 checkpoint。失败调用不产生视觉输出、不产生状态副作用。
+- Critic 只读工具同样单独 `try/except` 闭合为 `CRITIC_TOOL_FAILED` ToolMessage。
+- Critic 模型调用失败时返回结构化失败结果 `{"status":"failed","error_type":"rate_limit|model_call_failed","retryable":true,"message":"Critic model call failed; no verdict was produced."}`；无 `verdict` 字段，`critic_verdict_from_result` 按 fail-closed 解析为 `UNABLE_TO_JUDGE`，门禁保持阻断。
+
+### 测试
+
+新增 `backend/tests/test_visual_message_lifecycle.py`，9 项：模型看到图片（带标记与唯一 id）、成功后 checkpoint 无残留（无 `ephemeral_visual_evidence`、无 `image_url`、无 `data:image`）、模型失败不删除、删除后 AI tool-call 与 ToolMessage 仍正确配对、工具批次异常闭合、连续 12 轮 `observe→model→delete` 压力（每轮模型只看到本轮一张图、结束 checkpoint 图片数为 0、历史不随 Base64 线性增长）、SQLite checkpoint 跨两次调用无 Base64 残留、Critic 多轮只见新图、Critic 调用失败 fail-closed。回归：完整后端 unittest 98/98、viewer 测试 49/49（含正式构建与材质审计）通过。
+
+### 待完成的在线验证
+
+本轮修复的自动化验证全部通过；以下两步需要完整运行栈（Agent API 8000 + Viewer 3000 + Render Bridge 8765 + 已注册 `render_session=worker` 的独立 renderer），留给下一轮：① 用新 session 连续多次 `observe_room` / `observe_home_harmony` 后检查 SQLite checkpoint 无 Base64 残留、每个 assistant tool-call 都有对应 ToolMessage；② 用独立无头 renderer 串行重跑维度二 `smoke_6`（`E:\python\python.exe evals/outcome_dimension/run_eval.py --subset smoke_6 --render-session worker`）。**此前被 Base64 残留污染、token 膨胀到 211k 的旧评测 thread 不得计入正式成绩**，也不删除旧结果目录，新成绩只以未污染的新 session 为准。
+
+## 88. LLM Provider 切换：OpenAI → 阿里云百炼 DashScope qwen3.7-plus（2026-08-14）
+
+- 原因：OpenAI key 无余额。用户提供百炼 key，要求两个 Agent（Design Agent + Critic）统一改用 `qwen3.7-plus`。实测百炼 OpenAI 兼容端点 `https://dashscope.aliyuncs.com/compatible-mode/v1` 可用，`qwen3.7-plus` 是真实模型 ID（key 可列出 237 个模型，最小 chat 调用成功）。
+- 遵守 §59 安全边界：新增独立 provider `dashscope` 及其专属 `HOUSE_DESIGN_DASHSCOPE_*` 环境变量（API key / base_url / proxy / model），没有通过替换 OpenAI Base URL 实现；OpenAI 组配置与校验原样保留，可随时回退。
+- `config.py`：`llm_provider` 扩展为 `openai | dashscope`；新增 `_is_official_endpoint()` 严格校验，dashscope 端点必须精确等于官方兼容端点（https、hostname、path、无端口/凭据/query），否则 Settings 构造阶段拒绝；新增 `active_model / active_base_url / active_proxy / active_api_key / active_key_fingerprint` 属性，让 main.py 启动日志、`/api/health` 与 LangSmith telemetry 只报告当前 provider 的活动配置，不混用两组字段。
+- `model.py`：`build_model()` 按 provider 分支；dashscope 分支不传 OpenAI 专用的 `reasoning_effort` 参数。Design Agent（`get_model`）与 Critic（`get_critic_model`）共用该工厂，两个 Agent 一次切换全部生效。
+- `.env`：切到 `HOUSE_DESIGN_LLM_PROVIDER=dashscope` + 百炼 key + `HOUSE_DESIGN_DASHSCOPE_MODEL=qwen3.7-plus`；旧 OpenAI 配置注释保留可回退。国内直连不设代理（`HOUSE_DESIGN_DASHSCOPE_PROXY` 留空）。
+- 部署与文档同步：`backend/docker-compose.yml`、`deploy/aws/docker-compose.aws.yml` 的 agent-api 环境块切到 DASHSCOPE 变量（默认 `qwen3.7-plus`）；`README.md` 与 `docs/DEPLOY.md` 环境变量表、示例更新为双 provider 说明。
+- 验证：`test_config.py` 新增 dashscope 命名空间隔离、非官方端点拒绝、generic 变量忽略、`active_*` 跟随 provider 共 4 项，配置专项 12/12；完整后端 unittest 102/102 通过。真实链路：`build_model()` 以 `qwen3.7-plus` 最小调用返回"就绪"；重启后端后 `/api/health` 报告 `llm_provider=dashscope, model=qwen3.7-plus`；真实 `/api/chat` 一轮（fresh session）由 qwen3.7-plus 正常中文回复约 9 秒、message_count=6。
+- 旧配置进程处理：8000 端口旧 uvicorn（openai/gpt-5.6-luna）在 `.env` 修改前启动，不会自动加载新配置（§59 教训），已停止并以新配置重启；新后端正在 8000 端口健康运行。
+- 遗留：评估模拟器（DeepSeek）与维度二 Grader（豆包 Ark）不在此次切换范围；`.env` 中 `DEEPSEEK_API_KEY`、`EVAL_DOUBAO_API_KEY` 保持原样。`exp/legacy-cli` 归档代码不迁移。
+
+## 89. Critic 审查预算：一个 trace 最多 3 次（2026-08-14）
+
+- 问题根因：`delivery_guard_attempts` 在 `made_progress=True` 时清零（`graph.py`），而每次成功 `ask_design_critic` 都会置 `made_progress=True`。因此"调用 Critic → 尝试交付被 guard 拦 → 再调用 Critic"循环中 guard 永远到不了 3，Critic 轮数无上限（实测一次 trace 跑出 10 次 Critic）。
+- 设计决策：`delivery_guard_attempts` 只管"连续无进展的交付尝试"，管不住"每次失败都插入一次 Critic 调用"的模式，不复用它。新增独立预算字段 `critic_attempt_count` / `critic_budget_exhausted`（均 `UntrackedValue`，只属于当前 `graph.invoke()` 即当前 LangSmith trace，不写入 checkpoint 污染下一次用户请求）；常量 `MAX_CRITIC_ATTEMPTS = 3`。
+- "一轮"定义为一次 `ask_design_critic` 调用：第 1 轮初次审查、第 2 轮复审、第 3 轮最终审查；第 3 轮仍非 PASS 立即进入专用停止节点 `critic_budget_exhausted`，本次 trace 不再调用 Critic。调用前递增：PASS/REVISE/UNABLE_TO_JUDGE、429、模型失败都消耗一次；Scheme 修改、成功观察、`made_progress=True` 都不得重置它。第三次 PASS 正常交付；PASS 后改 Scheme 变 STALE 且已达上限时同样安全终止。
+- 实现要点：`tools_node` 对 `ask_design_critic` 硬拦截（`>= 3` 返回 `CRITIC_BUDGET_EXHAUSTED` blocked payload 并置 exhausted 标志，不执行工具）；`tools` → `agent` 固定边改为 `route_after_tools` 条件路由。关键修正：拦截分支**不更新 `critic_verdict`**（blocked payload 无 verdict 字段，若走原有 post-processing 会被 fail-closed 解析成 `UNABLE_TO_JUDGE`，覆盖掉第 3 次已取得的有效 PASS）；停止节点统一置 `critic_budget_exhausted=True` 并返回 `AIMessage`（SSE `done` 以它作为最终回复）。prompt 不承担任何"最多三次"约束，全部硬编码在图里。
+- 回归覆盖：`test_critic_delivery_gate.py` 新增 5 项——REVISE→REVISE→PASS 三次后正常交付；REVISE×3 第三次后立即停止（最后一条消息为 `CRITIC_BUDGET_EXHAUSTED_MESSAGE`）；UNABLE_TO_JUDGE/429/REVISE 混合同样用完三次并停止；改 Scheme、重新观察、触发 `made_progress` 后 `critic_attempt_count` 仍单调递增且不进 checkpoint；count=3 已有 PASS 时第 4 次调用被拦截、verdict 不被覆盖、仍正常交付。完整后端 pytest 112 通过。
+- 与既有门禁关系：delivery guard 继续管"无进展的连续交付尝试"，Critic 预算管"Critic 调用次数"，两者互补；既有的"1 次 Critic + 4 次拒付 → guard 兜底"行为不受影响。
+
+## 90. 维度二 smoke_6 测评首跑（豆包 Grader，2026-08-14）
+
+- 测评链路：`run_direct_dialogue_eval.py --subset smoke_6 --render-session worker`（真实自然对话+渲染取证）→ `grader.py`（豆包 Seed 2.1 Turbo 逐场评分）→ `--finalize-run` 汇总。结果目录 `evals/outcome_dimension/results/20260814_152601/`，汇总文件 `evaluation_summary_direct_dialogue.json`。
+- **根因修复一（渲染会话错配）**：Agent API 的 `RENDER_SESSION_ID` 默认 `local-demo`，而渲染 worker 注册为 `worker`，导致 `observe_room` 一直返回"渲染器未在线"、Agent 无法取证、DeepSeek 模拟器永不 CLOSE（24 轮死循环）。修复：`.env` 增加 `RENDER_SESSION_ID=worker`。
+- **根因修复二（LLM 欠费与换 provider）**：百炼 DashScope 账户欠费（`Arrearage`），qwen3.7-plus 无法调用。经调研与实测（工具调用+视觉逐模型验证），改用**火山方舟 Ark provider + `doubao-seed-2-0-lite-260428`**（账户已开通、支持视觉与原生工具调用；Seed 2.0 家族其他模型 `ModelNotOpen` 不可用，Seed 2.1 Turbo/Pro 可用但更贵）。`config.py` 新增 `ark` provider（`HOUSE_DESIGN_ARK_*` 专属变量、仅允许官方端点 `ark.cn-beijing.volces.com/api/v3`、`active_*` 跟随），`model.py` 新增 `_build_ark_model()`，`.env` 切换，README/DEPLOY/docker-compose 环境表同步；配置测试新增 3 项，后端 pytest 115 通过。
+- **修复三（grader 与 packet 格式失配）**：`grader.py` 原按旧版 packet 读取 `confirmed_requirements`/`approved_plan`，而权威 runner 的 packet 没有这些字段（需求/审批/规划都在完整 `conversation` 中）。改为从 `conversation` 构建上下文，证据引用改为 `conversation.turn_N`，SYSTEM_PROMPT 说明"完整编号对话是唯一语义依据"。
+- **首跑结果：smoke_6 5/6 通过**。6 场全部 `stop=close`、evidence 10–42 项。通过：public_bright_calm_01、small_bedroom_simple_03、foyer_lengthwise_order_05、public_dining_continuity_06、kitchen_public_transition_07。失败：`public_single_wallpaper_04`（视觉 5/5 PASS，一致性 3 项 FAIL：`plan_scheme_alignment`/`scope_integrity`/`deviation_disclosed`——Agent 把次记忆点从规划的主卧背景墙静默改到北次卧 `wall_face_real4_020`（超出 allowed_target_ids），未披露）。这是 Design Agent 真实行为缺陷被测评捕获，下一步可针对单墙纸场景的越界修改做提示词/门禁加固后重跑该场。
+
+## 91. 维度二 full_12 补跑完成（2026-08-14）
+
+- 用 `--scenario` 逐个补跑剩余 6 场（`results/20260814_162714/`），全部 `stop=close`、evidence 12–108 项（whole_home_warm_cohesive_12 取证 108 项、必查全部 12 条视觉标准）。豆包 grader 6/6 评分成功。
+- 与 smoke_6 合并 finalize 后 **full_12 共 12 场，10 通过 / 2 失败**（`evaluation_summary_direct_dialogue.json` 在 smoke_6 目录）：
+  - 新增通过 5 场：master_bedroom_restful_02（克制包裹感）、master_suite_continuity_08（主卧衣帽间连续，6/6 视觉）、public_ceiling_restrained_10（吊顶克制）、single_wall_temperature_11（单墙灰蓝）、whole_home_warm_cohesive_12（全屋暖中性回归）。
+  - 新增失败 1 场：`guest_bath_low_complexity_09`——**视觉 `intent_matches_image` FAIL，但 7 项一致性门禁全过**：Scheme 中墙、地均为 `tile_light_microcement_01` 且与规划一致，渲染却呈现"地面暖棕、墙面浅灰"，同一资产在墙/地渲染出色相不一致。根因与修复见 §92，修复后已转 PASS。
+- 两个失败的失败模式完全不同，正好体现维度二两层判定（视觉质量 vs 言行一致性）都能独立拦截问题：一个抓行为越界，一个抓成品与意图不符。
+- 测评结论：Design Agent + 豆包 Seed 2.0 Lite + Critic 预算 + 豆包 grader 的完整链路可跑通；主要短板是范围硬约束缺失（见 §90 单墙纸失败）与公卫微水泥资产渲染一致性。
+
+## 92. 公卫微水泥"墙灰地棕"渲染修复（2026-08-14）
+
+- 根因（量化验证）：`tile_light_microcement_01` 的 basecolor 贴图本身是中性浅灰（r-b=3），但实时渲染器里**同一 overview 图中墙区 r-b=6、地面 r-b=26**。原因是材质分工：墙面用 `WALL_TILE_APPEARANCE_CALIBRATION`（0.45 光照 + 0.55 emissive 锚定）保持本色；**地面按设计注释"floor applications keep the regular physically lit material"走纯物理光照**，于是暖太阳 `#fff6e7` + 暖 HDR `cayley_interior_1k.hdr` + 暖灰半球地面光 `#aaa7a1`（主要照水平面）把中性灰地面染成暖棕。玄关/厨房场 grader 也把微水泥地面描述成"浅暖调/暖米色"，证实是所有微水泥地面的系统性问题，公卫只是唯一要求墙地统一浅灰而挂掉的场景。
+- 修复：`viewer/app/data/surfaceCatalog.ts` 新增 `FLOOR_TILE_APPEARANCE_CALIBRATION`（同 0.45/0.55），`viewer/app/components/RoomExperience.tsx` 对瓷砖地面材质做与墙面同款的 emissive 颜色锚定（构造期、PBR 加载后、release 回退三处同步）。木地板不受影响（`enhanceHeroSurfaces` 只增强木/漆/纸，不碰瓷砖）。
+- 验证：`npm test`（含构建+材质审计）通过；重启 viewer dev server(3000) 与 render worker 后重新渲染，**地面 r-b 26→9，墙地色差 20→3，floor 隔离视图 r-b=2**；公卫重评 `intent_matches_image` FAIL→PASS，场景 5/5+7/7 全过；玄关、厨房两场用修复后渲染重评仍全 PASS（无回归）。full_12 更新为 **11/12 通过**，唯一失败剩 `public_single_wallpaper_04`（行为层越界，非渲染问题）。
+- 备注：修复后所有微水泥地面（玄关/厨房/主卫/公卫）从"被染暖"变为读作浅灰微水泥，这是材质真实颜色，不是回归；若未来有场景要求微水泥呈现暖调，应改资产 tint 而非依赖灯光染色。
+
+## 93. 维度三评估方法论转向：先实测再设计（2026-08-14）
+
+- 用户叫停先验设计的测评集与 rubric，理由：现在设计的陷阱都是"我们以为的问题"，不是 Agent 真实会犯的错。
+- 决定：明天先跑一个真实完整设计任务，观察 Agent 的真实工具调用轨迹 + LangSmith 的 latency/token，据真实出现的问题再设计真正的测评集与 rubric。
+- `evals/trace_dimension/rubric_v1.json` 与 `dataset_v1.json` 已写，但只是**假设草案，不是定稿**，实测后按真实失败模式重写。
+- 已就绪但需重启后端才生效：`.env` 已配 LangSmith（key 后 4 位 `846a`，workspace `e58e09e9-3e09-4d1a-9ff5-84e05839549e`）；`telemetry.py` 已给工具 span 补 `tool_call_id`（含 2 条回归测试）。
+- 今天不再继续设计或编码。
+
+## 94. Agent LLM 调用迁移到 Responses API + 上下文缓存（2026-08-14）
+
+- 目标：把 Agent 与 Critic 的 LLM 调用从 Chat Completions（/chat/completions）迁移到火山方舟 Responses API（/responses），开启会话缓存，把多轮 Agent 循环的 token 成本从 O(N²) 降到 O(N)。真实跑盘验证单轮省约 84%。
+- 根因：豆包 Seed 2.0（v1.6+）在 Chat Completions 下关闭了 Context API 缓存（CreatePrefixCache/CreateSessionCache 均 unavailable），缓存只放在 Responses API。迁移前 `cached_tokens` 恒为 0，全价计费。
+- 缓存机制（逆向 eino-ext SDK + 实测验证）：Responses API 用 `caching: {"type": "enabled"}` + `store: true` 开启，`previous_response_id` 接力（每轮只发增量，历史前缀命中缓存按缓存价计费）。完整 input 重放不命中缓存（实测 cached_tokens=0），必须用 previous_response_id。需先在火山方舟控制台开通模型的缓存服务（否则 403 AccessDenied.CacheService）。
+- 新增 `backend/agent_api/agent/responses_client.py`：`call_responses` / `messages_to_input_items` / `tool_calls_to_ai_message`，负责 HTTP、input/response 协议转换（含 input_image 图片块）、错误处理。`model.py` 的 ChatOpenAI 路径成为遗留（生产不再调用）。
+- `graph.py`：AgentState 加 `responses_prev_id` / `responses_last_ai_id`（checkpoint 持久化，跨轮接力）；agent_node 从「发完整 messages」改为「定位增量（last_ai_id 之后）+ call_responses + prev_id 接力」；AIMessage 用 response_id 作 id 定位增量。`critic.py` 同样迁移，prev_id 用局部变量（Critic 是单次调用内循环）。
+- 测试适配：新增 `backend/tests/_responses_mock.py`（`responses_side_effect` 把 AIMessage 序列 mock 成 call_responses，response_id 用 uuid 保证跨轮唯一）；6 个测试文件从 patch get_model/get_critic_model 改成 patch call_responses；execute/execute_readonly_tool 函数签名两参数改三参数（call_id）；图片断言从 fake.invocations 的 image_url 改成 side_effect.calls 的 input_image。完整后端 117 passed。
+- 附带修复：filter_assets 返回体瘦身（去掉 filter_profile 9 枚举，换成 name_zh + brief）；color_intent 改 Literal 枚举；SKILL.md 加「写前读同一张卡」硬约束。
+- 关键设计点（易被再次质疑）：客户端删除临时视觉消息（remove_ephemeral_visual_messages）与服务端缓存正交——图片发出去就进服务端 response 历史，后续靠 prev_id 接力命中缓存，客户端删图只是删冗余副本，不破坏缓存。删图必须删（否则 checkpoint 无限膨胀），但图片恢复依赖 prev_id（TTL 24h），极端情况兜底是重新 observe。
+- 遗留：缓存命中价格（缓存价 vs 输入价）尚未从控制台账单确认；§91 的 Critic UNABLE_TO_JUDGE 补证循环是既有行为（渲染机位 + 模型判断波动），非迁移回归，后续可单独优化。

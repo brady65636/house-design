@@ -89,4 +89,13 @@ def validate_scheme(
                 f"{assignment.asset_id}"
             )
 
+        is_parameterized_paint = (
+            asset_category == "wall_paint"
+            and asset.get("parameterized") is True
+        )
+        if assignment.parameters is not None and not is_parameterized_paint:
+            errors.append(
+                f"assignment[{index}] 只有参数化综合色墙漆允许 parameters：{assignment.asset_id}"
+            )
+
     return errors

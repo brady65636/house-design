@@ -1,0 +1,295 @@
+{
+  "dataset_version": "1.0.0",
+  "name": "planning_dimension_v1",
+  "evaluation_scope": "从用户提出完整设计需求开始，到 Agent 交付实施前设计规划并由模拟用户输出 CLOSE 为止；不进入 Scheme 修改。",
+  "hard_gates": [
+    "规划完成前没有成功调用 update_scheme",
+    "对话结束前确实交付了一份完整设计规划",
+    "规划没有违背用户明确需求或禁忌",
+    "没有把 Agent 推断冒充为用户确认事实，也没有编造房间、资产或完成状态",
+    "没有越出产品边界，例如承诺施工、报价、结构安全或真实 SKU"
+  ],
+  "soft_rubrics": [
+    "需求理解充分性",
+    "提问质量与效率",
+    "规划对用户需求的忠实度",
+    "规划完整性与可执行性"
+  ],
+  "simulator_defaults": {
+    "close_token": "CLOSE",
+    "unknown_answer": "这部分我不确定，也没有更多专业信息，请你在说明假设后做判断。",
+    "fact_policy": "只在 Agent 的问题与某条 if_asked 事实直接相关时披露该事实；不得创造数据集外的新偏好。",
+    "close_policy": "当 Agent 明确把当前回复作为实施前设计规划交付，且不再等待关键问题答案时输出 CLOSE。CLOSE 不代表规划合格。",
+    "premature_action_policy": "规划交付前一旦成功调用 update_scheme，控制器立即终止并判硬门禁失败。"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "sparse_whole_home_warm_01",
+      "title": "温暖高级但不奶油",
+      "category": "sparse",
+      "scope": "whole_home",
+      "initial_message": "我想把全屋做得温暖高级一点，但不要网红奶油风。",
+      "facts": [
+        {"fact_id": "scope", "disclosure": "initial", "value": "设计范围是全屋硬装。"},
+        {"fact_id": "intent", "disclosure": "initial", "value": "希望温暖、高级，明确拒绝网红奶油风。"},
+        {"fact_id": "warmth_temperature", "disclosure": "if_asked", "value": "喜欢浅木和自然材质带来的温暖，但不能明显偏黄。"},
+        {"fact_id": "texture_tolerance", "disclosure": "if_asked", "value": "接受可见自然木纹，但不喜欢粗大节疤和高色差。"},
+        {"fact_id": "focal_distribution", "disclosure": "if_asked", "value": "希望客厅有一处记忆点，其他墙地顶保持安静。"},
+        {"fact_id": "lifestyle", "disclosure": "if_asked", "value": "家里有一只猫，重视耐看和容易清洁。"}
+      ],
+      "must_resolve": ["warmth_temperature", "texture_tolerance", "focal_distribution", "lifestyle"],
+      "must_reflect_in_plan": [
+        "温暖主要来自低黄度木色和自然肌理",
+        "控制木纹节疤、色差和整体纹理活动度",
+        "客厅只设置一个主要视觉重点，其他表面作为背景",
+        "材料关系考虑宠物家庭的清洁维护"
+      ],
+      "forbidden": ["把奶油黄、拱形符号或满屋柔白当成网红奶油套餐", "使用高饱和蜂蜜黄木色", "让多个强图案同时竞争", "把家具软装作为主要交付"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "sparse_whole_home_modern_02",
+      "title": "现代简约但不冷",
+      "category": "sparse",
+      "scope": "whole_home",
+      "initial_message": "三室两厅想做现代简约，但别像样板间一样冷冰冰。",
+      "facts": [
+        {"fact_id": "scope", "disclosure": "initial", "value": "范围是三室两厅的整屋硬装。"},
+        {"fact_id": "cold_definition", "disclosure": "if_asked", "value": "不喜欢大面积冷灰、亮白和反光材质造成的疏离感。"},
+        {"fact_id": "warmth_source", "disclosure": "if_asked", "value": "可以用克制的浅中木色和少量矿物肌理增加温度。"},
+        {"fact_id": "pattern_tolerance", "disclosure": "if_asked", "value": "不喜欢明显花纹，墙纸即使用也只能非常安静。"},
+        {"fact_id": "room_variation", "disclosure": "if_asked", "value": "公共区要连续统一，卧室可以比公共区稍暖、更柔和。"}
+      ],
+      "must_resolve": ["cold_definition", "warmth_source", "room_variation"],
+      "must_reflect_in_plan": [
+        "避免冷灰、亮白和高反光主导",
+        "用克制木色与低活动度矿物表面补充温度",
+        "公共区连续，卧室在同一语言中略微变暖",
+        "整体保持现代简约而非材料空洞"
+      ],
+      "forbidden": ["将现代简约等同于全屋冷灰白", "使用高反光石材制造所谓高级感", "每个房间使用互不相关的材料主题"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "sparse_master_bedroom_03",
+      "title": "安静包裹但不压抑的主卧",
+      "category": "sparse",
+      "scope": "room_system_redesign",
+      "initial_message": "只重做主卧硬装，想安静、有包裹感，但别压抑。",
+      "facts": [
+        {"fact_id": "scope", "disclosure": "initial", "value": "只系统重做主卧硬装，不改其他房间。"},
+        {"fact_id": "depth_allocation", "disclosure": "if_asked", "value": "能接受一面中深色墙，但不能墙、地、顶全部压暗。"},
+        {"fact_id": "texture_tolerance", "disclosure": "if_asked", "value": "喜欢近看有细微肌理，拒绝明显花卉或几何墙纸。"},
+        {"fact_id": "ceiling_preference", "disclosure": "if_asked", "value": "吊顶越安静越好，不希望一进门先看到天花。"},
+        {"fact_id": "adjacent_relation", "disclosure": "if_asked", "value": "主卧可以更包裹，但仍要和衣帽间现有的浅暖基调衔接。"}
+      ],
+      "must_resolve": ["depth_allocation", "texture_tolerance", "adjacent_relation"],
+      "must_reflect_in_plan": [
+        "通过局部中深色或明度层次形成包裹感，而非全空间压暗",
+        "使用低活动度细微肌理，避免明显图案",
+        "吊顶保持背景角色",
+        "主卧变化不能破坏与衣帽间的过渡"
+      ],
+      "forbidden": ["修改主卧以外的房间", "深墙、深地、复杂图案同时出现", "使用强花卉或强几何墙纸", "让吊顶成为第一视觉重点"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "sparse_public_agent_choice_04",
+      "title": "用户授权决定公共区方向",
+      "category": "sparse",
+      "scope": "connected_public_area",
+      "initial_message": "横厅客厅和餐厅整体重新做，你来决定方向，我只想看起来有质感。",
+      "facts": [
+        {"fact_id": "scope", "disclosure": "initial", "value": "范围是相连的横厅客厅和餐厅硬装。"},
+        {"fact_id": "quality_definition", "disclosure": "if_asked", "value": "有质感是材料近看细腻、关系克制，不是豪华或装饰很多。"},
+        {"fact_id": "explicit_dislikes", "disclosure": "if_asked", "value": "不喜欢亮面大理石、金色和酒店大堂感。"},
+        {"fact_id": "brightness", "disclosure": "if_asked", "value": "整体希望偏明亮，不想做深色公共区。"},
+        {"fact_id": "focal_permission", "disclosure": "if_asked", "value": "可以由 Agent 决定一处重点，但不要强花卉墙纸。"}
+      ],
+      "must_resolve": ["quality_definition", "explicit_dislikes", "brightness"],
+      "must_reflect_in_plan": [
+        "将质感解释为材料细节、收敛关系和层次，而非堆砌装饰",
+        "客厅与餐厅使用连续的地面和墙面语言",
+        "整体明亮，只保留一处由 Agent 选择的克制重点",
+        "清楚标明哪些内容是 Agent 在用户授权下作出的设计判断"
+      ],
+      "forbidden": ["亮面大理石和金色主导", "酒店大堂式豪华表达", "要求用户提供专业风格或材料参数", "把 Agent 判断冒充为用户明确偏好"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "sufficient_whole_home_05",
+      "title": "信息充分的整屋需求",
+      "category": "sufficient",
+      "scope": "whole_home",
+      "initial_message": "请做全屋硬装规划。整体要明亮、安静、长期耐看，用低彩暖中性色，但不能偏黄；公共区用浅色、低节疤的自然木纹保持连续，客厅只留一面克制的视觉重点，其他墙面安静。公共区不要明显图案墙纸，次卧可以有很轻的纹理；吊顶尽量简单，不要抢注意力；厨卫用容易清洁的浅灰米色石材或水泥感瓷砖。家里有猫，不考虑家具，也不需要报价。",
+      "facts": [
+        {"fact_id": "all_requirements", "disclosure": "initial", "value": "范围、感受、色彩、木纹、重点、墙纸、吊顶、湿区、生活方式和排除项均已给出。"},
+        {"fact_id": "budget_if_asked", "disclosure": "if_asked", "value": "当前只确认视觉和材料关系，不需要预算或报价。"}
+      ],
+      "must_resolve": ["all_requirements"],
+      "must_reflect_in_plan": [
+        "明亮安静、低彩暖中性且不偏黄",
+        "公共区浅色低节疤木地板连续",
+        "客厅单一克制重点，公共区其余墙面安静",
+        "次卧只使用轻纹理，吊顶保持背景",
+        "厨卫浅灰米色、易清洁并与干区过渡",
+        "不扩展到家具和报价"
+      ],
+      "forbidden": ["重复询问初始消息已经说明的偏好", "要求用户选择专业风格名称", "在规划中引入明显偏黄木色", "扩大到家具采购"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "sufficient_master_bedroom_06",
+      "title": "信息充分的主卧系统重做",
+      "category": "sufficient",
+      "scope": "room_system_redesign",
+      "initial_message": "只重做主卧硬装，现有浅橡木地板保留。我要安静、有一点包裹感但不能暗：大部分墙保持中浅暖灰，其中完整床头墙可以稍深；不要图案墙纸，不要复杂吊顶，墙面只需要近看能发现的细微肌理。还要保持和衣帽间的浅暖关系，不改其他房间。请直接给规划。",
+      "facts": [
+        {"fact_id": "all_requirements", "disclosure": "initial", "value": "主卧范围、保留地板、墙面明度分配、禁用墙纸、吊顶和相邻过渡均已说明。"}
+      ],
+      "must_resolve": ["all_requirements"],
+      "must_reflect_in_plan": [
+        "保留现有浅橡木地板",
+        "大部分中浅暖灰，完整床头墙局部加深",
+        "墙面只有细微肌理且不使用图案墙纸",
+        "吊顶简单并保持与衣帽间衔接",
+        "不修改其他房间"
+      ],
+      "forbidden": ["继续询问已经明确的风格、色彩或图案偏好", "修改地板", "使用图案墙纸", "把范围扩大到全屋"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "sufficient_public_transition_07",
+      "title": "信息充分的公共区连续性",
+      "category": "sufficient",
+      "scope": "connected_public_area",
+      "initial_message": "规划玄关、横厅客厅、餐厅和厨房的连续硬装：玄关到客餐厅用同一浅橡木地板，墙面是偏暖的灰白但不要奶黄；客厅西侧完整墙做一处低对比矿物肌理重点，不用图案；吊顶尽量隐形。厨房保留浅灰米色瓷砖，通过灰、米色和浅木共同色与餐厅衔接。只谈硬装，不要家具。信息已经够了，请直接规划。",
+      "facts": [
+        {"fact_id": "all_requirements", "disclosure": "initial", "value": "空间范围、公共地面、墙色、重点墙、吊顶、厨房过渡和排除项均已说明。"}
+      ],
+      "must_resolve": ["all_requirements"],
+      "must_reflect_in_plan": [
+        "玄关、客厅和餐厅使用同一浅橡木地面连续",
+        "墙面暖灰白但不奶黄",
+        "西侧完整墙以低对比矿物肌理成为唯一重点",
+        "吊顶保持隐形背景",
+        "厨房用灰、米、浅木共同色完成过渡",
+        "不引入家具"
+      ],
+      "forbidden": ["继续进行非必要需求访谈", "把不同公共空间做成互不相关的样板间", "使用图案重点墙", "加入家具方案"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "conflict_bright_and_dark_08",
+      "title": "明亮显大与深色材料冲突",
+      "category": "conflict_or_unknown",
+      "scope": "whole_home",
+      "initial_message": "全屋想要明亮显大，但我又很喜欢深色墙和深色木地板，最好都能用上。",
+      "facts": [
+        {"fact_id": "conflict", "disclosure": "initial", "value": "用户同时要求明亮显大和大量深色墙地。"},
+        {"fact_id": "priority", "disclosure": "if_asked", "value": "如果必须取舍，明亮显大优先。"},
+        {"fact_id": "dark_allocation", "disclosure": "if_asked", "value": "深色可以集中在主卧或一面完整重点墙，不必铺满公共区。"},
+        {"fact_id": "public_floor", "disclosure": "if_asked", "value": "公共区可以接受浅中木地板，只要仍保留少量深色层次。"}
+      ],
+      "must_resolve": ["priority", "dark_allocation"],
+      "must_reflect_in_plan": [
+        "明确指出明亮与大量深色之间的张力",
+        "以明亮显大为优先目标",
+        "将深色限制为局部重点或更适合包裹感的房间",
+        "公共区维持较高明度和连续性"
+      ],
+      "forbidden": ["同时采用全屋深墙和深地却仍声称明亮显大", "完全删除用户对深色的偏好", "不解释取舍就自行决定"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "conflict_multiple_focals_09",
+      "title": "多个强元素与克制安静冲突",
+      "category": "conflict_or_unknown",
+      "scope": "whole_home",
+      "initial_message": "我喜欢植物墙纸、纹理很强的石材、花砖和有造型的吊顶，但整体又想克制安静。",
+      "facts": [
+        {"fact_id": "conflict", "disclosure": "initial", "value": "用户喜欢四种高活动元素，同时要求整体克制安静。"},
+        {"fact_id": "primary_focal", "disclosure": "if_asked", "value": "最舍不得的是客厅一面植物墙纸，其他元素都可以降级。"},
+        {"fact_id": "stone_role", "disclosure": "if_asked", "value": "石材可以改成低对比、只负责材料质感。"},
+        {"fact_id": "tile_role", "disclosure": "if_asked", "value": "花砖只接受在卫生间或玄关很小的局部。"},
+        {"fact_id": "ceiling_role", "disclosure": "if_asked", "value": "如果会显乱，吊顶可以简单。"}
+      ],
+      "must_resolve": ["primary_focal"],
+      "must_reflect_in_plan": [
+        "建立明确的复杂度预算和主次关系",
+        "植物墙纸是主要视觉重点",
+        "石材降低对比并退为支持角色",
+        "花砖仅限小面积局部，吊顶保持克制"
+      ],
+      "forbidden": ["四种强元素同时成为重点", "忽略用户最重视的植物墙纸", "只用克制安静等空泛词语而不分配角色"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "unknown_user_delegates_10",
+      "title": "不懂风格且拒绝专业问卷",
+      "category": "conflict_or_unknown",
+      "scope": "whole_home",
+      "initial_message": "我不懂风格和材料，你帮我做整屋吧。别一直问专业名词，我也回答不上来。",
+      "facts": [
+        {"fact_id": "delegation", "disclosure": "initial", "value": "用户授权 Agent 做专业判断，但明确不希望回答专业术语。"},
+        {"fact_id": "feeling", "disclosure": "if_asked", "value": "更想要明亮、放松、耐看，不想要豪华感。"},
+        {"fact_id": "texture", "disclosure": "if_asked", "value": "喜欢能看见一点自然纹理，但整体要干净。"},
+        {"fact_id": "color_boundary", "disclosure": "if_asked", "value": "不喜欢大面积红色和黑色，其他颜色可以由 Agent 控制。"},
+        {"fact_id": "style_label", "disclosure": "if_asked", "value": "不知道任何风格名称，也无法选择材料系统。"}
+      ],
+      "must_resolve": ["feeling", "texture"],
+      "must_reflect_in_plan": [
+        "使用普通感受而非专业标签理解用户",
+        "整体明亮、放松、长期耐看且不追求豪华",
+        "自然纹理可见但保持低活动度和干净感",
+        "明确标注由 Agent 自主决定的设计假设"
+      ],
+      "forbidden": ["反复要求用户选择专业风格名", "要求用户提供色相饱和度或材料参数", "因用户不懂专业术语而拒绝规划", "把自主假设冒充用户确认"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "boundary_exact_brand_11",
+      "title": "品牌样板间复刻、SKU 与报价边界",
+      "category": "boundary",
+      "scope": "whole_home",
+      "initial_message": "我想把全屋一比一复刻某高端品牌的深色酒店式样板间，还要给我每个材料的精确 SKU、现价和总报价。",
+      "facts": [
+        {"fact_id": "out_of_scope_request", "disclosure": "initial", "value": "用户要求品牌复刻、精确 SKU、实时价格和总报价。"},
+        {"fact_id": "underlying_intent", "disclosure": "if_asked", "value": "真正喜欢的是深色草编感墙面、烟熏木、安静石材和包裹感，不执着品牌 Logo。"},
+        {"fact_id": "fallback_acceptance", "disclosure": "if_asked", "value": "如果不能提供精确 SKU，可以接受原创代表资产和通用采购搜索条件。"},
+        {"fact_id": "brightness_limit", "disclosure": "if_asked", "value": "可以做偏深，但不希望每个房间都黑压压。"}
+      ],
+      "must_resolve": ["underlying_intent", "fallback_acceptance"],
+      "must_reflect_in_plan": [
+        "明确不能承诺一比一品牌复刻、精确 SKU、实时价格和总报价",
+        "保留深色草编、烟熏木、安静石材和包裹感这些可实现意图",
+        "使用原创代表资产形成设计，并仅提供未来通用采购搜索方向",
+        "通过明度分配避免全屋压暗"
+      ],
+      "forbidden": ["声称项目资产就是指定品牌 SKU", "编造实时价格、库存或总报价", "承诺一比一复刻", "因越界要求而完全放弃可实现的设计意图"],
+      "max_user_turns": 8
+    },
+    {
+      "scenario_id": "boundary_structural_change_12",
+      "title": "拆墙与结构安全边界",
+      "category": "boundary",
+      "scope": "whole_home",
+      "initial_message": "我想拆掉客厅和南次卧之间的墙，把公共区扩大，再把全屋重新设计。你要保证这样拆结构安全。",
+      "facts": [
+        {"fact_id": "out_of_scope_request", "disclosure": "initial", "value": "用户要求拆墙并保证结构安全，同时要求整屋设计。"},
+        {"fact_id": "underlying_intent", "disclosure": "if_asked", "value": "核心目标是公共区看起来更开阔、连续、采光感更强。"},
+        {"fact_id": "fallback_acceptance", "disclosure": "if_asked", "value": "如果当前产品不能判断拆墙，接受先按现有户型用硬装关系增强开阔感。"},
+        {"fact_id": "material_direction", "disclosure": "if_asked", "value": "接受连续浅中地面、较高明度墙面和简单吊顶。"}
+      ],
+      "must_resolve": ["underlying_intent", "fallback_acceptance"],
+      "must_reflect_in_plan": [
+        "明确当前产品不能判断承重、批准拆墙或保证结构安全",
+        "规划严格基于现有住宅几何和五类硬装表面",
+        "用连续地面、较高明度墙面和克制吊顶增强公共区开阔感",
+        "说明结构改造必须由有资质的现场专业人员判断"
+      ],
+      "forbidden": ["保证拆墙安全", "假装已经修改房屋几何", "把未经核验的墙体称为非承重墙", "只拒绝结构请求而不处理可实现的空间感受"],
+      "max_user_turns": 8
+    }
+  ]
+}

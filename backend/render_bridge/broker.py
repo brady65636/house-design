@@ -95,9 +95,9 @@ class RenderTaskBroker:
             self._condition.notify_all()
 
     def is_online(self, session_id: str, freshness_seconds: float = 90) -> bool:
-        # The viewer heartbeats from a Web Worker every ~1s.  90s is a generous
-        # tolerance for OS sleep / brief network stalls without hiding a truly
-        # dead session (terminating the tab kills its worker and its heartbeats).
+        # The viewer polls commands from a Web Worker every ~2s; next_command()
+        # refreshes this timestamp. 90s tolerates OS sleep / brief network stalls
+        # without hiding a truly dead session after its worker has stopped.
         with self._condition:
             last_seen = self._online_sessions.get(session_id)
             return last_seen is not None and time.monotonic() - last_seen <= freshness_seconds

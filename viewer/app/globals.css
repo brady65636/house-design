@@ -1098,6 +1098,17 @@ body:has(.room-experience) {
 
 .scheme-drawer.open { transform: translateX(0); }
 
+/* Backdrop blur re-filters the moving WebGL canvas every frame. During a tour,
+   retain the translucent hierarchy but let the compositor reuse flat layers. */
+.room-experience.tour-playing .model-status,
+.room-experience.tour-playing .header-actions button,
+.room-experience.tour-playing .header-actions a,
+.room-experience.tour-playing .room-track-nav button,
+.room-experience.tour-playing .room-caption,
+.room-experience.tour-playing .human-tour {
+  backdrop-filter: none;
+}
+
 .drawer-head {
   display: flex;
   align-items: flex-start;
@@ -1212,13 +1223,13 @@ body:has(.room-experience) {
 .detail-toggle.active i { background: #557468; }
 .detail-toggle.active i::after { transform: translateX(13px); }
 
-.paint-family-grid {
+.paint-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 7px;
 }
 
-.paint-family-grid button {
+.paint-grid button {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1233,20 +1244,20 @@ body:has(.room-experience) {
   cursor: pointer;
 }
 
-.paint-family-grid button.selected {
+.paint-grid button.selected {
   border-color: #58766a;
   background: rgba(255,255,255,.82);
   color: #2b4037;
   box-shadow: 0 4px 14px rgba(48,62,55,.08);
 }
 
-.paint-family-grid button:disabled,
+.paint-grid button:disabled,
 .paint-parameters button:disabled {
   opacity: .42;
   cursor: not-allowed;
 }
 
-.paint-family-grid i {
+.paint-grid i {
   flex: 0 0 auto;
   width: 27px;
   height: 27px;
@@ -1255,7 +1266,7 @@ body:has(.room-experience) {
   box-shadow: inset 0 1px rgba(255,255,255,.6), inset 0 -5px 12px rgba(0,0,0,.035);
 }
 
-.paint-family-grid span {
+.paint-grid span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1558,7 +1569,8 @@ body:has(.room-experience) {
   gap: 6px;
 }
 
-.chat-session-select {
+.chat-session-select,
+.chat-mode-select {
   max-width: 210px;
   padding: 8px 10px;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -1566,6 +1578,12 @@ body:has(.room-experience) {
   background: rgba(15, 21, 18, 0.6);
   color: #d5dcd8;
   font-size: 12px;
+}
+
+.chat-mode-select {
+  max-width: 190px;
+  border-color: rgba(225, 177, 103, 0.32);
+  color: #f0d9b0;
 }
 
 .chat-session-delete {
@@ -1612,6 +1630,7 @@ body:has(.room-experience) {
 }
 
 .chat-session-select:disabled,
+.chat-mode-select:disabled,
 .chat-session-delete:disabled,
 .chat-new-btn:disabled {
   opacity: 0.5;
@@ -1684,12 +1703,118 @@ body:has(.room-experience) {
   margin: 0;
 }
 
-/* --- 工具调用展示 --- */
-.chat-tools {
-  margin-top: 10px;
+/* --- 助手回复 Markdown 渲染 --- */
+.chat-text {
+  line-height: 1.75;
+  font-size: 14px;
+  word-break: break-word;
+}
+.chat-text > *:first-child {
+  margin-top: 0;
+}
+.chat-text > *:last-child {
+  margin-bottom: 0;
+}
+.chat-text p {
+  margin: 0.5em 0;
+}
+.chat-text h1,
+.chat-text h2,
+.chat-text h3,
+.chat-text h4 {
+  margin: 0.9em 0 0.45em;
+  line-height: 1.4;
+  color: #e8e3d8;
+}
+.chat-text h1 { font-size: 1.35em; }
+.chat-text h2 { font-size: 1.2em; }
+.chat-text h3 { font-size: 1.08em; }
+.chat-text h4 { font-size: 1em; }
+.chat-text ul,
+.chat-text ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+.chat-text li {
+  margin: 0.25em 0;
+}
+.chat-text li::marker {
+  color: #c99a52;
+}
+.chat-text strong {
+  color: #f0ead9;
+  font-weight: 600;
+}
+.chat-text em {
+  color: #d8d2c4;
+}
+.chat-text code {
+  font-family: ui-monospace, Consolas, "Cascadia Mono", monospace;
+  font-size: 0.88em;
+  background: rgba(15, 21, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  color: #d6b98a;
+}
+.chat-text pre {
+  margin: 0.6em 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(10, 14, 12, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  overflow-x: auto;
+}
+.chat-text pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #c9d4cd;
+  font-size: 0.85em;
+  line-height: 1.6;
+  white-space: pre;
+}
+.chat-text blockquote {
+  margin: 0.6em 0;
+  padding: 0.2em 0.9em;
+  border-left: 3px solid #c99a52;
+  color: #aab3ad;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0 6px 6px 0;
+}
+.chat-text a {
+  color: #7fb8a9;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.chat-text table {
+  margin: 0.6em 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.92em;
+}
+.chat-text th,
+.chat-text td {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 10px;
+  text-align: left;
+}
+.chat-text th {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e8e3d8;
+  font-weight: 600;
+}
+.chat-text hr {
+  margin: 0.9em 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* --- 文本 / 工具调用按真实时序交错展示 --- */
+.chat-blocks {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
 .chat-tool {
@@ -1903,7 +2028,8 @@ body:has(.room-experience) {
   .chat-session-ctl {
     flex-wrap: wrap;
   }
-  .chat-session-select {
+  .chat-session-select,
+  .chat-mode-select {
     max-width: 150px;
   }
   .chat-main {

@@ -1,6 +1,6 @@
 {
   "houseId": "house_spacious_yunkuo_135_v4",
-  "revision": "hard-finish-realism-pass-v3",
+  "revision": "hard-finish-realism-pass-v5-wall-coverage",
   "coordinateSystem": "blender_z_up_meters",
   "tracks": [
     {
@@ -57,11 +57,11 @@
       "roomRect": [0.2, 6.55, 3.05, 9.6],
       "entryAnchor": { "position": [2.75, 6.8, 1.6], "target": [1.6, 8.0, 1.15], "fov": 53 },
       "exitAnchor": { "position": [2.75, 6.8, 1.6], "target": [1.6, 8.0, 1.15], "fov": 53 },
-      "surfaceTargets": { "floor": "surface_real4_floor_dining_room", "ceiling": "surface_real4_ceiling_dining_room", "walls": ["wall_face_real4_005", "wall_face_real4_034"] },
+      "surfaceTargets": { "floor": "surface_real4_floor_dining_room", "ceiling": "surface_real4_ceiling_dining_room", "walls": ["wall_face_real4_005", "wall_face_real4_034", "wall_face_real4_035"] },
       "focusProgress": { "wall": 0.5, "floor": 0.25, "ceiling": 0.75 },
       "keyframes": [
         { "progress": 0, "label": "餐厅入口", "description": "从公共区边缘建立餐桌尺度和通行宽度。", "intent": "establish", "position": [2.75, 6.8, 1.6], "target": [1.6, 8.0, 1.15], "fov": 53, "holdMs": 600, "focusTargetIds": ["surface_real4_floor_dining_room"] },
-        { "progress": 0.25, "label": "餐桌尺度", "description": "轻微靠近，观察六人餐桌与四周座椅的负空间。", "intent": "detail", "position": [2.65, 7.0, 1.59], "target": [1.6, 8.0, 0.85], "fov": 53, "holdMs": 700, "focusTargetIds": ["surface_real4_floor_dining_room"] },
+        { "progress": 0.25, "label": "餐桌尺度", "description": "轻微靠近，观察六人餐桌、四周座椅与西侧窗墙的关系。", "intent": "detail", "position": [2.65, 7.0, 1.59], "target": [1.6, 8.0, 0.85], "fov": 53, "holdMs": 700, "focusTargetIds": ["surface_real4_floor_dining_room", "wall_face_real4_035"] },
         { "progress": 0.5, "label": "北窗采光", "description": "以斜角保留餐桌，同时读取北窗和背景墙。", "intent": "surface", "position": [2.55, 7.15, 1.6], "target": [1.6, 8.55, 1.25], "fov": 54, "holdMs": 750, "focusTargetIds": ["wall_face_real4_005"] },
         { "progress": 0.75, "label": "厨房关系", "description": "从餐桌南侧读取餐厨连接与通道，不贴近窗面。", "intent": "reveal", "position": [2.65, 7.0, 1.6], "target": [2.9, 8.2, 1.2], "fov": 54, "holdMs": 650, "focusTargetIds": ["wall_face_real4_034", "surface_real4_ceiling_dining_room"] },
         { "progress": 1, "label": "餐区回看", "description": "返回入口机位，为公共区串接保留稳定接口。", "intent": "return", "position": [2.75, 6.8, 1.6], "target": [1.6, 8.0, 1.15], "fov": 53, "holdMs": 650, "focusTargetIds": ["wall_face_real4_005", "wall_face_real4_034"] }
@@ -74,7 +74,7 @@
       "durationMs": 10000,
       "roomRect": [3.25, 6.65, 5.2, 9.6],
       "entryAnchor": { "position": [4.2, 6.8, 1.58], "target": [4.2, 8.2, 1.05], "fov": 55 },
-      "exitAnchor": { "position": [4.25, 6.85, 1.58], "target": [4.45, 8.45, 1.02], "fov": 54 },
+      "exitAnchor": { "position": [4.4, 7.3, 1.58], "target": [4.3, 6.6, 1.12], "fov": 54 },
       "surfaceTargets": { "floor": "surface_real4_floor_kitchen", "ceiling": "surface_real4_ceiling_kitchen", "walls": ["wall_face_real4_006", "wall_face_real4_030", "wall_face_real4_031", "wall_face_real4_033"] },
       "focusProgress": { "wall": 0.35, "floor": 0.2, "ceiling": 0.8 },
       "keyframes": [
@@ -83,7 +83,9 @@
         { "progress": 0.4, "label": "西侧操作台", "description": "从入口斜看西侧柜台，保留完整操作面和转角。", "intent": "surface", "position": [4.65, 7.0, 1.58], "target": [3.55, 8.1, 1.1], "fov": 57, "holdMs": 650, "focusTargetIds": ["wall_face_real4_033"] },
         { "progress": 0.65, "label": "北窗工作面", "description": "在厨房南段读取北窗、完整台面与背景墙。", "intent": "reveal", "position": [4.65, 7.05, 1.58], "target": [4.2, 8.75, 1.2], "fov": 57, "holdMs": 750, "focusTargetIds": ["wall_face_real4_006", "wall_face_real4_030"] },
         { "progress": 0.82, "label": "吊顶收口", "description": "保持入口构图并轻微抬眼检查墙顶收口。", "intent": "detail", "position": [4.55, 7.0, 1.58], "target": [4.2, 8.5, 1.8], "fov": 56, "holdMs": 550, "focusTargetIds": ["surface_real4_ceiling_kitchen"] },
-        { "progress": 1, "label": "返回餐区", "description": "退回移门一侧，为餐厨串接保留出口。", "intent": "return", "position": [4.25, 6.85, 1.58], "target": [4.45, 8.45, 1.02], "fov": 54, "holdMs": 650, "focusTargetIds": ["wall_face_real4_031"] }
+        { "progress": 0.9, "label": "转向移门", "description": "以中性水平视线转向移门，避免吊顶视角直接反打造成突兀甩镜。", "intent": "return", "position": [4.5, 7.15, 1.58], "target": [3.42, 7.66, 1.45], "fov": 55, "holdMs": 250, "focusTargetIds": ["wall_face_real4_031"] },
+        { "progress": 0.95, "label": "移门衔接", "description": "继续转向横厅并下压视线，为两侧地面衔接建立连续运动。", "intent": "return", "position": [4.45, 7.22, 1.58], "target": [3.41, 6.62, 1.28], "fov": 54, "holdMs": 250, "focusTargetIds": ["surface_real4_floor_kitchen", "wall_face_real4_031"] },
+        { "progress": 1, "label": "返回餐区", "description": "退回移门内侧回望横厅，同框读取厨房瓷砖与公共区木地板的衔接。", "intent": "return", "position": [4.4, 7.3, 1.58], "target": [4.3, 6.6, 1.12], "fov": 54, "holdMs": 650, "focusTargetIds": ["surface_real4_floor_kitchen", "wall_face_real4_031"] }
       ]
     },
     {
@@ -117,8 +119,8 @@
       "focusProgress": { "wall": 0.4, "floor": 0.2, "ceiling": 0.75 },
       "keyframes": [
         { "progress": 0, "label": "北卧门口", "description": "从门洞一侧建立床、衣柜和北窗的纵向关系。", "intent": "establish", "position": [7.75, 6.75, 1.6], "target": [8.8, 8.2, 1.03], "fov": 54, "holdMs": 600, "focusTargetIds": ["wall_face_real4_021"] },
-        { "progress": 0.2, "label": "西侧通道", "description": "在门口沿西侧安全通道小幅进入，读取地板连续性。", "intent": "reveal", "position": [7.65, 7.1, 1.59], "target": [8.8, 8.2, 0.9], "fov": 55, "holdMs": 500, "focusTargetIds": ["surface_real4_floor_bedroom_2", "wall_face_real4_023"] },
-        { "progress": 0.4, "label": "衣柜关系", "description": "让衣柜停留在南侧边缘，同时保留床铺和通道。", "intent": "detail", "position": [7.65, 7.2, 1.58], "target": [8.8, 8.2, 1.2], "fov": 54, "holdMs": 700, "focusTargetIds": ["wall_face_real4_020", "wall_face_real4_025"] },
+        { "progress": 0.2, "label": "地板与西墙", "description": "自房间中部朝北窗方向读取地板连续性与西侧墙面，避开西墙背光角度。", "intent": "reveal", "position": [7.9, 7.35, 1.6], "target": [9.1, 8.75, 1.1], "fov": 55, "holdMs": 500, "focusTargetIds": ["surface_real4_floor_bedroom_2", "wall_face_real4_023"] },
+        { "progress": 0.4, "label": "衣柜关系", "description": "自房间中部朝东北读取衣柜与北墙、东墙关系，避开西墙背光角度。", "intent": "detail", "position": [7.95, 7.55, 1.58], "target": [9.35, 8.6, 1.2], "fov": 54, "holdMs": 700, "focusTargetIds": ["wall_face_real4_020", "wall_face_real4_025"] },
         { "progress": 0.62, "label": "床与北窗", "description": "在西侧通道观察床铺和北向采光，不贴近窗面。", "intent": "surface", "position": [7.65, 7.5, 1.59], "target": [8.8, 8.8, 1.25], "fov": 55, "holdMs": 750, "focusTargetIds": ["wall_face_real4_021"] },
         { "progress": 0.8, "label": "墙顶收口", "description": "保持床铺在画面内并轻微抬眼读取墙顶层次。", "intent": "detail", "position": [7.65, 7.35, 1.6], "target": [8.8, 8.5, 1.8], "fov": 54, "holdMs": 550, "focusTargetIds": ["surface_real4_ceiling_bedroom_2"] },
         { "progress": 1, "label": "返回门口", "description": "沿西侧通道返回，保持轨迹可以独立循环。", "intent": "return", "position": [7.75, 6.82, 1.6], "target": [8.8, 8.2, 1.03], "fov": 54, "holdMs": 700, "focusTargetIds": ["surface_real4_floor_bedroom_2"] }
@@ -132,13 +134,13 @@
       "roomRect": [10.05, 0.2, 13.2, 4.15],
       "entryAnchor": { "position": [10.55, 3.9, 1.6], "target": [11.85, 3.0, 1.04], "fov": 53 },
       "exitAnchor": { "position": [10.55, 3.88, 1.6], "target": [11.85, 3.0, 1.04], "fov": 53 },
-      "surfaceTargets": { "floor": "surface_real4_floor_master_bedroom", "ceiling": "surface_real4_ceiling_master_bedroom", "walls": ["wall_face_real4_007", "wall_face_real4_014", "wall_face_real4_015"] },
+      "surfaceTargets": { "floor": "surface_real4_floor_master_bedroom", "ceiling": "surface_real4_ceiling_master_bedroom", "walls": ["wall_face_real4_007", "wall_face_real4_014", "wall_face_real4_015", "wall_face_real4_036"] },
       "focusProgress": { "wall": 0.36, "floor": 0.2, "ceiling": 0.82 },
       "keyframes": [
         { "progress": 0, "label": "主卧入口", "description": "从衣帽间一侧进入，先建立床与两侧通道。", "intent": "establish", "position": [10.55, 3.9, 1.6], "target": [11.85, 3.0, 1.04], "fov": 53, "holdMs": 650, "focusTargetIds": ["wall_face_real4_015"] },
         { "progress": 0.2, "label": "沿西侧进入", "description": "沿床的西侧通道小幅移动，保持床铺完整并读取地板。", "intent": "reveal", "position": [10.55, 3.2, 1.59], "target": [11.85, 3.1, 1.0], "fov": 54, "holdMs": 500, "focusTargetIds": ["surface_real4_floor_master_bedroom", "wall_face_real4_014"] },
         { "progress": 0.38, "label": "床头主墙", "description": "从西侧通道斜看床头主墙，避免镜头贴近床尾。", "intent": "surface", "position": [10.55, 2.2, 1.58], "target": [11.86, 3.7, 1.1], "fov": 54, "holdMs": 800, "focusTargetIds": ["wall_face_real4_015"] },
-        { "progress": 0.58, "label": "南窗采光", "description": "保留床铺和房间中心，同时读取南向采光方向。", "intent": "surface", "position": [10.55, 1.8, 1.59], "target": [11.8, 2.2, 1.25], "fov": 55, "holdMs": 700, "focusTargetIds": ["wall_face_real4_007"] },
+        { "progress": 0.58, "label": "南窗采光", "description": "保留床铺和房间中心，同时读取南向采光方向。", "intent": "surface", "position": [10.55, 1.8, 1.59], "target": [11.8, 2.2, 1.25], "fov": 55, "holdMs": 700, "focusTargetIds": ["wall_face_real4_007", "wall_face_real4_036"] },
         { "progress": 0.72, "label": "床尾回看", "description": "在床尾西侧小幅横移，观察床铺与两侧墙面。", "intent": "detail", "position": [10.7, 1.6, 1.59], "target": [12.0, 2.8, 1.1], "fov": 55, "holdMs": 700, "focusTargetIds": ["wall_face_real4_014", "surface_real4_floor_master_bedroom"] },
         { "progress": 0.84, "label": "卧室顶面", "description": "回到西侧通道并轻微抬眼检查顶面收口。", "intent": "detail", "position": [10.6, 2.8, 1.6], "target": [11.8, 3.5, 1.8], "fov": 54, "holdMs": 550, "focusTargetIds": ["surface_real4_ceiling_master_bedroom"] },
         { "progress": 1, "label": "返回套房入口", "description": "沿西侧通道返回衣帽间连接口。", "intent": "return", "position": [10.55, 3.88, 1.6], "target": [11.85, 3.0, 1.04], "fov": 53, "holdMs": 750, "focusTargetIds": ["wall_face_real4_015"] }
@@ -170,13 +172,13 @@
       "roomRect": [5.4, 7.2, 7.15, 9.6],
       "entryAnchor": { "position": [5.95, 7.05, 1.56], "target": [6.45, 8.6, 1.0], "fov": 58 },
       "exitAnchor": { "position": [5.95, 7.05, 1.56], "target": [6.45, 8.6, 1.0], "fov": 58 },
-      "surfaceTargets": { "floor": "surface_real4_floor_guest_bath", "ceiling": "surface_real4_ceiling_guest_bath", "walls": ["wall_face_real4_024", "wall_face_real4_027", "wall_face_real4_029"] },
+      "surfaceTargets": { "floor": "surface_real4_floor_guest_bath", "ceiling": "surface_real4_ceiling_guest_bath", "walls": ["wall_face_real4_024", "wall_face_real4_027", "wall_face_real4_029", "wall_face_real4_037"] },
       "focusProgress": { "wall": 0.38, "floor": 0.2, "ceiling": 0.78 },
       "keyframes": [
         { "progress": 0, "label": "公卫门口", "description": "从门槛外建立台盆、马桶和北窗的相对位置。", "intent": "establish", "position": [5.95, 7.05, 1.56], "target": [6.45, 8.6, 1.0], "fov": 58, "holdMs": 550, "focusTargetIds": ["wall_face_real4_027"] },
         { "progress": 0.22, "label": "地砖与净空", "description": "在门口安全区轻微低头读取湿区地面。", "intent": "detail", "position": [6.0, 7.45, 1.55], "target": [6.4, 8.4, 0.9], "fov": 57, "holdMs": 450, "focusTargetIds": ["surface_real4_floor_guest_bath"] },
         { "progress": 0.45, "label": "台盆区域", "description": "从门口斜看北侧台盆和瓷砖背景墙。", "intent": "surface", "position": [6.1, 7.5, 1.55], "target": [6.6, 8.9, 1.0], "fov": 57, "holdMs": 650, "focusTargetIds": ["wall_face_real4_024", "wall_face_real4_029"] },
-        { "progress": 0.65, "label": "马桶与窗", "description": "在同一安全区小幅转向马桶和北窗，不贴近设施。", "intent": "reveal", "position": [6.2, 7.55, 1.55], "target": [5.85, 8.8, 1.0], "fov": 57, "holdMs": 650, "focusTargetIds": ["wall_face_real4_029"] },
+        { "progress": 0.65, "label": "马桶与窗", "description": "在同一安全区小幅转向马桶和北窗，不贴近设施。", "intent": "reveal", "position": [6.2, 7.55, 1.55], "target": [5.85, 8.8, 1.0], "fov": 57, "holdMs": 650, "focusTargetIds": ["wall_face_real4_029", "wall_face_real4_037"] },
         { "progress": 0.82, "label": "卫浴吊顶", "description": "保持设施在画面内并轻微抬眼检查墙顶收口。", "intent": "detail", "position": [6.15, 7.5, 1.56], "target": [6.3, 8.7, 1.8], "fov": 56, "holdMs": 500, "focusTargetIds": ["surface_real4_ceiling_guest_bath"] },
         { "progress": 1, "label": "返回走廊", "description": "退回门槛外，避免小空间内不必要的长距离运动。", "intent": "return", "position": [5.95, 7.05, 1.56], "target": [6.45, 8.6, 1.0], "fov": 58, "holdMs": 600, "focusTargetIds": ["wall_face_real4_027"] }
       ]

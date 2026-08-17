@@ -1,0 +1,520 @@
+{
+  "schema_version": "1.1.0",
+  "purpose": "Coarse, human-calibrated fields for high-recall veto filtering. These values are not aesthetic scores and do not replace rendered visual comparison.",
+  "field_definitions": {
+    "temperature": "Dominant perceived color temperature: warm, neutral, cool, or mixed.",
+    "chroma_band": "Coarse saturation band: low, medium, or high.",
+    "value_band": "Dominant lightness band: light, medium, dark, or mixed.",
+    "activity": "Combined Base Color, Normal/Height, motif scale, and catalog-spread activity: low, medium, or high.",
+    "scale": "Dominant motif/module scale: none, micro, small, medium, large, or mural.",
+    "direction": "Dominant directional grammar: none, vertical, horizontal, grid, organic, or mixed.",
+    "direction_strength": "Whether direction is visually weak or strong.",
+    "material_language": "Coarse bucket used only to preserve diversity after vetoes.",
+    "requires_continuous_target": "True only when cropping by doors/windows would obviously break the intended composition."
+  },
+  "defaults_by_category": {
+    "wall_paint": {
+      "temperature": "neutral",
+      "chroma_band": "low",
+      "value_band": "light",
+      "activity": "low",
+      "scale": "none",
+      "direction": "none",
+      "direction_strength": "low",
+      "material_language": "solid_paint",
+      "requires_continuous_target": false
+    },
+    "wallpaper": {
+      "temperature": "neutral",
+      "chroma_band": "medium",
+      "value_band": "medium",
+      "activity": "medium",
+      "scale": "medium",
+      "direction": "mixed",
+      "direction_strength": "low",
+      "material_language": "printed_pattern",
+      "requires_continuous_target": false
+    },
+    "wood_floor": {
+      "temperature": "warm",
+      "chroma_band": "low",
+      "value_band": "medium",
+      "activity": "medium",
+      "scale": "large",
+      "direction": "horizontal",
+      "direction_strength": "high",
+      "material_language": "plank_wood",
+      "requires_continuous_target": false
+    },
+    "tile": {
+      "temperature": "neutral",
+      "chroma_band": "low",
+      "value_band": "medium",
+      "activity": "medium",
+      "scale": "medium",
+      "direction": "grid",
+      "direction_strength": "low",
+      "material_language": "modular_tile",
+      "requires_continuous_target": false
+    },
+    "ceiling": {
+      "temperature": "neutral",
+      "chroma_band": "low",
+      "value_band": "light",
+      "activity": "medium",
+      "scale": "large",
+      "direction": "grid",
+      "direction_strength": "low",
+      "material_language": "ceiling_geometry",
+      "requires_continuous_target": false
+    }
+  },
+  "asset_overrides": {
+    "paint_warm_white_01": {
+      "temperature": "warm",
+      "material_language": "solid_paint"
+    },
+    "paint_cool_white_01": {
+      "temperature": "cool",
+      "material_language": "solid_paint"
+    },
+    "paint_greige_01": {
+      "temperature": "warm",
+      "value_band": "medium"
+    },
+    "paint_taupe_01": {
+      "temperature": "warm",
+      "value_band": "medium"
+    },
+    "paint_charcoal_01": {
+      "value_band": "dark"
+    },
+    "paint_sage_olive_01": {
+      "temperature": "cool",
+      "chroma_band": "medium",
+      "value_band": "medium"
+    },
+    "paint_slate_blue_01": {
+      "temperature": "cool",
+      "chroma_band": "medium",
+      "value_band": "dark"
+    },
+    "paint_terracotta_01": {
+      "temperature": "warm",
+      "chroma_band": "high",
+      "value_band": "medium"
+    },
+    "paint_dusty_rose_01": {
+      "temperature": "warm",
+      "chroma_band": "medium",
+      "value_band": "medium"
+    },
+    "paint_ochre_01": {
+      "temperature": "warm",
+      "chroma_band": "high",
+      "value_band": "medium"
+    },
+    "paint_limewash_cool_neutral_01": {
+      "temperature": "cool",
+      "activity": "medium",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "mineral_coating"
+    },
+    "paint_clay_plaster_earth_01": {
+      "temperature": "warm",
+      "value_band": "medium",
+      "activity": "medium",
+      "scale": "micro",
+      "material_language": "mineral_coating"
+    },
+    "paint_marmorino_deep_01": {
+      "value_band": "dark",
+      "activity": "medium",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "polished_mineral"
+    },
+    "wallpaper_linen_natural_01": {
+      "temperature": "warm",
+      "chroma_band": "low",
+      "value_band": "light",
+      "activity": "low",
+      "scale": "micro",
+      "direction": "mixed",
+      "material_language": "textile_wallcovering"
+    },
+    "wallpaper_micro_seed_01": {
+      "scale": "small"
+    },
+    "wallpaper_linear_geometry_01": {
+      "temperature": "warm",
+      "scale": "small",
+      "direction": "vertical",
+      "direction_strength": "high",
+      "material_language": "linear_pattern"
+    },
+    "wallpaper_soft_arch_geometry_01": {
+      "value_band": "light",
+      "direction": "grid",
+      "direction_strength": "high",
+      "material_language": "geometric_pattern"
+    },
+    "wallpaper_botanical_meadow_01": {
+      "temperature": "warm",
+      "activity": "high",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "organic_pattern"
+    },
+    "wallpaper_damask_shadow_01": {
+      "activity": "high",
+      "direction": "grid",
+      "material_language": "historic_pattern"
+    },
+    "wallpaper_mineral_wash_01": {
+      "chroma_band": "low",
+      "activity": "high",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "mineral_abstract"
+    },
+    "wallpaper_mist_landscape_mural_01": {
+      "chroma_band": "low",
+      "value_band": "light",
+      "activity": "high",
+      "scale": "mural",
+      "direction": "organic",
+      "material_language": "narrative_mural",
+      "requires_continuous_target": true
+    },
+    "wallpaper_ink_branch_01": {
+      "chroma_band": "low",
+      "value_band": "light",
+      "activity": "high",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "organic_pattern"
+    },
+    "wallpaper_midcentury_blocks_01": {
+      "temperature": "warm",
+      "chroma_band": "high",
+      "activity": "high",
+      "direction": "grid",
+      "direction_strength": "high",
+      "material_language": "geometric_pattern"
+    },
+    "wallpaper_mediterranean_blockprint_01": {
+      "temperature": "cool",
+      "chroma_band": "high",
+      "activity": "high",
+      "direction": "grid",
+      "material_language": "blockprint_pattern"
+    },
+    "wallpaper_art_deco_fan_01": {
+      "value_band": "dark",
+      "activity": "high",
+      "direction": "grid",
+      "direction_strength": "high",
+      "material_language": "geometric_pattern"
+    },
+    "wallpaper_nocturne_botanical_01": {
+      "temperature": "cool",
+      "value_band": "dark",
+      "activity": "high",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "organic_pattern"
+    },
+    "wallpaper_oxide_colourfield_mural_01": {
+      "temperature": "warm",
+      "chroma_band": "high",
+      "activity": "high",
+      "scale": "mural",
+      "direction": "organic",
+      "material_language": "narrative_mural",
+      "requires_continuous_target": true
+    },
+    "wallpaper_fiber_relief_ripple_01": {
+      "chroma_band": "low",
+      "value_band": "light",
+      "scale": "large",
+      "direction": "horizontal",
+      "direction_strength": "high",
+      "material_language": "sculptural_relief"
+    },
+    "wallpaper_dark_grasscloth_01": {
+      "chroma_band": "low",
+      "value_band": "dark",
+      "activity": "low",
+      "scale": "micro",
+      "direction": "vertical",
+      "material_language": "textile_wallcovering"
+    },
+    "floor_ash_maple_light_matte_01": {
+      "value_band": "light",
+      "activity": "low"
+    },
+    "floor_bleached_ash_wideplank_matte_01": {
+      "value_band": "light",
+      "activity": "low"
+    },
+    "floor_light_oak_matte_01": {
+      "value_band": "light",
+      "activity": "low"
+    },
+    "floor_honey_oak_matte_01": {
+      "chroma_band": "medium",
+      "value_band": "light",
+      "activity": "low"
+    },
+    "floor_warm_walnut_matte_01": {
+      "chroma_band": "medium",
+      "value_band": "dark"
+    },
+    "floor_smoked_dark_oak_matte_01": {
+      "value_band": "dark"
+    },
+    "floor_greywashed_variation_matte_01": {
+      "temperature": "neutral",
+      "value_band": "mixed",
+      "activity": "high"
+    },
+    "floor_caramel_teak_matte_01": {
+      "chroma_band": "medium"
+    },
+    "floor_ebonized_oak_matte_01": {
+      "value_band": "dark",
+      "activity": "low"
+    },
+    "floor_character_oak_wideplank_matte_01": {
+      "value_band": "mixed",
+      "activity": "high"
+    },
+    "floor_riftsawn_oak_linear_matte_01": {
+      "temperature": "neutral",
+      "direction_strength": "high"
+    },
+    "floor_endgrain_block_matte_01": {
+      "value_band": "mixed",
+      "activity": "high",
+      "scale": "small",
+      "direction": "grid",
+      "material_language": "block_wood"
+    },
+    "floor_natural_cork_01": {
+      "value_band": "light",
+      "activity": "low",
+      "scale": "micro",
+      "direction": "none",
+      "direction_strength": "low",
+      "material_language": "granular_cork"
+    },
+    "tile_plain_mineral_01": {
+      "temperature": "warm",
+      "value_band": "light",
+      "activity": "low",
+      "material_language": "plain_ceramic"
+    },
+    "tile_white_marble_01": {
+      "value_band": "light",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "stone_vein"
+    },
+    "tile_warm_travertine_01": {
+      "temperature": "warm",
+      "value_band": "light",
+      "scale": "large",
+      "direction": "horizontal",
+      "material_language": "stone_vein"
+    },
+    "tile_dark_slate_01": {
+      "value_band": "dark",
+      "activity": "low",
+      "material_language": "plain_stone"
+    },
+    "tile_light_microcement_01": {
+      "value_band": "light",
+      "activity": "low",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "continuous_mineral"
+    },
+    "tile_terrazzo_warm_01": {
+      "temperature": "warm",
+      "value_band": "light",
+      "scale": "small",
+      "direction": "none",
+      "material_language": "terrazzo"
+    },
+    "tile_woodlook_oak_01": {
+      "temperature": "warm",
+      "chroma_band": "medium",
+      "direction": "horizontal",
+      "direction_strength": "high",
+      "material_language": "woodlook_tile"
+    },
+    "tile_decorative_arc_01": {
+      "chroma_band": "high",
+      "activity": "high",
+      "scale": "small",
+      "direction_strength": "high",
+      "material_language": "decorative_tile"
+    },
+    "tile_terracotta_cotto_01": {
+      "temperature": "warm",
+      "chroma_band": "high",
+      "material_language": "handmade_ceramic"
+    },
+    "tile_jade_handglazed_01": {
+      "temperature": "cool",
+      "chroma_band": "high",
+      "value_band": "dark",
+      "material_language": "handmade_ceramic"
+    },
+    "tile_blue_white_brush_01": {
+      "temperature": "cool",
+      "chroma_band": "high",
+      "value_band": "mixed",
+      "activity": "high",
+      "scale": "small",
+      "direction": "organic",
+      "material_language": "decorative_tile"
+    },
+    "tile_oxblood_small_format_01": {
+      "temperature": "warm",
+      "chroma_band": "high",
+      "value_band": "dark",
+      "scale": "small",
+      "material_language": "handmade_ceramic"
+    },
+    "tile_checker_black_ivory_01": {
+      "value_band": "mixed",
+      "activity": "high",
+      "scale": "large",
+      "direction_strength": "high",
+      "material_language": "geometric_tile"
+    },
+    "tile_green_breccia_01": {
+      "temperature": "cool",
+      "chroma_band": "high",
+      "value_band": "dark",
+      "activity": "high",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "stone_vein"
+    },
+    "tile_ivory_fluted_relief_01": {
+      "temperature": "warm",
+      "value_band": "light",
+      "activity": "high",
+      "scale": "medium",
+      "direction": "vertical",
+      "direction_strength": "high",
+      "material_language": "sculptural_relief"
+    },
+    "tile_warm_white_zellige_01": {
+      "temperature": "warm",
+      "value_band": "light",
+      "scale": "small",
+      "material_language": "handmade_ceramic"
+    },
+    "tile_largechip_terrazzo_01": {
+      "value_band": "mixed",
+      "activity": "high",
+      "scale": "large",
+      "direction": "none",
+      "material_language": "terrazzo"
+    },
+    "tile_deep_blue_cloudstone_01": {
+      "temperature": "cool",
+      "chroma_band": "high",
+      "value_band": "dark",
+      "activity": "high",
+      "scale": "large",
+      "direction": "organic",
+      "material_language": "stone_vein"
+    },
+    "tile_cool_finger_mosaic_01": {
+      "temperature": "cool",
+      "chroma_band": "medium",
+      "activity": "high",
+      "scale": "small",
+      "direction": "vertical",
+      "direction_strength": "high",
+      "material_language": "mosaic"
+    },
+    "tile_smoke_penny_mosaic_01": {
+      "value_band": "dark",
+      "activity": "high",
+      "scale": "small",
+      "direction_strength": "high",
+      "material_language": "mosaic"
+    },
+    "tile_deep_matte_monochrome_01": {
+      "value_band": "dark",
+      "activity": "low",
+      "scale": "large",
+      "material_language": "plain_ceramic"
+    },
+    "ceiling_flat_01": {
+      "activity": "low",
+      "direction": "none",
+      "material_language": "flat_plane"
+    },
+    "ceiling_perimeter_step_01": {
+      "activity": "low",
+      "direction": "none",
+      "material_language": "edge_detail"
+    },
+    "ceiling_perimeter_cove_01": {
+      "activity": "low",
+      "direction": "none",
+      "material_language": "luminous_edge"
+    },
+    "ceiling_floating_shadow_gap_01": {
+      "activity": "low",
+      "direction": "none",
+      "material_language": "shadow_gap"
+    },
+    "ceiling_kitchen_bath_panel_01": {
+      "scale": "large",
+      "direction_strength": "high",
+      "material_language": "modular_ceiling"
+    },
+    "ceiling_timber_slatted_01": {
+      "temperature": "warm",
+      "chroma_band": "medium",
+      "value_band": "medium",
+      "activity": "high",
+      "scale": "small",
+      "direction": "horizontal",
+      "direction_strength": "high",
+      "material_language": "linear_slats"
+    },
+    "ceiling_shallow_coffer_grid_01": {
+      "activity": "high",
+      "direction_strength": "high",
+      "material_language": "coffer_grid"
+    },
+    "ceiling_exposed_concrete_shadow_track_01": {
+      "value_band": "medium",
+      "direction": "horizontal",
+      "direction_strength": "high",
+      "material_language": "exposed_track"
+    },
+    "ceiling_curved_cove_01": {
+      "temperature": "warm",
+      "direction": "organic",
+      "direction_strength": "high",
+      "material_language": "curved_light"
+    }
+  },
+  "category_room_exclusions": {
+    "wood_floor": [
+      "bathroom",
+      "balcony"
+    ]
+  }
+}

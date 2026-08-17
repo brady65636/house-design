@@ -1,0 +1,92 @@
+{
+  "rubric_version": "trace_dimension_v1",
+  "scope": "从用户提出设计需求开始，到 Agent 交付结果为止，评估全过程工具调用轨迹的合理性。不评价最终成品美观（维度二）或需求理解质量（维度一），只评价 Agent 每一步工具调用是否有据、必要、顺序正确、参数正确、结果被正确消化。",
+  "note": "本 rubric 是据真实跑盘观察到的反模式设计，非先验假设。每条软 rubric 的 text 都标注了它钉死的真实反模式与代码度量方式。",
+  "verdicts": ["PASS", "WARN", "FAIL"],
+  "evaluation_inputs": {
+    "tool_calls": "工具调用轨迹（sequence / name / args / result），来自 LangGraph 消息历史",
+    "reasoning_summary": "每次模型推理前的思考摘要，来自 Responses API 的 reasoning.summary（llm span 的 reasoning_summary 字段）",
+    "llm_latency": "每次模型推理耗时，来自 llm span 的 start/end time",
+    "token_usage": "每次调用的 token（含 cached_tokens，区分缓存命中与新增全价）"
+  },
+  "tool_cost_tiers": {
+    "S": ["get_room_by_id", "load_scheme", "filter_assets", "set_design_work_type"],
+    "S_w": ["update_scheme"],
+    "M": ["get_asset_card_by_id"],
+    "L": ["observe_room"],
+    "XL": ["observe_home_harmony"],
+    "XXL": ["ask_design_critic"]
+  },
+  "hard_gates": [
+    {
+      "gate_id": "no_fabricated_ids",
+      "owner": "code",
+      "text": "所有工具参数中的 target_id / room_id / asset_id 都存在于活动 scene_manifest 与 asset_manifest，没有编造不存在的 ID。"
+    },
+    {
+      "gate_id": "no_blocked_write_attempts",
+      "owner": "code",
+      "text": "轨迹中没有被代码拦截的 Scheme 写入尝试。update_scheme 的结果里出现 SCHEME_WRITE_BLOCKED（NOT_STARTED 阶段写入、或与 set_design_work_type 同批写入）即失败。"
+    },
+    {
+      "gate_id": "evidence_after_final_write",
+      "owner": "code",
+      "text": "最后一次成功 update_scheme 之后，至少存在一次 observe_room 或 observe_home_harmony 取证动作。改完不取证就交付即失败。"
+    },
+    {
+      "gate_id": "card_read_before_write",
+      "owner": "code",
+      "text": "每个成功的 update_scheme(asset_id=x) 之前，轨迹中必须先有 get_asset_card_by_id(x)。真实反模式：读高色差节疤橡木却写浅橡木（读 A 写 B），等于没验证选择。读 A 写 A 才通过。"
+    },
+    {
+      "gate_id": "no_irrelevant_tool_calls",
+      "owner": "code",
+      "text": "没有调用与住宅硬装设计任务无关的工具（例如遗留的 get_today_whether）。"
+    }
+  ],
+  "soft_domains": [
+    {
+      "domain_id": "economy",
+      "title": "经济性（token/成本克制）",
+      "rubrics": [
+        {
+          "rubric_id": "observe_restraint",
+          "owner": "code_and_grader",
+          "metric": "observe_room / observe_home_harmony 调用次数；本任务实际改动的 target 数（单点 vs 多表面 vs 全屋）",
+          "text": "observe 的成本与取证范围匹配。真实反模式：单点改动却调 observe_home_harmony（13 张全屋图，一次 +约 3 万 token）。PASS=单点用 observe_room 聚焦、多房间/跨空间才用 harmony；WARN=略超范围；FAIL=单点小改动触发 harmony 或多次全屋渲染。"
+        },
+        {
+          "rubric_id": "critic_restraint",
+          "owner": "code_and_grader",
+          "metric": "ask_design_critic 调用次数；work_type（LIGHT/HEAVY）",
+          "text": "Critic 调用与任务尺度匹配。真实反模式：轻度修改调用 Critic、或补证循环反复刷 Critic（每次 Critic 嵌套模型推理+observe，约 40-65s）。PASS=HEAVY 一次通过、LIGHT 不调；WARN=HEAVY 有一次 REVISE 补证；FAIL=轻改调 Critic、或同方案反复刷 Critic 超过 2 次。"
+        }
+      ]
+    },
+    {
+      "domain_id": "latency",
+      "title": "延迟（串行轮数与返工）",
+      "rubrics": [
+        {
+          "rubric_id": "serial_rounds",
+          "owner": "code_and_grader",
+          "metric": "llm span 数量（模型推理轮数）；每轮 tool_calls 数量（批量程度）",
+          "text": "独立的只读查询是否合并成一批，而不是一轮只查一件事。真实反模式：filter 地板/墙漆/墙纸/吊顶拆成 4 轮、每轮等 8-12s 推理。PASS=独立的 filter/读卡合并成批；WARN=略有冗余；FAIL=可合并的独立查询被拆成多轮串行（结合 reasoning 判断是否真有依赖）。"
+        },
+        {
+          "rubric_id": "batch_same_targets",
+          "owner": "code",
+          "metric": "同 asset+parameters 的 update_scheme 是否出现在同一批 tool_calls（相邻无中间推理）",
+          "text": "同一 asset + 同一套 parameters 应用到多个 target 时，是否一批提交。真实反模式：一款墙漆刷 5 面墙拆成 5 轮、每轮 reasoning 只有一句机械废话（'刷第三面''刷第四面'）。PASS=同参数多 target 一批；WARN=拆成 2 批；FAIL=逐面分轮（每面墙一轮）。"
+        },
+        {
+          "rubric_id": "rework_discipline",
+          "owner": "code_and_grader",
+          "metric": "同参数 update 的重试次数；Critic REVISE 之后 update 的 target/asset 是否变化",
+          "text": "被拒或 REVISE 后是否改参数/换资产/定位到具体 target 再修，而不是原样重试。真实反模式：color_intent='warm' 报错后仍原样重试、focus_target_ids 超限后不换策略。PASS=修订有针对性；WARN=有一次低效重试；FAIL=同参数反复硬试不换策略、或 REVISE 后无有效修改就再次交付。"
+        }
+      ]
+    }
+  ],
+  "pass_rule": "5 条 hard_gates 必须全部 PASS；5 条 soft rubrics 必须全部为 PASS 或 WARN，任一 FAIL 即场景不通过。WARN 需在判定中说明具体风险。"
+}

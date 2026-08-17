@@ -7,7 +7,7 @@ Vercel(前端 Next.js 静态)  ──HTTPS──►  PaaS 常驻容器(Docker)
                                         ├─ agent-api     FastAPI :8000  (Agent API,对外)
                                         ├─ render-bridge FastAPI :8765  (任务队列,内网)
                                         └─ render-worker playwright 常驻 (无端口,浏览器渲染)
-数据卷 /data: current_scheme.json + checkpoints.sqlite
+数据卷 /data: design_runs/ + current_scheme.json（首次迁移源）+ checkpoints.sqlite
 ```
 
 - **前端(Vercel)**:展示 3D 场景,轮询 `/api/scheme` 感知方案变化。
@@ -31,9 +31,25 @@ Vercel(前端 Next.js 静态)  ──HTTPS──►  PaaS 常驻容器(Docker)
 
 | 变量 | 作用 | 示例 |
 |---|---|---|
-| `OPENAI_API_KEY` | 模型密钥 | `sk-...` |
-| `OPENAI_PROXY` | 本机代理;生产**不设**即直连 | `http://127.0.0.1:7892` |
-| `OPENAI_MODEL` | 模型名 | `gpt-5.6-luna` |
+| `HOUSE_DESIGN_LLM_PROVIDER` | 模型服务；`openai`、`dashscope` 或 `ark` | `ark` |
+| `HOUSE_DESIGN_ARK_API_KEY` | 火山方舟 Ark 密钥(provider=ark 时) | `ark-...` |
+| `HOUSE_DESIGN_ARK_BASE_URL` | 固定 Ark 官方端点；启动时校验 | `https://ark.cn-beijing.volces.com/api/v3` |
+| `HOUSE_DESIGN_ARK_MODEL` | Ark 模型名(支持视觉+工具调用) | `doubao-seed-2-0-lite-260428` |
+| `HOUSE_DESIGN_ARK_PROXY` | Ark 代理(可选)；不设即直连 | `http://127.0.0.1:7892` |
+| `HOUSE_DESIGN_DASHSCOPE_API_KEY` | 阿里云百炼密钥(provider=dashscope 时) | `sk-...` |
+| `HOUSE_DESIGN_DASHSCOPE_BASE_URL` | 固定百炼 OpenAI 兼容端点；启动时校验 | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
+| `HOUSE_DESIGN_DASHSCOPE_MODEL` | 百炼模型名 | `qwen3.7-plus` |
+| `HOUSE_DESIGN_DASHSCOPE_PROXY` | 百炼代理(可选)；不设即直连 | `http://127.0.0.1:7892` |
+| `HOUSE_DESIGN_OPENAI_API_KEY` | 本项目 OpenAI 密钥(provider=openai 时) | `sk-...` |
+| `HOUSE_DESIGN_OPENAI_BASE_URL` | 固定官方 OpenAI API；启动时校验 | `https://api.openai.com/v1` |
+| `HOUSE_DESIGN_OPENAI_PROXY` | 本机代理；生产**不设**即直连 | `http://127.0.0.1:7892` |
+| `HOUSE_DESIGN_OPENAI_MODEL` | OpenAI 模型名 | `gpt-5.6-luna` |
+| `HOUSE_DESIGN_REASONING_EFFORT` | 推理强度(仅 openai provider) | `none` |
+| `HOUSE_DESIGN_LANGSMITH_TRACING` | 是否发送 LangSmith trace；默认关闭 | `true` |
+| `HOUSE_DESIGN_LANGSMITH_API_KEY` | LangSmith 项目密钥 | `lsv2_...` |
+| `HOUSE_DESIGN_LANGSMITH_ENDPOINT` | LangSmith 官方区域端点 | `https://api.smith.langchain.com` |
+| `HOUSE_DESIGN_LANGSMITH_PROJECT` | Trace 项目名 | `house-design-agent` |
+| `HOUSE_DESIGN_LANGSMITH_WORKSPACE_ID` | 多 workspace API key 才需要 | `workspace-...` |
 | `VIEWER_URL` | viewer 生产页面(Vercel 域名) | `https://my-house.vercel.app` |
 | `RENDER_SESSION_ID` | agent 提交视觉命令的会话 | `worker` |
 | `AGENT_API_TOKEN` | Bearer 鉴权(chat/sessions);`/api/scheme` 匿名 | 随机串 |
@@ -61,12 +77,20 @@ Vercel(前端 Next.js 静态)  ──HTTPS──►  PaaS 常驻容器(Docker)
 
 ```bash
 cd backend
-export OPENAI_API_KEY='sk-...' \
+export HOUSE_DESIGN_ARK_API_KEY='ark-...' \
+       HOUSE_DESIGN_LLM_PROVIDER='ark' \
+       HOUSE_DESIGN_ARK_MODEL='doubao-seed-2-0-lite-260428' \
        VIEWER_URL='https://my-house.vercel.app' \
        AGENT_API_TOKEN='$(openssl rand -hex 24)' \
        CORS_ORIGINS='https://my-house.vercel.app'
 docker compose up --build -d
 ```
+
+如需生产追踪，再额外导出 `HOUSE_DESIGN_LANGSMITH_TRACING=true`、
+`HOUSE_DESIGN_LANGSMITH_API_KEY` 和项目名。未提供 LangSmith key 时保持默认 `false`；
+后端不会因为可观测平台未配置而影响 Agent 主链路。
+开启后会向对应 workspace 发送对话、工具调用以及模型实际接收的渲染证据；生产环境应先
+确认数据授权、workspace 权限和保留策略。
 
 - `agent-api:8000` 对外;`render-bridge:8765` 默认也映射(仅本地调试,PaaS 上可去掉)。
 - 三服务 healthcheck 就绪后,验证:见下方「验收清单」。
@@ -105,7 +129,7 @@ fly launch --no-deploy --name <app-name>
 - 同一个 Dockerfile 建 **两个 Service**:`agent-api`(start command 指向 agent-api)、`render-bridge`(指向 bridge)。
 - 再建第三个 Service `render-worker`。
 - 各 Service 用 Railway **Volume** 挂 `/data`。
-- 设 `CORS_ORIGINS`、`OPENAI_API_KEY`、`VIEWER_URL` 等(项目级 Variables)。
+- 设 `CORS_ORIGINS`、`HOUSE_DESIGN_OPENAI_API_KEY`、`VIEWER_URL` 等(项目级 Variables)。
 
 ### 方式 D:HuggingFace Spaces(Docker,单容器)
 
@@ -143,6 +167,6 @@ CMD ["bash", "backend/entrypoint.sh"]
 4. SSE:带 token `curl -N -X POST <agent-api>/api/chat/stream` 可见
    `event: meta / message_delta / tool_call / tool_result / done`。
 5. Scheme 链路:Agent 修改方案后,`GET /api/scheme/version` 的 scheme_id 变化,Vercel 页面自动刷新。
-6. 视觉门禁:让 Agent 走完整流程(load_scheme → get_room_by_id → get_asset_by_category →
-   update_scheme → observe_room → observe_home_harmony → 宣布完成),确认拿到 worker 渲染图。
+6. 视觉门禁:让 Agent 走完整流程(load_scheme → get_room_by_id → filter_assets →
+   get_asset_card_by_id → update_scheme → observe_room → observe_home_harmony → 宣布完成),确认拿到 worker 渲染图。
 7. 降级:停掉 render-worker,Agent 明确回复"缺少视觉证据、不宣布完成"。

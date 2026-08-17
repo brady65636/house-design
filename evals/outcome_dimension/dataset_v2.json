@@ -1,0 +1,13 @@
+{
+  "$schema": "dataset_schema_v2.json",
+  "dataset_version": "outcome_dataset_v2",
+  "rubric_version": "outcome_dimension_v1",
+  "base_dataset": "dataset_v1.json",
+  "entry_contract": {
+    "mode": "interactive_final_baseline",
+    "simulator_model": "deepseek-v4-flash",
+    "close_token": "CLOSE",
+    "max_user_turns": 10,
+    "initial_message_template": "我想把这次设计做成“{title}”的感觉。你先看一下现状和现有素材，和我把方案确认清楚后再实施；如果素材库不能原样实现，请先说明影响并问我是否接受局部替代，不要直接替我改要求。"
+  }
+}

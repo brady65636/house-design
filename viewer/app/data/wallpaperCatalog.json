@@ -1,185 +1,521 @@
 {
   "schema_version": "1.0.0",
   "catalog_id": "wallpaper_catalog_v1",
-  "reference_wall_size_m": [4.4, 2.8],
+  "reference_wall_size_m": [
+    4.4,
+    2.8
+  ],
   "products": [
     {
       "id": "wallpaper_linen_natural_01",
       "order": 1,
-      "family": "plain_texture",
       "name_zh": "天然亚麻",
       "name_en": "Natural Linen",
       "description_zh": "暖白天然亚麻纸基，远看接近安静素色，近看才出现不规则经纬纤维与细小纱结。",
-      "recommended_use": ["full_wall", "feature_wall"],
+      "recommended_use": [
+        "full_wall",
+        "feature_wall"
+      ],
       "texture_mode": "repeat",
       "roll_width_m": 0.53,
-      "repeat_size_m": [0.53, 0.53],
+      "repeat_size_m": [
+        0.53,
+        0.53
+      ],
       "match_type": "random_match",
       "source_file": "output/imagegen/wallpaper-linen-generated-v1.png",
-      "output_resolution": [4096, 4096],
+      "output_resolution": [
+        4096,
+        4096
+      ],
       "surface_profile": "woven_fiber",
       "roughness_mean": 0.91,
       "normal_scale": 0.09,
       "height_strength": 0.1,
       "env_map_intensity": 0.12,
       "sheen": 0.08,
-      "tint": "#f2eadb"
+      "tint": "#f2eadb",
+      "slug": "plain_texture"
     },
     {
       "id": "wallpaper_micro_seed_01",
       "order": 2,
-      "family": "small_allover",
       "name_zh": "矿物籽点",
       "name_en": "Mineral Seed Rhythm",
       "description_zh": "羊皮纸暖底上的矿物蓝灰微型籽叶与针点，密而不堵，作为满铺背景仍保持呼吸感。",
-      "recommended_use": ["full_wall", "feature_wall"],
+      "recommended_use": [
+        "full_wall",
+        "feature_wall"
+      ],
       "texture_mode": "repeat",
       "roll_width_m": 0.53,
-      "repeat_size_m": [0.265, 0.265],
+      "repeat_size_m": [
+        0.265,
+        0.265
+      ],
       "match_type": "straight_match",
       "source_file": "output/imagegen/wallpaper-micro-seed-generated-v1.png",
-      "output_resolution": [4096, 4096],
+      "output_resolution": [
+        4096,
+        4096
+      ],
       "surface_profile": "matte_print",
       "roughness_mean": 0.9,
       "normal_scale": 0.055,
       "height_strength": 0.045,
       "env_map_intensity": 0.1,
       "sheen": 0.04,
-      "tint": "#eee7da"
+      "tint": "#eee7da",
+      "slug": "small_allover"
     },
     {
       "id": "wallpaper_linear_geometry_01",
       "order": 3,
-      "family": "linear_order",
       "name_zh": "暖灰织纹线",
       "name_en": "Warm Linear Weave",
       "description_zh": "暖灰纸基上的窄竖向织纹节奏，带克制的微压纹；中远景保持整洁，斜光下才读到线性。",
-      "recommended_use": ["full_wall", "feature_wall"],
+      "recommended_use": [
+        "full_wall",
+        "feature_wall"
+      ],
       "texture_mode": "repeat",
       "roll_width_m": 0.53,
-      "repeat_size_m": [0.53, 0.32],
+      "repeat_size_m": [
+        0.53,
+        0.32
+      ],
       "match_type": "straight_match",
       "source_file": "output/imagegen/wallpaper-linear-generated-v1.png",
-      "output_resolution": [4096, 2480],
+      "output_resolution": [
+        4096,
+        2480
+      ],
       "surface_profile": "linear_emboss",
       "roughness_mean": 0.87,
       "normal_scale": 0.09,
       "height_strength": 0.1,
       "env_map_intensity": 0.13,
       "sheen": 0.06,
-      "tint": "#e5dac8"
+      "tint": "#e5dac8",
+      "slug": "linear_order"
     },
     {
       "id": "wallpaper_soft_arch_geometry_01",
       "order": 4,
-      "family": "modern_geometry",
       "name_zh": "柔拱构成",
       "name_en": "Soft Arch Composition",
       "description_zh": "由断续拱形、半圆与建筑细线组成的现代几何，陶土灰与炭灰控制在低对比范围。",
-      "recommended_use": ["feature_wall"],
+      "recommended_use": [
+        "feature_wall"
+      ],
       "texture_mode": "repeat",
       "roll_width_m": 0.53,
-      "repeat_size_m": [0.53, 0.64],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
       "match_type": "half_drop_match",
       "source_file": "output/imagegen/wallpaper-soft-arch-generated-v1.png",
-      "output_resolution": [3392, 4096],
+      "output_resolution": [
+        3392,
+        4096
+      ],
       "surface_profile": "selective_emboss",
       "roughness_mean": 0.88,
       "normal_scale": 0.075,
       "height_strength": 0.085,
       "env_map_intensity": 0.12,
       "sheen": 0.045,
-      "tint": "#eee4d5"
+      "tint": "#eee4d5",
+      "slug": "modern_geometry"
     },
     {
       "id": "wallpaper_botanical_meadow_01",
       "order": 5,
-      "family": "botanical",
       "name_zh": "雾野草本",
       "name_en": "Misty Meadow Botanical",
       "description_zh": "橄榄灰、炭灰与少量赭色构成的轻盈草本群落，没有花束式中心，沿墙面形成自然上升节奏。",
-      "recommended_use": ["feature_wall", "full_wall"],
+      "recommended_use": [
+        "feature_wall",
+        "full_wall"
+      ],
       "texture_mode": "repeat",
       "roll_width_m": 0.53,
-      "repeat_size_m": [0.53, 0.64],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
       "match_type": "half_drop_match",
       "source_file": "output/imagegen/wallpaper-botanical-meadow-generated-v1.png",
-      "output_resolution": [3392, 4096],
+      "output_resolution": [
+        3392,
+        4096
+      ],
       "surface_profile": "matte_print",
       "roughness_mean": 0.9,
       "normal_scale": 0.05,
       "height_strength": 0.04,
       "env_map_intensity": 0.1,
       "sheen": 0.035,
-      "tint": "#eee5d5"
+      "tint": "#eee5d5",
+      "slug": "botanical"
     },
     {
       "id": "wallpaper_damask_shadow_01",
       "order": 6,
-      "family": "contemporary_damask",
       "name_zh": "影纹章",
       "name_en": "Shadow Damask",
       "description_zh": "以柔化叶卷与破碎盾形重新组织的低对比纹章，保留古典秩序但避免宫廷金色与厚重锦缎感。",
-      "recommended_use": ["feature_wall"],
+      "recommended_use": [
+        "feature_wall"
+      ],
       "texture_mode": "repeat",
       "roll_width_m": 0.53,
-      "repeat_size_m": [0.53, 0.64],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
       "match_type": "straight_match",
       "source_file": "output/imagegen/wallpaper-damask-shadow-generated-v1.png",
-      "output_resolution": [3392, 4096],
+      "output_resolution": [
+        3392,
+        4096
+      ],
       "surface_profile": "ornamental_emboss",
       "roughness_mean": 0.86,
       "normal_scale": 0.1,
       "height_strength": 0.12,
       "env_map_intensity": 0.14,
       "sheen": 0.07,
-      "tint": "#e8dece"
+      "tint": "#e8dece",
+      "slug": "contemporary_damask"
     },
     {
       "id": "wallpaper_mineral_wash_01",
       "order": 7,
-      "family": "abstract_wash",
       "name_zh": "矿物雾染",
       "name_en": "Mineral Veil Wash",
-      "description_zh": "烟蓝、陶土与橄榄灰半透明色层在暖白纸基上交叠，靠大尺度晕染而不是强烈笔触建立记忆点。",
-      "recommended_use": ["feature_wall"],
+      "description_zh": "烟蓝、陶土与橄榄灰半透明色层在暖白纸基上交叠；综合色块清晰，属于中高活跃度的单面焦点墙纸，不适合作为低对比安静背景。",
+      "recommended_use": [
+        "feature_wall"
+      ],
       "texture_mode": "repeat",
       "roll_width_m": 0.53,
-      "repeat_size_m": [1.06, 1.06],
+      "repeat_size_m": [
+        2.12,
+        2.12
+      ],
       "match_type": "half_drop_match",
       "source_file": "output/imagegen/wallpaper-mineral-wash-generated-v1.png",
-      "output_resolution": [4096, 4096],
+      "output_resolution": [
+        4096,
+        4096
+      ],
       "surface_profile": "mineral_print",
       "roughness_mean": 0.89,
       "normal_scale": 0.06,
       "height_strength": 0.05,
       "env_map_intensity": 0.11,
       "sheen": 0.035,
-      "tint": "#eee6d9"
+      "tint": "#eee6d9",
+      "design_roles": [
+        "anchor"
+      ],
+      "slug": "abstract_wash"
     },
     {
       "id": "wallpaper_mist_landscape_mural_01",
       "order": 8,
-      "family": "panoramic_mural",
       "name_zh": "雾境层峦壁画",
       "name_en": "Mist Ridge Panoramic Mural",
       "description_zh": "为 4.40×2.80m 完整主墙创作的非循环层峦壁画，视觉重量压低，上部保留雾白呼吸区。",
-      "recommended_use": ["feature_wall"],
+      "recommended_use": [
+        "feature_wall"
+      ],
       "texture_mode": "panel_mural",
       "panel_width_m": 0.88,
       "panel_count": 5,
-      "repeat_size_m": [4.4, 2.8],
+      "repeat_size_m": [
+        4.4,
+        2.8
+      ],
       "match_type": "panel_mural",
       "source_file": "output/imagegen/wallpaper-mist-landscape-mural-generated-v1.png",
-      "output_resolution": [4096, 2608],
-      "master_resolution": [8192, 5216],
+      "output_resolution": [
+        4096,
+        2608
+      ],
+      "master_resolution": [
+        8192,
+        5216
+      ],
       "surface_profile": "mural_print",
       "roughness_mean": 0.9,
       "normal_scale": 0.045,
       "height_strength": 0.035,
       "env_map_intensity": 0.09,
       "sheen": 0.025,
-      "tint": "#f1e9dc"
+      "tint": "#f1e9dc",
+      "slug": "panoramic_mural"
+    },
+    {
+      "id": "wallpaper_ink_branch_01",
+      "order": 9,
+      "name_zh": "留白墨枝",
+      "name_en": "Quiet Ink Branch",
+      "description_zh": "暖灰白纸基上以淡墨枝影、稀疏叶片和大片留白建立安静节奏，不使用书法、印章或传统画作构图。",
+      "recommended_use": [
+        "feature_wall",
+        "full_wall"
+      ],
+      "texture_mode": "repeat",
+      "roll_width_m": 0.53,
+      "repeat_size_m": [
+        1.06,
+        1.06
+      ],
+      "match_type": "half_drop_match",
+      "source_file": "output/imagegen/wallpaper-ink-branch-generated-v1.png",
+      "output_resolution": [
+        4096,
+        4096
+      ],
+      "surface_profile": "matte_print",
+      "roughness_mean": 0.9,
+      "normal_scale": 0.05,
+      "height_strength": 0.04,
+      "env_map_intensity": 0.1,
+      "sheen": 0.03,
+      "tint": "#eee9de",
+      "slug": "oriental_ink_botanical"
+    },
+    {
+      "id": "wallpaper_midcentury_blocks_01",
+      "order": 10,
+      "name_zh": "琥珀构成",
+      "name_en": "Amber Mid-century Composition",
+      "description_zh": "由圆角矩形、细弧与不对称色块组成的原创中古几何，琥珀、苔绿和烟蓝控制在柔和纸感范围。",
+      "recommended_use": [
+        "feature_wall"
+      ],
+      "texture_mode": "repeat",
+      "roll_width_m": 0.53,
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "half_drop_match",
+      "source_file": "output/imagegen/wallpaper-midcentury-blocks-generated-v1.png",
+      "output_resolution": [
+        3392,
+        4096
+      ],
+      "surface_profile": "selective_emboss",
+      "roughness_mean": 0.87,
+      "normal_scale": 0.07,
+      "height_strength": 0.075,
+      "env_map_intensity": 0.11,
+      "sheen": 0.035,
+      "tint": "#e8ddca",
+      "slug": "midcentury_colour_geometry"
+    },
+    {
+      "id": "wallpaper_mediterranean_blockprint_01",
+      "order": 11,
+      "name_zh": "海岸木刻叶",
+      "name_en": "Coastal Block-print Leaves",
+      "description_zh": "粉灰石灰白底上的原创木刻叶片与小型果实节奏，保留手工印压的不完美，但避免乡村碎花与品牌图案。",
+      "recommended_use": [
+        "feature_wall",
+        "full_wall"
+      ],
+      "texture_mode": "repeat",
+      "roll_width_m": 0.53,
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "half_drop_match",
+      "source_file": "output/imagegen/wallpaper-mediterranean-blockprint-generated-v1.png",
+      "output_resolution": [
+        3392,
+        4096
+      ],
+      "surface_profile": "matte_print",
+      "roughness_mean": 0.9,
+      "normal_scale": 0.05,
+      "height_strength": 0.04,
+      "env_map_intensity": 0.1,
+      "sheen": 0.025,
+      "tint": "#eee5d4",
+      "slug": "mediterranean_blockprint"
+    },
+    {
+      "id": "wallpaper_art_deco_fan_01",
+      "order": 12,
+      "name_zh": "夜幕扇影",
+      "name_en": "Nocturne Fan Geometry",
+      "description_zh": "深墨蓝底上以细窄扇形、阶梯弧线和克制黄铜色墨建立装饰艺术秩序，不使用金属箔或历史图案复刻。",
+      "recommended_use": [
+        "feature_wall"
+      ],
+      "texture_mode": "repeat",
+      "roll_width_m": 0.53,
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "straight_match",
+      "source_file": "output/imagegen/wallpaper-art-deco-fan-generated-v1.png",
+      "output_resolution": [
+        3392,
+        4096
+      ],
+      "surface_profile": "selective_emboss",
+      "roughness_mean": 0.84,
+      "normal_scale": 0.08,
+      "height_strength": 0.09,
+      "env_map_intensity": 0.13,
+      "sheen": 0.055,
+      "tint": "#28323b",
+      "slug": "art_deco_fan_geometry"
+    },
+    {
+      "id": "wallpaper_nocturne_botanical_01",
+      "order": 13,
+      "name_zh": "深夜植境",
+      "name_en": "Nocturne Botanical",
+      "description_zh": "深蓝黑底上铺陈大尺度叶片与稀疏夜花，依靠深色留白和矿物绿层次形成包裹感，是能独立驱动整间房的有机 Anchor。",
+      "recommended_use": [
+        "feature_wall"
+      ],
+      "texture_mode": "repeat",
+      "roll_width_m": 0.53,
+      "repeat_size_m": [
+        1.59,
+        1.59
+      ],
+      "match_type": "half_drop_match",
+      "source_file": "output/imagegen/wallpaper_nocturne_botanical_generated_v1.png",
+      "output_resolution": [
+        4096,
+        4096
+      ],
+      "surface_profile": "matte_print",
+      "roughness_mean": 0.88,
+      "normal_scale": 0.045,
+      "height_strength": 0.035,
+      "env_map_intensity": 0.09,
+      "sheen": 0.025,
+      "tint": "#102a30",
+      "slug": "nocturne_large_botanical"
+    },
+    {
+      "id": "wallpaper_oxide_colourfield_mural_01",
+      "order": 14,
+      "name_zh": "氧化色域壁画",
+      "name_en": "Oxide Colour-field Mural",
+      "description_zh": "锈红、烟蓝、矿物青与灰紫形成大尺度非具象色域，没有风景或中心图案，以材料化色块直接建立强烈而克制的艺术主墙。",
+      "recommended_use": [
+        "feature_wall"
+      ],
+      "texture_mode": "panel_mural",
+      "panel_width_m": 0.88,
+      "panel_count": 5,
+      "repeat_size_m": [
+        4.4,
+        2.8
+      ],
+      "match_type": "panel_mural",
+      "source_file": "output/imagegen/wallpaper_oxide_colourfield_generated_v1.png",
+      "output_resolution": [
+        4096,
+        2608
+      ],
+      "master_resolution": [
+        8192,
+        5216
+      ],
+      "surface_profile": "mural_print",
+      "roughness_mean": 0.9,
+      "normal_scale": 0.04,
+      "height_strength": 0.03,
+      "env_map_intensity": 0.085,
+      "sheen": 0.02,
+      "tint": "#756b63",
+      "slug": "oxide_colourfield_mural"
+    },
+    {
+      "id": "wallpaper_fiber_relief_ripple_01",
+      "order": 15,
+      "name_zh": "纤维浮雕波纹",
+      "name_en": "Sculptural Fibre Ripple",
+      "description_zh": "暖石色植物纤维纸基压出缓慢起伏的竖向波纹，远看安静，斜光下出现真实触感；用于在不增加颜色的情况下补充立体层次。",
+      "recommended_use": [
+        "feature_wall",
+        "full_wall"
+      ],
+      "texture_mode": "repeat",
+      "roll_width_m": 0.53,
+      "repeat_size_m": [
+        1.06,
+        1.06
+      ],
+      "match_type": "straight_match",
+      "source_file": "output/imagegen/wallpaper_fiber_relief_ripple_generated_v1.png",
+      "output_resolution": [
+        4096,
+        4096
+      ],
+      "surface_profile": "sculptural_fiber_relief",
+      "roughness_mean": 0.91,
+      "normal_scale": 0.14,
+      "height_strength": 0.18,
+      "env_map_intensity": 0.11,
+      "sheen": 0.035,
+      "tint": "#e7dfd0",
+      "slug": "sculptural_fiber_relief"
+    },
+    {
+      "id": "wallpaper_dark_grasscloth_01",
+      "order": 16,
+      "name_zh": "墨蓝深草编",
+      "name_en": "Ink-blue Dark Grasscloth",
+      "description_zh": "炭灰与墨蓝之间的深色草编纸基，只有微尺度植物纤维和低对比经纬节奏；用于为强石材、深木或局部综合色焦点提供安静包裹背景。",
+      "recommended_use": [
+        "feature_wall",
+        "full_wall"
+      ],
+      "texture_mode": "repeat",
+      "roll_width_m": 0.53,
+      "repeat_size_m": [
+        0.53,
+        0.53
+      ],
+      "match_type": "random_match",
+      "source_file": "output/imagegen/wallpaper_dark_grasscloth_generated_v1.png",
+      "output_resolution": [
+        4096,
+        4096
+      ],
+      "surface_profile": "woven_fiber",
+      "roughness_mean": 0.9,
+      "normal_scale": 0.085,
+      "height_strength": 0.095,
+      "env_map_intensity": 0.1,
+      "sheen": 0.045,
+      "tint": "#252d31",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "dark_quiet",
+        "fine_fiber",
+        "low_contrast",
+        "full_wall_capable"
+      ],
+      "slug": "dark_grasscloth"
     }
   ],
   "source_and_license": {

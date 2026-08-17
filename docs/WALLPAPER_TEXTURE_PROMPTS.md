@@ -156,5 +156,81 @@ Avoid: recognizable Chinese shanshui copying, Japanese screen-painting imitation
 
 - 4K 母版：`output/wallpapers_pbr/`
 - Three.js 优化运行时：`viewer/public/assets/wallpapers/`
-- 生成清单与哈希：`viewer/public/assets/wallpapers/texture_manifest.json`
+- 生成清单与哈希：`viewer/public/assets/manifests/wallpaper_manifest.json`
 - 系统说明：`docs/WALLPAPER_SYSTEM.md`
+
+## 2026-08-09 多样性扩展第一批
+
+以下四款继续使用 Codex 内置 ImageGen，每款单独调用。共同要求为：原创、正交平面扫描、四边可连续、均匀漫射、无方向光/阴影/高光/透视/景深、无室内场景、无文字、品牌、商标或水印。PBR 光照不烘焙进 Base Color。
+
+### 09 留白墨枝
+
+源文件：`output/imagegen/wallpaper-ink-branch-generated-v1.png`
+
+```text
+Create an original seamless large-repeat premium wallpaper composed of a few quiet ink-wash branch silhouettes, sparse asymmetric leaves, softened dry-brush edges, and generous open negative space. Use warm gray-white paper, soft charcoal-gray, smoke-taupe and a restrained trace of olive-gray. Suggest contemporary East Asian restraint without copying traditional paintings or any named artist. No calligraphy, seals, birds, bamboo clichés, cherry blossoms, framed composition or dramatic black ink.
+```
+
+### 10 琥珀构成
+
+源文件：`output/imagegen/wallpaper-midcentury-blocks-generated-v1.png`
+
+```text
+Create an original seamless mid-century modern wallpaper using rounded rectangles, slim arcs, offset semicircles and irregular color fields. Use warm oatmeal paper, muted amber, moss green, smoke blue, dusty clay and restrained charcoal. Keep handcrafted screen-print softness and a sophisticated residential scale. Avoid Bauhaus replicas, Memphis style, named designer patterns, primary-color clichés, thick black outlines, optical illusions and 3D blocks.
+```
+
+### 11 海岸木刻叶
+
+源文件：`output/imagegen/wallpaper-mediterranean-blockprint-generated-v1.png`
+
+```text
+Create an original seamless Mediterranean-inspired block-print wallpaper with simplified olive-like leaves, small abstract seed fruits, curved stems and occasional tiny star-flower shapes. Use a chalky lime-white base, muted olive, dusty indigo, pale terracotta and soft umber. Keep a loose airy half-drop rhythm and slight ink-pressure variation. Avoid William Morris imitation, Provence fabric, tiny cottage florals, lemons, copied ceramic patterns, symmetrical vines and tropical leaves.
+```
+
+### 12 夜幕扇影
+
+源文件：`output/imagegen/wallpaper-art-deco-fan-generated-v1.png`
+
+```text
+Create an original seamless Art Deco–inspired wallpaper using narrow fan shapes, stepped arcs, elongated scallops and disciplined vertical geometry. Use a deep ink blue-black base, fine muted antique-brass printed ink, shadowy slate blue and tiny warm-stone accents. Brass must remain a flat printed color, not reflective foil. Avoid recognizable archival patterns, Gatsby clichés, metallic foil, gold glitter, palace ornament, peacock feathers and theatrical hotel styling.
+```
+
+## 2026-08-09 D1 高差异扩展
+
+共同约束：原创、正视平面材质、均匀漫反射、无场景边缘、无透视、无方向光、无高光、无文字/品牌/水印。每个资产单独生成，再由确定性脚本派生 PBR。
+
+### 13 夜幕植物
+
+源文件：`output/imagegen/wallpaper_nocturne_botanical_generated_v1.png`
+
+深墨绿到蓝黑纸基上的大尺度原创叶片与枝影，低明度、低饱和、非热带写实插画；作为深色沉浸式锚点，同时保留足够负空间。
+
+### 14 氧化色域壁画
+
+源文件：`output/imagegen/wallpaper_oxide_colourfield_generated_v1.png`
+
+为 4.40×2.80m 整墙设计的非循环壁画，以氧化铁、灰粉、烟蓝和矿物米色形成大尺度水平色域与侵蚀边界；禁止可识别地景和小尺度重复。
+
+### 15 纤维涟漪浮雕
+
+源文件：`output/imagegen/wallpaper_fiber_relief_ripple_generated_v1.png`
+
+暖象牙植物纤维纸基上的浅浮雕涟漪，依靠真实微表面而非颜色图案形成差异；正式 PBR 使用 `sculptural_fiber_relief` profile 放大中频 Height/Normal，Base Color 保持无烘焙光照。
+
+## 2026-08-09 D2 缺口扩展
+
+### 16 墨蓝深草编
+
+源文件：`output/imagegen/wallpaper_dark_grasscloth_generated_v1.png`
+
+```text
+Use case: stylized-concept
+Asset type: project-owned seamless material source for a physically based 3D interior wallpaper
+Primary request: create a square, straight-on orthographic diffuse-color source texture of very dark charcoal with a subtle ink-blue undertone natural grasscloth wallpaper, made from fine irregular plant fibers and restrained horizontal and vertical weave
+Style/medium: highly realistic architectural material texture, not a room photograph
+Composition/framing: surface fills the entire square edge to edge; uniform scale; no border; no central motif; no isolated focal fibers
+Lighting/mood: perfectly flat neutral diffuse reference lighting with no directional illumination
+Materials/textures: fine dry grass fibers, low contrast, matte, sophisticated and quiet, tiny natural irregularities, dense enough for full-wall use without visual noise
+Constraints: seamless/tileable appearance; front-facing orthographic surface; no perspective; no depth-of-field; no cast shadow; no directional shadow; no specular highlight; no gradient; no vignette; no folds; no wall corner; no furniture; no text; no logo; no watermark; original generic material with no brand association
+Avoid: black crushed detail, glossy fabric, velvet, linen folds, large stripes, obvious repeating motif, photographic lighting
+```

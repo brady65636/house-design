@@ -7,100 +7,345 @@
       "id": "floor_ash_maple_light_matte_01",
       "name_zh": "浅色白蜡木细纹地板",
       "name_en": "Light ash fine-grain floor",
-      "family": "light_fine_grain",
       "source_file": "output/imagegen/floor_ash_maple_light_generated_v1.png",
       "source_type": "imagegen_original",
-      "plank_size_mm": [150, 1800],
-      "repeat_size_m": [1.2, 1.8],
-      "supported_layouts": ["straight", "herringbone"],
+      "colorize": true,
+      "plank_size_mm": [
+        150,
+        1800
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.8
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
       "surface_profile": "fine_wood",
       "roughness_mean": 0.72,
       "normal_scale": 0.22,
-      "tint": "#d6b98f"
+      "tint": "#d8d0c1",
+      "runtime_color_multiplier": "#f5f8ff",
+      "material_group": "light_fine_grain"
     },
     {
       "order": 2,
       "id": "floor_light_oak_matte_01",
       "name_zh": "浅色自然橡木地板",
       "name_en": "Light natural oak floor",
-      "family": "light_natural_oak",
       "source_file": "viewer/public/assets/hero-living/textures/wood_floor_diff_1k.jpg",
       "source_type": "cc0_reference",
       "colorize": true,
-      "plank_size_mm": [190, 1900],
-      "repeat_size_m": [2.0, 2.0],
-      "supported_layouts": ["straight", "herringbone"],
+      "plank_size_mm": [
+        190,
+        1900
+      ],
+      "repeat_size_m": [
+        2.0,
+        2.0
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
       "surface_profile": "natural_wood",
-      "roughness_mean": 0.70,
+      "roughness_mean": 0.7,
       "normal_scale": 0.24,
-      "modulate": { "brightness": 1.08, "saturation": 0.78 },
-      "tint": "#c99d68"
+      "modulate": {
+        "brightness": 1.08,
+        "saturation": 0.5
+      },
+      "tint": "#d1c5b5",
+      "runtime_color_multiplier": "#f3f7ff",
+      "material_group": "light_natural_oak"
     },
     {
       "order": 3,
       "id": "floor_honey_oak_matte_01",
       "name_zh": "蜂蜜色暖木地板",
       "name_en": "Honey oak floor",
-      "family": "honey_warm_wood",
       "source_file": "viewer/public/assets/hero-living/textures/wood_floor_diff_1k.jpg",
       "source_type": "cc0_reference",
       "colorize": true,
-      "plank_size_mm": [180, 1800],
-      "repeat_size_m": [2.0, 2.0],
-      "supported_layouts": ["straight", "herringbone"],
+      "plank_size_mm": [
+        180,
+        1800
+      ],
+      "repeat_size_m": [
+        2.0,
+        2.0
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
       "surface_profile": "natural_wood",
       "roughness_mean": 0.68,
       "normal_scale": 0.24,
-      "modulate": { "brightness": 0.92, "saturation": 0.92 },
-      "tint": "#a86934"
+      "modulate": {
+        "brightness": 0.92,
+        "saturation": 0.92
+      },
+      "tint": "#a86934",
+      "material_group": "honey_warm_wood"
     },
     {
       "order": 4,
       "id": "floor_warm_walnut_matte_01",
       "name_zh": "暖红棕胡桃木感地板",
       "name_en": "Warm walnut floor",
-      "family": "warm_red_brown",
       "source_file": "output/imagegen/floor_warm_walnut_generated_v1.png",
       "source_type": "imagegen_original",
-      "plank_size_mm": [180, 1800],
-      "repeat_size_m": [1.26, 1.8],
-      "supported_layouts": ["straight", "herringbone"],
+      "plank_size_mm": [
+        180,
+        1800
+      ],
+      "repeat_size_m": [
+        1.26,
+        1.8
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
       "surface_profile": "natural_wood",
       "roughness_mean": 0.67,
       "normal_scale": 0.24,
-      "tint": "#70402d"
+      "tint": "#70402d",
+      "material_group": "warm_red_brown"
     },
     {
       "order": 5,
       "id": "floor_smoked_dark_oak_matte_01",
       "name_zh": "烟熏深橡木地板",
       "name_en": "Smoked dark oak floor",
-      "family": "smoked_dark_wood",
       "source_file": "output/imagegen/floor_smoked_dark_generated_v1.png",
       "source_type": "imagegen_original",
-      "plank_size_mm": [190, 1900],
-      "repeat_size_m": [1.14, 1.9],
-      "supported_layouts": ["straight", "herringbone"],
+      "plank_size_mm": [
+        190,
+        1900
+      ],
+      "repeat_size_m": [
+        1.14,
+        1.9
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
       "surface_profile": "brushed_wood",
       "roughness_mean": 0.73,
       "normal_scale": 0.28,
-      "tint": "#4d413d"
+      "tint": "#4d413d",
+      "material_group": "smoked_dark_wood"
     },
     {
       "order": 6,
       "id": "floor_greywashed_variation_matte_01",
       "name_zh": "灰洗高色差做旧木地板",
       "name_en": "Grey-washed varied timber floor",
-      "family": "greywashed_reclaimed",
       "source_file": "output/imagegen/floor_greywashed_variation_generated_v1.png",
       "source_type": "imagegen_original",
-      "plank_size_mm": [170, 1700],
-      "repeat_size_m": [1.36, 1.7],
-      "supported_layouts": ["straight"],
+      "plank_size_mm": [
+        170,
+        1700
+      ],
+      "repeat_size_m": [
+        1.36,
+        1.7
+      ],
+      "supported_layouts": [
+        "straight"
+      ],
       "surface_profile": "brushed_wood",
       "roughness_mean": 0.78,
-      "normal_scale": 0.30,
-      "tint": "#9a9083"
+      "normal_scale": 0.3,
+      "tint": "#9a9083",
+      "material_group": "greywashed_reclaimed"
+    },
+    {
+      "order": 7,
+      "id": "floor_bleached_ash_wideplank_matte_01",
+      "name_zh": "漂白白蜡木宽板地板",
+      "name_en": "Bleached ash wide-plank floor",
+      "source_file": "output/imagegen/floor_bleached_ash_wideplank_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        220,
+        2200
+      ],
+      "repeat_size_m": [
+        1.32,
+        2.2
+      ],
+      "supported_layouts": [
+        "straight"
+      ],
+      "surface_profile": "fine_wood",
+      "roughness_mean": 0.76,
+      "normal_scale": 0.2,
+      "tint": "#d9c9ac",
+      "material_group": "bleached_ash_wideplank"
+    },
+    {
+      "order": 8,
+      "id": "floor_caramel_teak_matte_01",
+      "name_zh": "焦糖柚木地板",
+      "name_en": "Caramel teak floor",
+      "source_file": "output/imagegen/floor_caramel_teak_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        160,
+        1600
+      ],
+      "repeat_size_m": [
+        1.28,
+        1.6
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "natural_wood",
+      "roughness_mean": 0.68,
+      "normal_scale": 0.23,
+      "tint": "#a46735",
+      "material_group": "caramel_teak"
+    },
+    {
+      "order": 9,
+      "id": "floor_ebonized_oak_matte_01",
+      "name_zh": "乌木化橡木地板",
+      "name_en": "Ebonized oak floor",
+      "source_file": "output/imagegen/floor_ebonized_oak_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        180,
+        1800
+      ],
+      "repeat_size_m": [
+        1.26,
+        1.8
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "brushed_wood",
+      "roughness_mean": 0.71,
+      "normal_scale": 0.26,
+      "tint": "#292725",
+      "material_group": "ebonized_oak"
+    },
+    {
+      "order": 10,
+      "id": "floor_character_oak_wideplank_matte_01",
+      "name_zh": "高色差节疤橡木宽板地板",
+      "name_en": "Character oak wide-plank floor",
+      "source_file": "output/imagegen/floor_character_oak_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        220,
+        2200
+      ],
+      "repeat_size_m": [
+        1.54,
+        2.2
+      ],
+      "supported_layouts": [
+        "straight"
+      ],
+      "surface_profile": "character_wood",
+      "roughness_mean": 0.74,
+      "normal_scale": 0.3,
+      "tint": "#b38a5d",
+      "material_group": "character_oak_high_variation"
+    },
+    {
+      "order": 11,
+      "id": "floor_riftsawn_oak_linear_matte_01",
+      "name_zh": "径切直纹橡木地板",
+      "name_en": "Rift-sawn linear oak floor",
+      "source_file": "output/imagegen/floor_riftsawn_oak_generated_v1.png",
+      "source_type": "imagegen_original",
+      "plank_size_mm": [
+        140,
+        2100
+      ],
+      "repeat_size_m": [
+        1.12,
+        2.1
+      ],
+      "supported_layouts": [
+        "straight",
+        "herringbone"
+      ],
+      "surface_profile": "rift_linear_wood",
+      "roughness_mean": 0.75,
+      "normal_scale": 0.18,
+      "tint": "#d2bd98",
+      "material_group": "riftsawn_linear_oak"
+    },
+    {
+      "order": 12,
+      "id": "floor_endgrain_block_matte_01",
+      "name_zh": "端纹木块拼花地板",
+      "name_en": "End-grain block floor",
+      "source_file": "output/imagegen/floor_endgrain_block_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        90,
+        180
+      ],
+      "repeat_size_m": [
+        1.08,
+        1.08
+      ],
+      "supported_layouts": [
+        "module_grid"
+      ],
+      "surface_profile": "endgrain_block",
+      "roughness_mean": 0.77,
+      "normal_scale": 0.32,
+      "tint": "#76502e",
+      "material_group": "endgrain_block"
+    },
+    {
+      "order": 13,
+      "id": "floor_natural_cork_01",
+      "name_zh": "天然细颗粒软木地板",
+      "name_en": "Natural fine-grain cork floor",
+      "source_file": "output/imagegen/floor_natural_cork_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        900
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "natural_cork",
+      "roughness_mean": 0.8,
+      "normal_scale": 0.2,
+      "tint": "#c69a60",
+      "material_type": "cork",
+      "design_roles": [
+        "support",
+        "quiet"
+      ],
+      "relationship_tags": [
+        "warm_natural",
+        "fine_grain",
+        "soft_visual_weight",
+        "dry_room_floor"
+      ],
+      "material_group": "natural_cork"
     }
   ],
   "source_and_license": {

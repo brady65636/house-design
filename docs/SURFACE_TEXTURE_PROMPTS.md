@@ -24,3 +24,61 @@
 ## 来源说明
 
 `floor_light_oak_matte_01` 与 `floor_honey_oak_matte_01` 的基础木纹继续使用已记录的 Poly Haven `wood_floor` CC0 资产并做色彩派生；`tile_light_microcement_01` 使用固定算法生成的低对比微水泥基底。上述三项没有额外 ImageGen 原图。
+
+## 2026-08-09 多样性扩展第一批
+
+以下八款使用 Codex 内置 ImageGen 单独生成。共同提示要求为：原创材质；正交、顶视或正视、均匀漫反射的平面 Base Color 扫描；无方向光、阴影、镜面高光、反射、透视、景深、场景边缘、文字、品牌、商标或水印。光泽、凹凸和真实受光由确定性 PBR 管线派生。
+
+### 新增地板
+
+- `floor_bleached_ash_wideplank_generated_v1.png`：漂白白蜡木宽板，暖象牙到浅砂色、细直木纹、低色差、极少结疤、干燥哑光；约 220mm 宽长板。避免黄橡木、灰漂流木、厚白漆与做旧裂纹。
+- `floor_caramel_teak_generated_v1.png`：焦糖到肉桂棕的柚木，直向流动细纹和少量深色矿物线、低至中色差、哑光油蜡；约 160mm 宽长板。避免橙色亮漆、红木和胡桃木山形纹。
+- `floor_ebonized_oak_generated_v1.png`：近黑炭棕乌木化橡木，低对比但可读的开放导管和轻微山形纹、低色差、干燥硬蜡油；约 180mm 宽长板。避免纯黑色块、钢琴亮光和炭烧裂纹。
+
+### 新增瓷砖
+
+- `tile_terracotta_cotto_generated_v1.png`：300×300mm 手工赤陶砖，锈陶、赭石、粉尘桃和土棕窑变，柔和不规则边缘、细矿物点、暖灰砖缝；避免亮橙釉面和破损古砖。
+- `tile_jade_handglazed_generated_v1.png`：100×200mm 翠玉手工釉砖，深翠、青瓷绿和苔绿窑变，暖灰细缝；生成图明确禁止镜面高光，釉面响应留给 Roughness/HDR。
+- `tile_blue_white_brush_generated_v1.png`：200×200mm 暖白陶砖，以叶片、涟漪、断弧和矿物点组成多款原创钴蓝笔触；避免书法、龙鸟山水、古瓷与 Delft 图案复刻。
+- `tile_oxblood_small_format_generated_v1.png`：75×150mm 酒红小规格釉砖，暗酒红、干红、紫棕与深砖红窑变，深暖灰细缝；禁止高光烘焙和鲜红色。
+- `tile_checker_black_ivory_generated_v1.png`：ImageGen 生成黑象牙棋盘材质方向样本。视觉复核发现直接无缝化会在黑白边界产生灰色带，因此正式 PBR Base Color 改为项目确定性 `checker_black_ivory` 程序化基底；保留 300×300mm 模数、炭黑/暖象牙矿物变化和暖灰细缝。生成图只作为设计简报记录，不直接进入运行时贴图。
+
+## 2026-08-09 D1 高差异扩展
+
+### 新增地板
+
+- `floor_character_oak_generated_v1.png`：暖中性色宽板橡木，明确保留结疤、矿物线和板间天然差异，用于自然质朴与侘寂方向；避免仿古破损和橙黄亮漆。
+- `floor_riftsawn_oak_generated_v1.png`：浅暖径切橡木，连续直纹、极少山形纹和低板间差异，用于安静线性与极简方向。
+- `floor_endgrain_block_generated_v1.png`：暖棕端纹木块，以可读年轮端面组成周期模块，不编码成人字或棋盘铺法。
+
+### 新增瓷砖
+
+- `tile_green_breccia_generated_v1.png`：深森林绿角砾石大板，角状碎片、乳白与暖灰细脉，磨砂石材响应。
+- `tile_ivory_fluted_relief_generated_v1.png`：象牙竖槽陶瓷的造型参考。生成图带固定方向光，未直接进入正式材质；生产资产由 `ivory_fluted_relief` 程序化 Base Color 与正弦槽形 Height 派生。
+- `tile_warm_white_zellige_generated_v1.png`：暖白小规格手工釉砖，轻微奶油/粉灰窑变和不规则边缘，避免强镜面高光。
+- `tile_largechip_terrazzo_generated_v1.png`：暖灰基底中的大尺寸彩色矿物骨料，使用窄边周期融合保留骨料轮廓。
+- `tile_deep_blue_cloudstone_generated_v1.png`：深靛蓝云纹石材大板，低对比烟雾状矿物带和少量浅灰脉络。
+
+全部正式资产继续由确定性管线生成 Base Color、OpenGL Normal、Roughness、Height、缩略图和接缝指标；`SURFACE_ASSET_IDS` 可用于单个或多个资产的增量重建并安全合并完整清单。
+
+## 2026-08-09 D2 缺口扩展
+
+### 天然细颗粒软木
+
+源文件：`output/imagegen/floor_natural_cork_generated_v1.png`
+
+```text
+Use case: stylized-concept
+Asset type: project-owned seamless material source for a physically based 3D residential floor
+Primary request: create a square, straight-on orthographic diffuse-color source texture of natural fine-grain cork flooring, warm pale tan with restrained honey and soft brown cork cells, calm enough for a large continuous dry-room floor
+Style/medium: highly realistic architectural material texture, not a room photograph
+Composition/framing: surface fills the entire square edge to edge; even natural granulation; no border; no central feature; no visible plank seams
+Lighting/mood: perfectly flat neutral diffuse reference lighting with no directional illumination
+Materials/textures: compressed natural cork granules and small irregular cells, fine scale, matte, low-to-medium variation, tactile but quiet
+Constraints: seamless/tileable appearance; front-facing orthographic surface; no perspective; no depth-of-field; no cast shadow; no directional shadow; no specular highlight; no gradient; no vignette; no floor edge; no furniture; no text; no logo; no watermark; original generic material with no brand association
+Avoid: terrazzo stone chips, OSB wood flakes, bark slabs, large holes, dark burned cork, strong stains, repeated rosettes, photographic lighting
+```
+
+### 参数化瓷砖
+
+`tile_cool_finger_mosaic_01`、`tile_smoke_penny_mosaic_01` 和 `tile_deep_matte_monochrome_01` 不使用生成图。正式 Base Color、Height、OpenGL Normal 与 Roughness 由确定性无光照几何规则生成，分别编码 25×100mm 指形模数、50mm 圆点错缝模数和 600×1200mm 深色大砖及真实砖缝。

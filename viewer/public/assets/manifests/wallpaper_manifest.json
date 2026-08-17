@@ -1,0 +1,1326 @@
+{
+  "schema_version": "2.0.0",
+  "catalog_id": "wallpaper_catalog_v1",
+  "generated_at": "2026-08-09T12:14:09.466Z",
+  "generator": "viewer/scripts/build-wallpaper-pbr.mjs",
+  "color_space": {
+    "base_color": "sRGB",
+    "normal_roughness_height": "linear"
+  },
+  "normal_convention": "OpenGL",
+  "texture_count": 16,
+  "textures": [
+    {
+      "id": "wallpaper_linen_natural_01",
+      "name_zh": "天然亚麻",
+      "slug": "plain_texture",
+      "texture_mode": "repeat",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.53
+      ],
+      "match_type": "random_match",
+      "surface_profile": "woven_fiber",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_linen_natural_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_linen_natural_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_linen_natural_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_linen_natural_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          2048,
+          2048
+        ],
+        "linear_maps": [
+          1536,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_linen_natural_01_basecolor_web.jpg",
+        "normal": "wallpaper_linen_natural_01_normal_gl_web.webp",
+        "roughness": "wallpaper_linen_natural_01_roughness_web.webp",
+        "thumbnail": "wallpaper_linen_natural_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-linen-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3767920,
+            "sha256": "ddead3f52c683fab06631b3c24f8355e1e05ab6e040a1807829c7ac2e71fbb23"
+          },
+          "normal": {
+            "bytes": 23888954,
+            "sha256": "929a9f1e5d0eaf55aedc165c21aaa91fb91da4606b42a77080aae5ba1894a3ee"
+          },
+          "roughness": {
+            "bytes": 6107638,
+            "sha256": "5bbfd1daaf8b48a1506d6b66e7092e20aed4afe0810522aab76ec07a8fc08530"
+          },
+          "height": {
+            "bytes": 9019186,
+            "sha256": "60481ac6f62999ad5adec5ed8c7413a2489ec4a4055f957749ff03f04346a902"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1421291,
+            "sha256": "e4fa4ede4436f92046767deedbdb788319afff874f1e4ba296281799137a9533"
+          },
+          "normal": {
+            "bytes": 1117828,
+            "sha256": "c6a6e128b76ea4226026a695f59a148f119feb6f4f91cf1d49c8b44f4a0b2e53"
+          },
+          "roughness": {
+            "bytes": 57700,
+            "sha256": "143289d37eefa60f94a77a193b7fd40fe20eed8d5ebfc523687e49604a4feb3c"
+          },
+          "thumbnail": {
+            "bytes": 15164,
+            "sha256": "2fcb7a1752f20c0e87cd36b949ffcf043dbcaa4c5008819ff3b8f4f73bfe3819"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_micro_seed_01",
+      "name_zh": "矿物籽点",
+      "slug": "small_allover",
+      "texture_mode": "repeat",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "repeat_size_m": [
+        0.265,
+        0.265
+      ],
+      "match_type": "straight_match",
+      "surface_profile": "matte_print",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_micro_seed_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_micro_seed_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_micro_seed_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_micro_seed_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          2048,
+          2048
+        ],
+        "linear_maps": [
+          1536,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_micro_seed_01_basecolor_web.jpg",
+        "normal": "wallpaper_micro_seed_01_normal_gl_web.webp",
+        "roughness": "wallpaper_micro_seed_01_roughness_web.webp",
+        "thumbnail": "wallpaper_micro_seed_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-micro-seed-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2970121,
+            "sha256": "ec293b76ffe947948e57349ad1919c5a030feff70cd733137dc68a1f152d91e1"
+          },
+          "normal": {
+            "bytes": 21621527,
+            "sha256": "c67267abbf6aa5a3fca5f93a27c46b2ea1fd0146b68b20c992c417770ef44324"
+          },
+          "roughness": {
+            "bytes": 6051912,
+            "sha256": "55f889946730d6c6fa243d7ebd7fa24f6420ada54f5016f73792b5410867b32d"
+          },
+          "height": {
+            "bytes": 8392386,
+            "sha256": "e08f7df97c86af0f3602f5109b1cf17bb30c44b9fa2597edc5acb2c147eee5de"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1063101,
+            "sha256": "d647c75e293fad18ce919d8b8c591eaa220330ff4dbdfe94eb0de902d9adc727"
+          },
+          "normal": {
+            "bytes": 1014798,
+            "sha256": "6fbbfb68c392999ef0320a76bb45004317ba421ceb3847452f3b0414ed544854"
+          },
+          "roughness": {
+            "bytes": 62520,
+            "sha256": "086d36642949012ee7f5023a0a5f477320a7c846de777ed6b35683b6d316e186"
+          },
+          "thumbnail": {
+            "bytes": 17844,
+            "sha256": "b23effa095f95e62741f1ccefa6611e4216981bbbcf670ed48b17860bcc8c469"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_linear_geometry_01",
+      "name_zh": "暖灰织纹线",
+      "slug": "linear_order",
+      "texture_mode": "repeat",
+      "resolution": [
+        4096,
+        2480
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.32
+      ],
+      "match_type": "straight_match",
+      "surface_profile": "linear_emboss",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_linear_geometry_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_linear_geometry_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_linear_geometry_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_linear_geometry_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          2048,
+          1240
+        ],
+        "linear_maps": [
+          1536,
+          930
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_linear_geometry_01_basecolor_web.jpg",
+        "normal": "wallpaper_linear_geometry_01_normal_gl_web.webp",
+        "roughness": "wallpaper_linear_geometry_01_roughness_web.webp",
+        "thumbnail": "wallpaper_linear_geometry_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-linear-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2386774,
+            "sha256": "3c24d3d3936e078bc81b6b25e6b0dd8a2dd39e0f448a763e10fee2ef3004d307"
+          },
+          "normal": {
+            "bytes": 14489677,
+            "sha256": "7f5a57a6ccbcf784daec22d1e2fec891ba88bc709866a3af2df212ef1e5659c2"
+          },
+          "roughness": {
+            "bytes": 3684318,
+            "sha256": "3dc0df77a3f2c0f4a705c11e1595b677f47f4b0843f9cf0c66ca05711496d4dd"
+          },
+          "height": {
+            "bytes": 5502316,
+            "sha256": "9c0348dc4bc0d02a80b13da1def90581d82e41f717b38432611b66df2b79601d"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 874511,
+            "sha256": "3e54e25f735760902078bb9d5177a1ff1cad65e426bd6cd661f52a40f90fe1f9"
+          },
+          "normal": {
+            "bytes": 667456,
+            "sha256": "aed62529d9c1bf3ab81f162b45c794680e1b197696103025ca8960eaaf7d151d"
+          },
+          "roughness": {
+            "bytes": 34734,
+            "sha256": "49cc580d9d36deb680669ce6b140c11e8296431900b599f00131bb58c661877b"
+          },
+          "thumbnail": {
+            "bytes": 18530,
+            "sha256": "5338ec8afac01d8ad544e7c5653ff09a9a2b7e9b5c8857f2018f231170db9dc8"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_soft_arch_geometry_01",
+      "name_zh": "柔拱构成",
+      "slug": "modern_geometry",
+      "texture_mode": "repeat",
+      "resolution": [
+        3392,
+        4096
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "half_drop_match",
+      "surface_profile": "selective_emboss",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_soft_arch_geometry_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_soft_arch_geometry_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_soft_arch_geometry_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_soft_arch_geometry_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          1696,
+          2048
+        ],
+        "linear_maps": [
+          1272,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_soft_arch_geometry_01_basecolor_web.jpg",
+        "normal": "wallpaper_soft_arch_geometry_01_normal_gl_web.webp",
+        "roughness": "wallpaper_soft_arch_geometry_01_roughness_web.webp",
+        "thumbnail": "wallpaper_soft_arch_geometry_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-soft-arch-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2236398,
+            "sha256": "a1f3898e6fef600057d35c6046c00d57bce76304d84c31638eef26dc50b940df"
+          },
+          "normal": {
+            "bytes": 20843462,
+            "sha256": "68f5f10d0b66d70d45a9a27ba37316b920302dd7dbd4b1bb69d112fe58a2d92d"
+          },
+          "roughness": {
+            "bytes": 5044649,
+            "sha256": "87fe6f00b88dcfd718c9b9b14cde04d9b9701570452fcffbcd2cd8ad328a8a3e"
+          },
+          "height": {
+            "bytes": 7789166,
+            "sha256": "b57494ff5bddb2dff91847c02a43b4382a115e48d88398429f48958bebc2d416"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 750455,
+            "sha256": "4ddc62ef58fd09e43dce64a726a57f81c142edec638614270f2f98a80009ddb3"
+          },
+          "normal": {
+            "bytes": 979752,
+            "sha256": "564b2352fc6f0f61fb64a5ae025b2b0537b3b65266aac49471d73df3a02fb9ec"
+          },
+          "roughness": {
+            "bytes": 35398,
+            "sha256": "a0e8b7254ab971122033b30268b91139786d643c7bdd1496bc6e77e9a633df44"
+          },
+          "thumbnail": {
+            "bytes": 4890,
+            "sha256": "e57ad9c993ed5a0a44df777e32884c18cc248b8e2186a74c578b79744d3873d0"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_botanical_meadow_01",
+      "name_zh": "雾野草本",
+      "slug": "botanical",
+      "texture_mode": "repeat",
+      "resolution": [
+        3392,
+        4096
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "half_drop_match",
+      "surface_profile": "matte_print",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_botanical_meadow_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_botanical_meadow_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_botanical_meadow_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_botanical_meadow_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          1696,
+          2048
+        ],
+        "linear_maps": [
+          1272,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_botanical_meadow_01_basecolor_web.jpg",
+        "normal": "wallpaper_botanical_meadow_01_normal_gl_web.webp",
+        "roughness": "wallpaper_botanical_meadow_01_roughness_web.webp",
+        "thumbnail": "wallpaper_botanical_meadow_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-botanical-meadow-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2956077,
+            "sha256": "b203ca5e4aaa50d72f5f2d8c225e52426cee589412f03b92c255dd4b2695b1da"
+          },
+          "normal": {
+            "bytes": 20554747,
+            "sha256": "64cb326ae2a04e9fd0e81061e247acd3a1007de2afa475241e5f5a241897e418"
+          },
+          "roughness": {
+            "bytes": 5043987,
+            "sha256": "2ad2f795f9c27ebe145d9e05c1df3b9a3a78add0f29a6bab1fcdccb231a9e883"
+          },
+          "height": {
+            "bytes": 7689506,
+            "sha256": "5289a3750a13f90b60ca92b959e02285f5c29609a62558aa603aab64ddfce003"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1067379,
+            "sha256": "3a80d40aed1682c6f26f9815902fcf93c2ca03f4bb1533d118ed7815864617d7"
+          },
+          "normal": {
+            "bytes": 969358,
+            "sha256": "a956676765efa80cca3cd3378a908b63835c9bf8b4e684f4612f36afc3cd54d5"
+          },
+          "roughness": {
+            "bytes": 56486,
+            "sha256": "d5f3e11da2bbcd5a238bb656bcf99ce7f8d1f76cae26bdb2ec377dfce496cbbd"
+          },
+          "thumbnail": {
+            "bytes": 26278,
+            "sha256": "99efac740a25bc28ad12506aed2c0bcc82342d5fba86dc6787cadce88986d774"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_damask_shadow_01",
+      "name_zh": "影纹章",
+      "slug": "contemporary_damask",
+      "texture_mode": "repeat",
+      "resolution": [
+        3392,
+        4096
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "straight_match",
+      "surface_profile": "ornamental_emboss",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_damask_shadow_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_damask_shadow_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_damask_shadow_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_damask_shadow_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          1696,
+          2048
+        ],
+        "linear_maps": [
+          1272,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_damask_shadow_01_basecolor_web.jpg",
+        "normal": "wallpaper_damask_shadow_01_normal_gl_web.webp",
+        "roughness": "wallpaper_damask_shadow_01_roughness_web.webp",
+        "thumbnail": "wallpaper_damask_shadow_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-damask-shadow-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2874582,
+            "sha256": "f362cb78c2a70ac5f13ccdc7c9ed783c188dc7efb91aaeb47cfdd8364923d065"
+          },
+          "normal": {
+            "bytes": 21496447,
+            "sha256": "46684a4308b8b15b8923997e4db5833b69b1dd689d6e81b66c5ebc118acaf6ef"
+          },
+          "roughness": {
+            "bytes": 5084068,
+            "sha256": "c42c42b18f4a2c765fd0cde00b32898dd699018c145c70e2c722c8050122ec72"
+          },
+          "height": {
+            "bytes": 8005534,
+            "sha256": "22d4bf8290de614b5e54a350e4b6faa19461c7b946c98db91b40f088f18c4e1c"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 997584,
+            "sha256": "618af45e87e54991ddc2a9c1ebe6a7bbef58e2c53358198529631e0132783ac5"
+          },
+          "normal": {
+            "bytes": 1012196,
+            "sha256": "a414fe8f885e5a791a8689c0cac2482e207543eaaa8536f050095d53ab3e9c34"
+          },
+          "roughness": {
+            "bytes": 45842,
+            "sha256": "9f9dae2eba95bcb5c7aa0ef60b3e25a1126c653102d46e32c87dc514ed8afd42"
+          },
+          "thumbnail": {
+            "bytes": 10904,
+            "sha256": "d9b784c9a0996a0efc53a545af745690ea467ec745e4176cbde2859a9b69da63"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_mineral_wash_01",
+      "name_zh": "矿物雾染",
+      "slug": "abstract_wash",
+      "texture_mode": "repeat",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "repeat_size_m": [
+        1.06,
+        1.06
+      ],
+      "match_type": "half_drop_match",
+      "surface_profile": "mineral_print",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_mineral_wash_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_mineral_wash_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_mineral_wash_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_mineral_wash_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          2048,
+          2048
+        ],
+        "linear_maps": [
+          1536,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_mineral_wash_01_basecolor_web.jpg",
+        "normal": "wallpaper_mineral_wash_01_normal_gl_web.webp",
+        "roughness": "wallpaper_mineral_wash_01_roughness_web.webp",
+        "thumbnail": "wallpaper_mineral_wash_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-mineral-wash-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3719908,
+            "sha256": "96c53ba3c7d99e087201f62f35b938de59abfe70b19d8afcc34f58422722d8b9"
+          },
+          "normal": {
+            "bytes": 21636233,
+            "sha256": "520f13b621899891a4bce196d3a25badc462ce81024d2f34e046dff3699fe67e"
+          },
+          "roughness": {
+            "bytes": 6082351,
+            "sha256": "a6fe05856e058e65cc45d738cbd64a5301c4fc9bb577de7433a42c344d71c15c"
+          },
+          "height": {
+            "bytes": 8396483,
+            "sha256": "e74da81f5e3936101318a7b2e9290ac38632b8df0731185f39019cd22831a4e1"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1346786,
+            "sha256": "f8b19315d35fbe5659d043f8aa77b399c6575becfe67e86ab6742af5f08a0aa5"
+          },
+          "normal": {
+            "bytes": 1015280,
+            "sha256": "feeb7269993b361819c9f5126295e725e89914de1b01b2a10105685c2c28854d"
+          },
+          "roughness": {
+            "bytes": 74238,
+            "sha256": "5b8a1eba819aa9faa7c061c7b8618e27b269bcfb22e6e8df958ced62ad62472a"
+          },
+          "thumbnail": {
+            "bytes": 15228,
+            "sha256": "911f06aedb040edc72d8548a4b4a061bd915e7450614b308c95c1f630efb37c5"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_mist_landscape_mural_01",
+      "name_zh": "雾境层峦壁画",
+      "slug": "panoramic_mural",
+      "texture_mode": "panel_mural",
+      "resolution": [
+        4096,
+        2608
+      ],
+      "repeat_size_m": [
+        4.4,
+        2.8
+      ],
+      "match_type": "panel_mural",
+      "surface_profile": "mural_print",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_mist_landscape_mural_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_mist_landscape_mural_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_mist_landscape_mural_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_mist_landscape_mural_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          4096,
+          2608
+        ],
+        "linear_maps": [
+          1536,
+          978
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_mist_landscape_mural_01_basecolor_web.jpg",
+        "normal": "wallpaper_mist_landscape_mural_01_normal_gl_web.webp",
+        "roughness": "wallpaper_mist_landscape_mural_01_roughness_web.webp",
+        "thumbnail": "wallpaper_mist_landscape_mural_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-mist-landscape-mural-generated-v1.png",
+      "master": "output/imagegen/wallpaper_mist_landscape_mural_01_master_8k.jpg",
+      "seam_mae_source_pixels": null,
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2314598,
+            "sha256": "ad1ce99033f35604974a709fbfdb7ad3d96f97a4c6cce11d27e1000914649ff4"
+          },
+          "normal": {
+            "bytes": 13722466,
+            "sha256": "4489da2dba4e15428c72427c26a2be7179a04f75c8408edeeb2345c2d9142f1c"
+          },
+          "roughness": {
+            "bytes": 3844605,
+            "sha256": "460430f1e01acf3c4a35276d19ebc0dc5e34477f2ac1664203a1bf753846667e"
+          },
+          "height": {
+            "bytes": 5329385,
+            "sha256": "b93256c2185364425858481c4d589c4a8deb42c9c0a677c4eee63a4e05ac4135"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 2209704,
+            "sha256": "b931e132f474f961f35d890127d2a4dad2caa49324fe2852db59c42731282e6c"
+          },
+          "normal": {
+            "bytes": 650742,
+            "sha256": "807fe7f4856043c523d54f884fca3ced6a358c03ea627485cbe3390d79dd130f"
+          },
+          "roughness": {
+            "bytes": 31350,
+            "sha256": "d8c5cdb4dece21c0fe86650addf2c14698e9f4d7ad9a0568e9f89cb728b777a6"
+          },
+          "thumbnail": {
+            "bytes": 14132,
+            "sha256": "70bf0fa492c7ae215c25743643637715c8c6a03da8a5f47d969fd15dad7b6cdc"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_ink_branch_01",
+      "name_zh": "留白墨枝",
+      "slug": "oriental_ink_botanical",
+      "texture_mode": "repeat",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "repeat_size_m": [
+        1.06,
+        1.06
+      ],
+      "match_type": "half_drop_match",
+      "surface_profile": "matte_print",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_ink_branch_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_ink_branch_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_ink_branch_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_ink_branch_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          2048,
+          2048
+        ],
+        "linear_maps": [
+          1536,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_ink_branch_01_basecolor_web.jpg",
+        "normal": "wallpaper_ink_branch_01_normal_gl_web.webp",
+        "roughness": "wallpaper_ink_branch_01_roughness_web.webp",
+        "thumbnail": "wallpaper_ink_branch_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-ink-branch-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2659546,
+            "sha256": "194b5384a1496b8da543f7acaaaf4fae1cdbf4fb370d145af1655471c9d70983"
+          },
+          "normal": {
+            "bytes": 21381543,
+            "sha256": "9142360a1b9c867ea8c2feee6b792f1de3e06721301b7e6a51816bb74fb03e3e"
+          },
+          "roughness": {
+            "bytes": 6047572,
+            "sha256": "44f8ad8c9ff4475f362a4923009a40b6e3cdee3269a03dd4ffe2cb5ad92fadb9"
+          },
+          "height": {
+            "bytes": 8315573,
+            "sha256": "50f9e2268e9482e61b02afb93443dc4c6a554383f1dfcbe1425e69b4a43bb47a"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 910908,
+            "sha256": "7c9c6fec3621a3ade67a673c9c491c776880be09268d7e8636349665359f8805"
+          },
+          "normal": {
+            "bytes": 1007410,
+            "sha256": "ed9e3421e269e4da7408a74e6a9df0092b6c102688a2c223290996fa9eba537e"
+          },
+          "roughness": {
+            "bytes": 60996,
+            "sha256": "5e7c5f093b167657b0cd71ecb9d993cce06639957a50b19fe595940465d31a8a"
+          },
+          "thumbnail": {
+            "bytes": 11370,
+            "sha256": "38444a7549f347b68dc0fa3c51d3e6ba2c8ac81e8ba39e2a7f5886f5f8a4586d"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_midcentury_blocks_01",
+      "name_zh": "琥珀构成",
+      "slug": "midcentury_colour_geometry",
+      "texture_mode": "repeat",
+      "resolution": [
+        3392,
+        4096
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "half_drop_match",
+      "surface_profile": "selective_emboss",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_midcentury_blocks_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_midcentury_blocks_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_midcentury_blocks_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_midcentury_blocks_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          1696,
+          2048
+        ],
+        "linear_maps": [
+          1272,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_midcentury_blocks_01_basecolor_web.jpg",
+        "normal": "wallpaper_midcentury_blocks_01_normal_gl_web.webp",
+        "roughness": "wallpaper_midcentury_blocks_01_roughness_web.webp",
+        "thumbnail": "wallpaper_midcentury_blocks_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-midcentury-blocks-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2961629,
+            "sha256": "5895b978fa0757ab092c1e137964f33acfbe46f56fe25708f970b5c28ab8aeea"
+          },
+          "normal": {
+            "bytes": 19206393,
+            "sha256": "311470884153fcc784baff15ded0e85c592324913a04e28ef79134ffa6437c37"
+          },
+          "roughness": {
+            "bytes": 5015680,
+            "sha256": "c73a2ecda14b31a28c2f050a105c4c00d24104566920c29f0c99bc0b8fa8ff20"
+          },
+          "height": {
+            "bytes": 7293261,
+            "sha256": "eea8eb6023fe106e781c4afda94d85ec79f4d96d273b8092b687ae85884ec257"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1067981,
+            "sha256": "51dc3aedbd1c423bc4c5f7121cb61eea0c8425ef2c5b8cfb9c3170038a3a7a84"
+          },
+          "normal": {
+            "bytes": 890680,
+            "sha256": "898c568198eb0bfde998288351a3f4f54bdd35b137ab452bfb086b2b2c50b3c9"
+          },
+          "roughness": {
+            "bytes": 24172,
+            "sha256": "d6717512ebf8759d7a5278079d0f264358e36d3c80e68b9156aa92433a37a1bf"
+          },
+          "thumbnail": {
+            "bytes": 13540,
+            "sha256": "d531dcdac2fd541c972fc3e005188829a7e06fd454584e25c19a5a4f1086d7ec"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_mediterranean_blockprint_01",
+      "name_zh": "海岸木刻叶",
+      "slug": "mediterranean_blockprint",
+      "texture_mode": "repeat",
+      "resolution": [
+        3392,
+        4096
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "half_drop_match",
+      "surface_profile": "matte_print",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_mediterranean_blockprint_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_mediterranean_blockprint_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_mediterranean_blockprint_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_mediterranean_blockprint_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          1696,
+          2048
+        ],
+        "linear_maps": [
+          1272,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_mediterranean_blockprint_01_basecolor_web.jpg",
+        "normal": "wallpaper_mediterranean_blockprint_01_normal_gl_web.webp",
+        "roughness": "wallpaper_mediterranean_blockprint_01_roughness_web.webp",
+        "thumbnail": "wallpaper_mediterranean_blockprint_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-mediterranean-blockprint-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3371886,
+            "sha256": "cca6a250f26b3160381bdf0e4cfa364820745ed13caa0bd1a122e44263f82d1b"
+          },
+          "normal": {
+            "bytes": 20542255,
+            "sha256": "ccda2f4a0cb120c0ba8c270fc25cedd74479c4c6d829db043fa35955c0c29ff9"
+          },
+          "roughness": {
+            "bytes": 5042967,
+            "sha256": "4ad2c13f7cb1f56ef54642da9c2de13635e3211fc88346f149a3dadc3323c26e"
+          },
+          "height": {
+            "bytes": 7690511,
+            "sha256": "b185aacd7184c1dd59e8db4266330c749c2ee7861e424fe899ffe0cdd90d22c5"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1232745,
+            "sha256": "421a62e03d36d17d19e35dd39250d8a56e9de7589580a3a6f79dd2569311f404"
+          },
+          "normal": {
+            "bytes": 973144,
+            "sha256": "23d3f1c92ddb752259a817be8449fe8eb042370baeff82f9b628fcb0764a8382"
+          },
+          "roughness": {
+            "bytes": 55702,
+            "sha256": "6c6f3e3dcb88ea6ea8cd230defb67c67bc9045ad9d348d79bf1cde5cd90bc327"
+          },
+          "thumbnail": {
+            "bytes": 22242,
+            "sha256": "032e01ceadfe51d9ae323396118065ab34f88e39fa0b264c64973052a23d9566"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_art_deco_fan_01",
+      "name_zh": "夜幕扇影",
+      "slug": "art_deco_fan_geometry",
+      "texture_mode": "repeat",
+      "resolution": [
+        3392,
+        4096
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.64
+      ],
+      "match_type": "straight_match",
+      "surface_profile": "selective_emboss",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_art_deco_fan_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_art_deco_fan_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_art_deco_fan_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_art_deco_fan_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          1696,
+          2048
+        ],
+        "linear_maps": [
+          1272,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_art_deco_fan_01_basecolor_web.jpg",
+        "normal": "wallpaper_art_deco_fan_01_normal_gl_web.webp",
+        "roughness": "wallpaper_art_deco_fan_01_roughness_web.webp",
+        "thumbnail": "wallpaper_art_deco_fan_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper-art-deco-fan-generated-v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3231876,
+            "sha256": "883a51fcce6d1619c1b929e59d11d0c62cc343fac9f5e3c79ed8167847c375b9"
+          },
+          "normal": {
+            "bytes": 20851781,
+            "sha256": "dd8fd72cf3de3871007523eb8b5b6e0fb690325b9b6b7b07f662494b4fe45180"
+          },
+          "roughness": {
+            "bytes": 5051320,
+            "sha256": "b897ad974265651937745131eb87aae1f4a153a507a46c4481c9fab58d9a142f"
+          },
+          "height": {
+            "bytes": 7885083,
+            "sha256": "533a4cfdc000cd7b1d176bf9e448fb1bbfd360fc5b72e1b4e1a57081d967239f"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1182444,
+            "sha256": "9884d1a0a638c0bac5d36995952eb1c2d817caf40b72b87d2e912026d82608b3"
+          },
+          "normal": {
+            "bytes": 942230,
+            "sha256": "400b5572f5c7eb0e63947a64ece02f7c1db2492742aa2c0d9892562771ef3139"
+          },
+          "roughness": {
+            "bytes": 35482,
+            "sha256": "588138e72e9fa918d1708963808e7f97638d4367d79bd4542f4dd66e296f353e"
+          },
+          "thumbnail": {
+            "bytes": 23046,
+            "sha256": "390a11d07ad464a947cb1a2cbf39276c0be4c4b7f1e4837ed6680dbf6a9795f5"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_nocturne_botanical_01",
+      "name_zh": "深夜植境",
+      "slug": "nocturne_large_botanical",
+      "texture_mode": "repeat",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "repeat_size_m": [
+        1.59,
+        1.59
+      ],
+      "match_type": "half_drop_match",
+      "surface_profile": "matte_print",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_nocturne_botanical_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_nocturne_botanical_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_nocturne_botanical_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_nocturne_botanical_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          2048,
+          2048
+        ],
+        "linear_maps": [
+          1536,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_nocturne_botanical_01_basecolor_web.jpg",
+        "normal": "wallpaper_nocturne_botanical_01_normal_gl_web.webp",
+        "roughness": "wallpaper_nocturne_botanical_01_roughness_web.webp",
+        "thumbnail": "wallpaper_nocturne_botanical_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper_nocturne_botanical_generated_v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2262140,
+            "sha256": "a6da94fd4f9508ca216cded3a1c85eccf59906c08cf25488c6b5ee3e243ab3ef"
+          },
+          "normal": {
+            "bytes": 21596789,
+            "sha256": "0e36ec8b2258cd720c7de37faaa6a3b3e0224afa54c4043712624eacc817f902"
+          },
+          "roughness": {
+            "bytes": 6053346,
+            "sha256": "9b8f37996e733c5ce052de7de8d9cf78f8f3a82bc7919e666baecc57d7873886"
+          },
+          "height": {
+            "bytes": 8384417,
+            "sha256": "31742188c2d027a9e97cb273275af55ebadb606c0c3d69e8ce5065e7b229b60d"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 801128,
+            "sha256": "0f7e115707e5d6e5a773d491236c24573e11022e4b947a3b8400ca92461d3571"
+          },
+          "normal": {
+            "bytes": 1013114,
+            "sha256": "725ef559bc5ee66611a84ce0c69cd8bf6aa0e98eee9ab3bb93c01a64e3aa9d13"
+          },
+          "roughness": {
+            "bytes": 58228,
+            "sha256": "76f35864186473d3b044ce757a24112beb4f7d775a1b0dd710a54a8123b7547f"
+          },
+          "thumbnail": {
+            "bytes": 16820,
+            "sha256": "23a6bf642012013432a6754629f5da5c73d6403f2e13a97ee1999e9dedae1dfa"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_oxide_colourfield_mural_01",
+      "name_zh": "氧化色域壁画",
+      "slug": "oxide_colourfield_mural",
+      "texture_mode": "panel_mural",
+      "resolution": [
+        4096,
+        2608
+      ],
+      "repeat_size_m": [
+        4.4,
+        2.8
+      ],
+      "match_type": "panel_mural",
+      "surface_profile": "mural_print",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_oxide_colourfield_mural_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_oxide_colourfield_mural_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_oxide_colourfield_mural_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_oxide_colourfield_mural_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          4096,
+          2608
+        ],
+        "linear_maps": [
+          1536,
+          978
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_oxide_colourfield_mural_01_basecolor_web.jpg",
+        "normal": "wallpaper_oxide_colourfield_mural_01_normal_gl_web.webp",
+        "roughness": "wallpaper_oxide_colourfield_mural_01_roughness_web.webp",
+        "thumbnail": "wallpaper_oxide_colourfield_mural_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper_oxide_colourfield_generated_v1.png",
+      "master": "output/imagegen/wallpaper_oxide_colourfield_mural_01_master_8k.jpg",
+      "seam_mae_source_pixels": null,
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2892369,
+            "sha256": "2af66efbb223ea589caa191f37a59af805917d4f958675143caffcad70e1e494"
+          },
+          "normal": {
+            "bytes": 13897323,
+            "sha256": "77a790eacfc851ff3cc5fd6036817ffbca30dc8fb67e81adc28fb33de568ed68"
+          },
+          "roughness": {
+            "bytes": 3846594,
+            "sha256": "1c0cb8d64f437ac747731c41c48f00598db453bdbbeaaa4a7bce9b40564bbc56"
+          },
+          "height": {
+            "bytes": 5384575,
+            "sha256": "a28845eb30d3bc73d555264a8e91c3143915696905e6aad43a225dc28482701b"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 2771223,
+            "sha256": "950429a01fe2cc579ec1776e434f5bb6f18c040240f3d7aaffe55f1f7731ad73"
+          },
+          "normal": {
+            "bytes": 661088,
+            "sha256": "45d76a3bdd408ccf7973a738b8d97de71fff6017bd60687c3433721a9266737c"
+          },
+          "roughness": {
+            "bytes": 31846,
+            "sha256": "238f7ba53a646068d964534d843a05494a5b85285c1d62eace7c78b588253da3"
+          },
+          "thumbnail": {
+            "bytes": 27756,
+            "sha256": "43f52d223c7adf06bc4d3b474f3fad269c80e52d8d8fbb18e8b5e9e07f39a1f6"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_fiber_relief_ripple_01",
+      "name_zh": "纤维浮雕波纹",
+      "slug": "sculptural_fiber_relief",
+      "texture_mode": "repeat",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "repeat_size_m": [
+        1.06,
+        1.06
+      ],
+      "match_type": "straight_match",
+      "surface_profile": "sculptural_fiber_relief",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_fiber_relief_ripple_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_fiber_relief_ripple_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_fiber_relief_ripple_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_fiber_relief_ripple_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          2048,
+          2048
+        ],
+        "linear_maps": [
+          1536,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_fiber_relief_ripple_01_basecolor_web.jpg",
+        "normal": "wallpaper_fiber_relief_ripple_01_normal_gl_web.webp",
+        "roughness": "wallpaper_fiber_relief_ripple_01_roughness_web.webp",
+        "thumbnail": "wallpaper_fiber_relief_ripple_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper_fiber_relief_ripple_generated_v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 2988341,
+            "sha256": "24f37b6821e2c3e7c10775c5fa31b3bb2e79afd97a4ad333b0383b66be3d9b2c"
+          },
+          "normal": {
+            "bytes": 23632169,
+            "sha256": "f3ba57a5e1f7064d14e3e27b8aa96411dba82abd1cdcba98f2997a7759c80ca8"
+          },
+          "roughness": {
+            "bytes": 6186932,
+            "sha256": "e73751760bf104d4e5355c8f87069895d00755167c6009407a8c265b32e3d8fa"
+          },
+          "height": {
+            "bytes": 9010328,
+            "sha256": "756dbadc79ebddcd6dab15d95dba587950d5651f69103ac2bf5a71c32c902a33"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1055519,
+            "sha256": "41c6619ff8a4a4a81bc8bb13a75c5e8d05fa768afda91ceb8f2f016e9673a62e"
+          },
+          "normal": {
+            "bytes": 1082668,
+            "sha256": "e5a92c3d67023fb18abd3b6e17e01588944a8ad4d7342725441fbe410ea14777"
+          },
+          "roughness": {
+            "bytes": 76192,
+            "sha256": "2cd2d352eeaf9372901a79de1a3b162817058cecd937c3eb8fc97b8c1f7d6e07"
+          },
+          "thumbnail": {
+            "bytes": 12128,
+            "sha256": "3d3c1381fa82a6452eebfe44c5ea36ec687773cef9d68cbe1b2fe14c133494ee"
+          }
+        }
+      }
+    },
+    {
+      "id": "wallpaper_dark_grasscloth_01",
+      "name_zh": "墨蓝深草编",
+      "slug": "dark_grasscloth",
+      "texture_mode": "repeat",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "repeat_size_m": [
+        0.53,
+        0.53
+      ],
+      "match_type": "random_match",
+      "surface_profile": "woven_fiber",
+      "master_maps": {
+        "base_color": "output/wallpapers_pbr/wallpaper_dark_grasscloth_01_basecolor_4k.jpg",
+        "normal": "output/wallpapers_pbr/wallpaper_dark_grasscloth_01_normal_gl_4k.png",
+        "roughness": "output/wallpapers_pbr/wallpaper_dark_grasscloth_01_roughness_4k.png",
+        "height": "output/wallpapers_pbr/wallpaper_dark_grasscloth_01_height_4k.png"
+      },
+      "runtime_resolution": {
+        "base_color": [
+          2048,
+          2048
+        ],
+        "linear_maps": [
+          1536,
+          1536
+        ]
+      },
+      "runtime_maps": {
+        "base_color": "wallpaper_dark_grasscloth_01_basecolor_web.jpg",
+        "normal": "wallpaper_dark_grasscloth_01_normal_gl_web.webp",
+        "roughness": "wallpaper_dark_grasscloth_01_roughness_web.webp",
+        "thumbnail": "wallpaper_dark_grasscloth_01_thumb.webp"
+      },
+      "source": "output/imagegen/wallpaper_dark_grasscloth_generated_v1.png",
+      "master": null,
+      "seam_mae_source_pixels": {
+        "horizontal": 0,
+        "vertical": 0
+      },
+      "files": {
+        "master": {
+          "base_color": {
+            "bytes": 3394466,
+            "sha256": "1afaefb6e1c1af432abca5581363aaf4c8f7ad836587c53072042008e63de256"
+          },
+          "normal": {
+            "bytes": 23658134,
+            "sha256": "1edc8e7a471597b4a1b88f6e596b743c5321e42c142cd2410b0cc5502d21abf8"
+          },
+          "roughness": {
+            "bytes": 6088358,
+            "sha256": "ba9eabc78cae9f3135bf06c327dc062e4fba8cdacda81b5e3301dff0d62e8a2a"
+          },
+          "height": {
+            "bytes": 8861501,
+            "sha256": "478c4bc9654894525adb79e11bc4e5cf6d60a343f8c80ce06075ca5a2c523f3f"
+          }
+        },
+        "runtime": {
+          "base_color": {
+            "bytes": 1238607,
+            "sha256": "f6104b3a25195f5c72ed7ff89995f003364e0157cbe9b7d12e51bb823d75baa7"
+          },
+          "normal": {
+            "bytes": 1071232,
+            "sha256": "ae566d8894cc8a9bc0c3c04da82feff9f86f1342987edbb8b2224e3915c3e1b5"
+          },
+          "roughness": {
+            "bytes": 53670,
+            "sha256": "532b0e2018c74db1773bc0a7d8b1c6ac980f2b5eeca029aa1a7a7c2f5709ca51"
+          },
+          "thumbnail": {
+            "bytes": 15378,
+            "sha256": "bce68d535acdf0538ac6459b09c1c16756bbf748febc54a27b756afe0b5cf461"
+          }
+        }
+      }
+    }
+  ],
+  "source_and_license": {
+    "source_type": "project_original_imagegen_plus_deterministic_pbr",
+    "license": "project_owned",
+    "brand_association": null,
+    "notice_zh": "所有纹样均从零生成并在项目内确定性无缝化和派生 PBR，不对应任何品牌 SKU；落地采购仍需核对实物样本、批次与对花损耗。"
+  }
+}

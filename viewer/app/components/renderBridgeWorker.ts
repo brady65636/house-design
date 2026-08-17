@@ -1,11 +1,13 @@
-// Heartbeat + command polling for the render bridge, run in a Web Worker.
+// Command polling for the render bridge, run in a Web Worker.
 //
 // Why a Worker: Chrome throttles timers in a *hidden* tab down to roughly one
 // per minute, which used to starve the bridge's online-freshness window and
 // delay command delivery.  Worker timers are NOT subject to that hidden-tab
-// throttling, so this file keeps a ~1s heartbeat alive even when the tab is
-// backgrounded.  The Worker only does network I/O; rendering stays on the main
-// thread because the WebGL renderer lives there.
+// throttling, so this file keeps a lightweight poll alive even when the tab is
+// backgrounded. A successful command poll already refreshes the bridge's online
+// timestamp, so a separate heartbeat would only double the request rate. The
+// Worker only does network I/O; rendering stays on the main thread because the
+// WebGL renderer lives there.
 //
 // tsconfig only includes the `dom` lib, so avoid the `webworker` global: type
 // the Worker scope locally instead.
@@ -22,7 +24,7 @@ type InitMessage = { type: "init"; sessionId: string; bridgeUrl: string };
 type BridgeCommand = {
   id: string;
   tool: "observe_room" | "observe_home_harmony";
-  args: { room_id?: string; focus_target_ids?: string[] };
+  args: { room_id?: string; focus_target_ids?: string[]; design_run_id?: string };
 };
 
 let sessionId = "";
@@ -36,15 +38,13 @@ scope.onmessage = (event: MessageEvent<unknown>) => {
   bridgeUrl = message.bridgeUrl.replace(/\/$/, "");
   if (started) return;
   started = true;
-  // Chained setTimeout (not a nested-throttle risk here: Worker timers stay at
-  // ~1s when the page is hidden) keeps poll cadence strictly serial.
+  // Chained setTimeout keeps poll cadence strictly serial.
   void tick();
 };
 
 const pollCommands = async (): Promise<void> => {
   if (!sessionId || !bridgeUrl) return;
   try {
-    await fetch(`${bridgeUrl}/v1/render-sessions/${encodeURIComponent(sessionId)}/heartbeat`, { method: "POST" });
     const response = await fetch(`${bridgeUrl}/v1/render-sessions/${encodeURIComponent(sessionId)}/commands`, {
       cache: "no-store",
     });
@@ -60,5 +60,5 @@ const pollCommands = async (): Promise<void> => {
 
 const tick = async (): Promise<void> => {
   await pollCommands();
-  setTimeout(() => void tick(), 1_000);
+  setTimeout(() => void tick(), 2_000);
 };

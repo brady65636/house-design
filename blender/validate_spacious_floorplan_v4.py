@@ -28,6 +28,18 @@ def check(name, passed, details):
     checks.append({"name": name, "passed": bool(passed), "details": details})
 
 
+def required_exterior_finish_coverage(faces):
+    """Guard the exterior room sides that were omitted by the legacy two-room wall list."""
+    required = {
+        ("dining_room", "wall_ext_west"),
+        ("master_bedroom", "wall_ext_south"),
+        ("guest_bath", "wall_ext_north"),
+    }
+    actual = {(face["room_id"], face["host_wall_id"]) for face in faces}
+    missing = sorted(required - actual)
+    return not missing, {"required": sorted(required), "missing": missing}
+
+
 def wall_finish_geometry(objects, faces):
     """Verify every finish sits outside its wall core in world space."""
     tolerance = 1e-5
@@ -138,8 +150,14 @@ def hard_finish_details(objects, manifest):
     thresholds = [obj for obj in objects if obj.get("asset_role") == "architectural_threshold"]
     guardrail_frames = [obj for obj in objects if obj.get("asset_role") == "guardrail_frame"]
     guardrail_glass = [obj for obj in objects if obj.get("asset_role") == "guardrail_glass"]
+    expected_room_surface_objects = sum(
+        len(room.get("surface_ids", {}))
+        * len(room.get("topology_rects", [room.get("rect")]))
+        for room in manifest.get("rooms", [])
+        if "ceiling" in room.get("surface_ids", {})
+    )
     passed = (
-        len(room_surfaces) == 20
+        len(room_surfaces) == expected_room_surface_objects
         and len(underlaid) == len(room_surfaces)
         and len(thresholds) == expected_thresholds
         and bool(guardrail_frames)
@@ -149,6 +167,7 @@ def hard_finish_details(objects, manifest):
     )
     return passed, {
         "room_surfaces": len(room_surfaces),
+        "expected_room_surfaces": expected_room_surface_objects,
         "underlaid": len(underlaid),
         "thresholds": len(thresholds),
         "expected_thresholds": expected_thresholds,
@@ -208,7 +227,13 @@ def main():
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
     scene = bpy.context.scene
     check("house_identity", scene.get("house_id") == data.get("house_id") == "house_spacious_yunkuo_135_v4", {"scene":scene.get("house_id"),"manifest":data.get("house_id")})
-    check("geometry_revision", scene.get("geometry_revision") == data.get("geometry_revision") == "hard-finish-realism-pass-v3", {"scene":scene.get("geometry_revision"),"manifest":data.get("geometry_revision")})
+    check(
+        "geometry_revision",
+        scene.get("geometry_revision")
+        == data.get("geometry_revision")
+        == "hard-finish-realism-pass-v5-wall-coverage",
+        {"scene": scene.get("geometry_revision"), "manifest": data.get("geometry_revision")},
+    )
     check("metric_units", scene.unit_settings.system == "METRIC" and math.isclose(scene.unit_settings.scale_length,1.0), {"system":scene.unit_settings.system,"scale":scene.unit_settings.scale_length})
     dims = data["dimension_calibration_m"]
     check("published_dimension_anchors", math.isclose(dims["public_frontage"],7.6) and math.isclose(dims["balcony_depth"],1.9) and math.isclose(dims["wall_height"],3.1), dims)
@@ -248,8 +273,8 @@ def main():
     }
     library = bpy.data.collections.get("V4_ASSET_LIBRARY")
     check(
-        "v4_contains_complete_87_asset_library",
-        len(expected_asset_ids) == 87
+        "v4_contains_complete_asset_library",
+        len(expected_asset_ids) == asset_data.get("asset_count")
         and expected_asset_ids == material_asset_ids | geometry_preset_ids
         and library is not None,
         {
@@ -270,24 +295,28 @@ def main():
         if material.get("asset_id") in pbr_surface_ids
     ]
     check(
-        "v4_contains_all_14_surface_pbr_materials",
-        len(pbr_surface_materials) == 14
+        "v4_contains_all_surface_pbr_materials",
+        len(pbr_surface_materials) == len(pbr_surface_ids)
         and all(
             material.node_tree
             and any(node.type == "NORMAL_MAP" for node in material.node_tree.nodes)
             and sum(node.type == "TEX_IMAGE" for node in material.node_tree.nodes) >= 3
             for material in pbr_surface_materials
         ),
-        {"expected": 14, "actual": len(pbr_surface_materials)},
+        {"expected": len(pbr_surface_ids), "actual": len(pbr_surface_materials)},
     )
     check(
-        "v4_contains_all_5_ceiling_geometry_presets",
+        "v4_contains_all_9_ceiling_geometry_presets",
         geometry_preset_ids == {
             "ceiling_flat_01",
             "ceiling_perimeter_step_01",
             "ceiling_perimeter_cove_01",
             "ceiling_floating_shadow_gap_01",
             "ceiling_kitchen_bath_panel_01",
+            "ceiling_timber_slatted_01",
+            "ceiling_shallow_coffer_grid_01",
+            "ceiling_exposed_concrete_shadow_track_01",
+            "ceiling_curved_cove_01",
         },
         sorted(geometry_preset_ids),
     )
@@ -296,7 +325,12 @@ def main():
 
     surface_ids = [o.get("surface_id") for o in objects if o.get("surface_id")]
     expected_surfaces = [surface for room in rooms for surface in room["surface_ids"].values()]
-    check("surface_ids", len(surface_ids)==len(set(surface_ids)) and set(expected_surfaces).issubset(surface_ids), {"count":len(surface_ids),"unique":len(set(surface_ids))})
+    check(
+        "surface_ids",
+        len(set(surface_ids)) == len(expected_surfaces)
+        and set(surface_ids) == set(expected_surfaces),
+        {"count": len(surface_ids), "unique": len(set(surface_ids)), "expected_unique": len(expected_surfaces)},
+    )
     face_ids = [item["id"] for item in data["wall_faces"]]
     object_face_ids = {o.get("wall_face_id") for o in objects if o.get("wall_face_id")}
     check("wall_faces", len(face_ids)>=30 and len(face_ids)==len(set(face_ids)) and set(face_ids).issubset(object_face_ids), {"manifest":len(face_ids),"objects":len(object_face_ids)})
@@ -311,6 +345,8 @@ def main():
     check("hard_finish_construction_details", hard_finish_passed, hard_finish_details_data)
     room_sides_passed, room_sides_details = room_facing_wall_sides(data["wall_faces"], rooms)
     check("wall_finishes_face_their_rooms", room_sides_passed, room_sides_details)
+    exterior_coverage_passed, exterior_coverage_details = required_exterior_finish_coverage(data["wall_faces"])
+    check("exterior_room_wall_finishes_complete", exterior_coverage_passed, exterior_coverage_details)
     source_geometry_passed, source_geometry_details = wall_finish_geometry(objects, data["wall_faces"])
     check("wall_finishes_outside_cores", source_geometry_passed, source_geometry_details)
     furniture = [o for o in objects if o.get("reference_only")]

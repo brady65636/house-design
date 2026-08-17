@@ -18,13 +18,16 @@ viewer/.next/
 
 # viewer 静态资产由 Vercel 提供,不进镜像;仅保留 current_scheme.json 供首启 seed
 viewer/public/models/
-viewer/public/assets/
+viewer/public/assets/*
+!viewer/public/assets/asset-cards/
+!viewer/public/assets/asset-cards/**
 
 # 大体积资产与源文件
 output/
 blender/
 docs/
 scripts/
+backend/data/
 
 # 测试
 tests/

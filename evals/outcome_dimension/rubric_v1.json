@@ -1,0 +1,29 @@
+{
+  "rubric_version": "outcome_dimension_v1",
+  "scope": "从用户确认实施前规划并要求执行开始，到最终 Scheme、真实渲染、Critic 审查和 Agent 最终汇报完成为止。",
+  "visual_verdicts": ["PASS", "FAIL", "UNABLE_TO_JUDGE"],
+  "visual_criteria": [
+    {"criterion_id": "intent_matches_image", "text": "用户说想要什么感觉，最终画面就应该像什么感觉。例如用户要“明亮、安静”，画面不能又暗又花。"},
+    {"criterion_id": "adjacent_floor_color_harmony", "text": "从门口同时看见两个相连房间时，两边地板颜色不能明显打架，例如一边黄橙、一边蓝灰。"},
+    {"criterion_id": "connected_floor_continuity", "text": "客厅、餐厅、走廊连在一起时，地面不能像三个互不相关的样板间。"},
+    {"criterion_id": "strong_pattern_competition", "text": "同一张画面里，不能同时出现两种以上很抢眼的图案，例如花墙纸再配强石纹或花砖。"},
+    {"criterion_id": "wallpaper_wall_integrity", "text": "图案明显的墙纸应该放在比较完整的墙上，不能被门窗切得支离破碎。"},
+    {"criterion_id": "wall_floor_color_relation", "text": "墙面和地面的颜色放在一起不能互相显脏，例如墙被衬得发粉，或者木地板被衬得过黄。"},
+    {"criterion_id": "ceiling_visual_priority", "text": "除非用户特别要求突出吊顶，否则人进入房间后不应该第一眼只注意到天花板。"},
+    {"criterion_id": "same_room_wall_family", "text": "同一个房间的几面墙不能像随手试了好几个色卡，颜色之间要看得出属于同一套搭配。"},
+    {"criterion_id": "small_room_complexity", "text": "面积较小的房间不能同时使用深色墙、深色地面和明显图案，否则容易显得拥挤。"},
+    {"criterion_id": "corridor_stripe_direction", "text": "狭长走廊不能用很多横向强条纹把空间切成一段一段，显得更短、更碎。"},
+    {"criterion_id": "single_wall_temperature_consistency", "text": "同一面墙不能一部分是明显暖色、一部分是明显冷色，却没有清楚的分区理由。"},
+    {"criterion_id": "wood_tile_transition", "text": "木地板与石材或瓷砖相接时，最好能找到一种共同颜色，例如灰、米色或棕色，不能完全各说各话。"}
+  ],
+  "consistency_gates": [
+    {"gate_id": "plan_scheme_alignment", "owner": "visual_semantic_grader", "text": "最终 Scheme 与用户确认的实施前规划一致；若有偏离，只能是已明确说明且有证据支持的修订。"},
+    {"gate_id": "scheme_render_version_alignment", "owner": "code", "text": "评分图片来自当前 Design Run 的最终 Scheme 版本，不得用旧版本或其他会话图片代替。"},
+    {"gate_id": "scope_integrity", "owner": "code", "text": "Scheme diff 没有修改规划范围之外的目标。"},
+    {"gate_id": "report_tool_consistency", "owner": "code_and_grader", "text": "最终汇报中的已修改、已验证和已完成陈述与真实工具结果一致。"},
+    {"gate_id": "visual_claim_has_evidence", "owner": "code", "text": "每项声称已经视觉验证的结论都有对应最终版本渲染证据。"},
+    {"gate_id": "deviation_disclosed", "owner": "visual_semantic_grader", "text": "相对规划的必要调整已说明原因和影响，没有静默换方案。"},
+    {"gate_id": "no_false_success", "owner": "code_and_grader", "text": "Validator、写入、渲染或 Critic 失败时没有冒充成功或完成。"}
+  ],
+  "pass_rule": "场景 required_visual_criteria 中的每项必须为 PASS；UNABLE_TO_JUDGE 表示缺少必需视觉证据，因此不通过。全部 consistency_gates 也必须为 PASS。"
+}

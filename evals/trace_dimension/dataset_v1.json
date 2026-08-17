@@ -1,0 +1,155 @@
+{
+  "dataset_version": "trace_dataset_v1",
+  "rubric_version": "trace_dimension_v1",
+  "name": "trace_dimension_v1",
+  "evaluation_scope": "给 Agent 一个住宅硬装任务，观察其从澄清、规划、执行到交付全过程的工具调用轨迹是否合理；不评价最终成品美观或需求理解质量。",
+  "note": "12 套任务据真实反模式设计：8 套诱发特定工具轨迹反模式 + 4 套正常对照（验证 rubric 不误杀）。空间与需求角度刻意区别于维度一/二。",
+  "entry_contract": {
+    "mode": "interactive_trace_probe",
+    "simulator_model": "deepseek-v4-flash",
+    "close_token": "CLOSE",
+    "max_user_turns": 6,
+    "note": "模拟器只维持用户事实并输出 RESPOND/CLOSE；CLOSE 仅终止场景，不代表工具轨迹合格。"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "trap_skip_filter_01",
+      "title": "主卫点名大理石但未检索",
+      "trap_category": "retrieval_discipline",
+      "scope": "single_room",
+      "initial_message": "主卫的墙我想用你库里那种白色大理石瓷砖，直接帮我换上。",
+      "user_facts": [
+        {"fact_id": "finish", "disclosure": "if_asked", "value": "想要亮面、干净的白色大理石感。"}
+      ],
+      "anti_patterns": ["retrieval_discipline"],
+      "max_user_turns": 4
+    },
+    {
+      "scenario_id": "trap_anchor_order_02",
+      "title": "衣帽间墙地搭配但 anchor 未定",
+      "trap_category": "anchor_order",
+      "scope": "single_room",
+      "initial_message": "衣帽间的墙面和地面要协调搭配，你来选。",
+      "user_facts": [
+        {"fact_id": "preference", "disclosure": "if_asked", "value": "喜欢安静、不花哨的浅色调。"}
+      ],
+      "anti_patterns": ["anchor_order"],
+      "max_user_turns": 4
+    },
+    {
+      "scenario_id": "trap_preview_evidence_03",
+      "title": "生活阳台改砖但只拿预览当效果",
+      "trap_category": "evidence_consumption",
+      "scope": "single_room",
+      "initial_message": "生活阳台地面换成暖色地砖，改完给我看看效果。",
+      "user_facts": [
+        {"fact_id": "tone", "disclosure": "if_asked", "value": "暖一点，和厨房的浅色衔接。"}
+      ],
+      "anti_patterns": ["evidence_consumption"],
+      "max_user_turns": 4
+    },
+    {
+      "scenario_id": "trap_harmony_single_04",
+      "title": "南向阳台单点改动看整体",
+      "trap_category": "observe_restraint",
+      "scope": "single_target",
+      "initial_message": "南向阳台地面换一下，换完帮我看看整体效果。",
+      "user_facts": [],
+      "anti_patterns": ["observe_restraint"],
+      "max_user_turns": 3
+    },
+    {
+      "scenario_id": "trap_critic_light_05",
+      "title": "次卧单墙调浅误判重度",
+      "trap_category": "critic_restraint",
+      "scope": "single_target",
+      "initial_message": "次卧那面墙颜色稍微调浅一点，其他都不动。",
+      "user_facts": [],
+      "anti_patterns": ["critic_restraint"],
+      "max_user_turns": 3
+    },
+    {
+      "scenario_id": "trap_serial_06",
+      "title": "三间卧室逐房间串行",
+      "trap_category": "serial_rounds",
+      "scope": "multi_room",
+      "initial_message": "三个卧室的地面都换成浅橡木，墙面统一浅暖灰，你一起弄。",
+      "user_facts": [
+        {"fact_id": "variation", "disclosure": "if_asked", "value": "三个卧室可以各自有一点明度差异，但材料要统一。"}
+      ],
+      "anti_patterns": ["serial_rounds"],
+      "max_user_turns": 5
+    },
+    {
+      "scenario_id": "trap_batch_07",
+      "title": "全屋墙面统一刷漆逐面分轮",
+      "trap_category": "batch_same_targets",
+      "scope": "whole_home",
+      "initial_message": "全屋墙面统一刷成浅暖灰，你来执行，直接改就行。",
+      "user_facts": [
+        {"fact_id": "exception", "disclosure": "if_asked", "value": "卫生间墙面保持瓷砖，其他房间都刷浅暖灰。"}
+      ],
+      "anti_patterns": ["batch_same_targets"],
+      "max_user_turns": 5
+    },
+    {
+      "scenario_id": "trap_retry_08",
+      "title": "厨房想要木地板被拒后重试",
+      "trap_category": "rework_discipline",
+      "scope": "single_room",
+      "initial_message": "厨房地面想要木地板那种温暖感，能铺吗？",
+      "user_facts": [
+        {"fact_id": "reason", "disclosure": "if_asked", "value": "就是喜欢木色温暖，但要好打理。"},
+        {"fact_id": "fallback", "disclosure": "if_asked", "value": "如果木地板不行，可以接受木纹砖。"}
+      ],
+      "anti_patterns": ["rework_discipline"],
+      "max_user_turns": 4
+    },
+    {
+      "scenario_id": "norm_room_09",
+      "title": "主卫系统重做（正常对照）",
+      "trap_category": "control",
+      "scope": "single_room",
+      "initial_message": "主卫完整重做，浅灰微水泥的墙面和地面，吊顶简单，你看着办。",
+      "user_facts": [
+        {"fact_id": "clean", "disclosure": "if_asked", "value": "要好打理、不显水渍。"}
+      ],
+      "anti_patterns": [],
+      "max_user_turns": 5
+    },
+    {
+      "scenario_id": "norm_light_10",
+      "title": "主卧床头墙刷暖灰（正常轻改）",
+      "trap_category": "control",
+      "scope": "single_target",
+      "initial_message": "主卧床头那面墙刷成暖灰，其他都不动。",
+      "user_facts": [],
+      "anti_patterns": [],
+      "max_user_turns": 3
+    },
+    {
+      "scenario_id": "norm_multi_11",
+      "title": "三卧连贯设计（正常多房间）",
+      "trap_category": "control",
+      "scope": "multi_room",
+      "initial_message": "三个卧室做一个连贯的设计，统一浅暖灰墙面配浅橡木地板，各自保留一点层次。",
+      "user_facts": [
+        {"fact_id": "hierarchy", "disclosure": "if_asked", "value": "主卧可以比次卧多一点层次，但都安静耐看。"}
+      ],
+      "anti_patterns": [],
+      "max_user_turns": 5
+    },
+    {
+      "scenario_id": "mixed_conflict_12",
+      "title": "客厅明亮与深色包裹冲突（正常澄清）",
+      "trap_category": "control",
+      "scope": "single_room",
+      "initial_message": "客厅既要很明亮，又想要深色包裹感，你看怎么平衡。",
+      "user_facts": [
+        {"fact_id": "priority", "disclosure": "if_asked", "value": "如果必须取舍，明亮优先，深色可以只做一面墙或局部。"}
+      ],
+      "anti_patterns": [],
+      "max_user_turns": 5
+    }
+  ]
+}

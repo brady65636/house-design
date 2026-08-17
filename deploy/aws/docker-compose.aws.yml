@@ -21,9 +21,21 @@ services:
     ports:
       - "127.0.0.1:8000:8000"
     environment:
-      OPENAI_API_KEY: ${OPENAI_API_KEY:?请在 deploy/aws/.env 设置 OPENAI_API_KEY}
-      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.openai.com/v1}
-      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.6-luna}
+      HOUSE_DESIGN_LLM_PROVIDER: ${HOUSE_DESIGN_LLM_PROVIDER:?请在 deploy/aws/.env 设置 HOUSE_DESIGN_LLM_PROVIDER(openai|dashscope|ark)}
+      # 阿里云百炼 DashScope（qwen3.7-plus）
+      HOUSE_DESIGN_DASHSCOPE_API_KEY: ${HOUSE_DESIGN_DASHSCOPE_API_KEY:-}
+      HOUSE_DESIGN_DASHSCOPE_BASE_URL: ${HOUSE_DESIGN_DASHSCOPE_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      HOUSE_DESIGN_DASHSCOPE_MODEL: ${HOUSE_DESIGN_DASHSCOPE_MODEL:-qwen3.7-plus}
+      # 火山方舟 Ark（豆包 Seed 2.0 Lite，当前生产 provider）
+      HOUSE_DESIGN_ARK_API_KEY: ${HOUSE_DESIGN_ARK_API_KEY:-}
+      HOUSE_DESIGN_ARK_BASE_URL: ${HOUSE_DESIGN_ARK_BASE_URL:-https://ark.cn-beijing.volces.com/api/v3}
+      HOUSE_DESIGN_ARK_MODEL: ${HOUSE_DESIGN_ARK_MODEL:-doubao-seed-2-0-lite-260428}
+      HOUSE_DESIGN_REASONING_EFFORT: ${HOUSE_DESIGN_REASONING_EFFORT:-none}
+      HOUSE_DESIGN_LANGSMITH_TRACING: ${HOUSE_DESIGN_LANGSMITH_TRACING:-false}
+      HOUSE_DESIGN_LANGSMITH_API_KEY: ${HOUSE_DESIGN_LANGSMITH_API_KEY:-}
+      HOUSE_DESIGN_LANGSMITH_ENDPOINT: ${HOUSE_DESIGN_LANGSMITH_ENDPOINT:-https://api.smith.langchain.com}
+      HOUSE_DESIGN_LANGSMITH_PROJECT: ${HOUSE_DESIGN_LANGSMITH_PROJECT:-house-design-agent}
+      HOUSE_DESIGN_LANGSMITH_WORKSPACE_ID: ${HOUSE_DESIGN_LANGSMITH_WORKSPACE_ID:-}
       RENDER_BRIDGE_URL: http://render-bridge:8765
       # 浏览器渲染会话名：与 viewer 页面默认 session 一致（页面不传 ?render_session 时为 local-demo）
       RENDER_SESSION_ID: local-demo

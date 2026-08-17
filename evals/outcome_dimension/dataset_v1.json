@@ -1,0 +1,560 @@
+{
+  "dataset_version": "outcome_dataset_v1",
+  "rubric_version": "outcome_dimension_v1",
+  "entry_contract": {
+    "mode": "fixed_approved_plan",
+    "message_template": "下面是我已经确认的实施方案。请直接按方案执行，完成 Validator 和真实视觉检查后汇报；不要修改方案范围外的表面。\n\n{approved_plan}"
+  },
+  "subsets": {
+    "smoke_6": [
+      "public_bright_calm_01",
+      "small_bedroom_simple_03",
+      "public_single_wallpaper_04",
+      "foyer_lengthwise_order_05",
+      "public_dining_continuity_06",
+      "kitchen_public_transition_07"
+    ],
+    "full_12": [
+      "public_bright_calm_01",
+      "master_bedroom_restful_02",
+      "small_bedroom_simple_03",
+      "public_single_wallpaper_04",
+      "foyer_lengthwise_order_05",
+      "public_dining_continuity_06",
+      "kitchen_public_transition_07",
+      "master_suite_continuity_08",
+      "guest_bath_low_complexity_09",
+      "public_ceiling_restrained_10",
+      "single_wall_temperature_11",
+      "whole_home_warm_cohesive_12"
+    ]
+  },
+  "scenarios": [
+    {
+      "scenario_id": "public_bright_calm_01",
+      "title": "明亮安静的横厅客厅",
+      "tags": ["single_room", "public", "smoke", "baseline"],
+      "confirmed_requirements": [
+        "范围仅为横厅客厅的墙面、地面和顶面",
+        "整体明亮、安静、自然，不偏黄也不冰冷",
+        "墙面属于同一暖中性色家族，不设置强图案",
+        "浅色低色差木地面，吊顶视觉克制"
+      ],
+      "approved_plan": "横厅客厅采用明亮安静的暖中性方案：大面墙使用浅档暖白或 Greige 哑光，所有墙面保持同一色温家族；地面使用浅色、低色差的自然木；吊顶采用平顶或非常克制的细薄周边层次，不成为第一视觉焦点；不加入高对比图案，只修改横厅客厅。",
+      "allowed_room_ids": ["open_public"],
+      "allowed_target_ids": [
+        "wall_face_real4_002", "wall_face_real4_010", "wall_face_real4_013",
+        "wall_face_real4_022", "wall_face_real4_028", "wall_face_real4_032",
+        "surface_real4_floor_open_public", "surface_real4_ceiling_open_public"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "wall_floor_color_relation", "ceiling_visual_priority",
+        "same_room_wall_family", "single_wall_temperature_consistency"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "public_room",
+          "tool": "observe_room",
+          "room_id": "open_public",
+          "focus_target_ids": [
+            "wall_face_real4_002", "wall_face_real4_010", "wall_face_real4_013",
+            "wall_face_real4_022", "wall_face_real4_028", "wall_face_real4_032",
+            "surface_real4_floor_open_public", "surface_real4_ceiling_open_public"
+          ],
+          "minimum_image_count": 3,
+          "covers_criteria": [
+            "intent_matches_image", "wall_floor_color_relation", "ceiling_visual_priority",
+            "same_room_wall_family", "single_wall_temperature_consistency"
+          ]
+        }
+      ],
+      "grader_focus": "先判断整体是否明亮安静，再检查墙地色温、各墙统一性和吊顶是否抢戏。"
+    },
+    {
+      "scenario_id": "master_bedroom_restful_02",
+      "title": "克制包裹感主卧",
+      "tags": ["single_room", "bedroom", "dark_tone"],
+      "confirmed_requirements": [
+        "范围仅为主卧",
+        "安静、有轻度包裹感，但不能压暗或沉重",
+        "床头墙可以略深，其余墙面必须协调",
+        "木地面低对比，吊顶保持安静"
+      ],
+      "approved_plan": "主卧使用低饱和 Greige 或灰棕体系：床头完整墙面可以比其余墙面深一个层级形成轻焦点，其余墙面保持同族浅色；地面选择纹理克制的自然木；顶面保持平整安静。不得使用近黑墙面、强图案或高色差地板，只修改主卧。",
+      "allowed_room_ids": ["master_bedroom"],
+      "allowed_target_ids": [
+        "wall_face_real4_007", "wall_face_real4_014", "wall_face_real4_015",
+        "surface_real4_floor_master_bedroom", "surface_real4_ceiling_master_bedroom"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "wall_floor_color_relation", "ceiling_visual_priority", "same_room_wall_family"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "master_bedroom",
+          "tool": "observe_room",
+          "room_id": "master_bedroom",
+          "focus_target_ids": [
+            "wall_face_real4_007", "wall_face_real4_014", "wall_face_real4_015",
+            "surface_real4_floor_master_bedroom", "surface_real4_ceiling_master_bedroom"
+          ],
+          "minimum_image_count": 3,
+          "covers_criteria": [
+            "intent_matches_image", "wall_floor_color_relation", "ceiling_visual_priority", "same_room_wall_family"
+          ]
+        }
+      ],
+      "grader_focus": "区分有包裹感和整体压暗；床头墙应是同族层级变化，而不是另一套色卡。"
+    },
+    {
+      "scenario_id": "small_bedroom_simple_03",
+      "title": "小次卧明亮低复杂度",
+      "tags": ["single_room", "small_room", "smoke", "complexity"],
+      "confirmed_requirements": [
+        "范围仅为北次卧",
+        "小空间要显得明亮、放松、容易长期使用",
+        "不使用深墙、深地和明显图案的叠加",
+        "只允许一个很弱的层次变化"
+      ],
+      "approved_plan": "北次卧以浅暖白或浅 Greige 哑光墙面为主，可有一面低对比同族浅色墙作为弱层次；地面使用浅色低纹理木材；顶面保持平顶。不得同时出现深色墙、深色地面或强图案，只修改北次卧。",
+      "allowed_room_ids": ["bedroom_2"],
+      "allowed_target_ids": [
+        "wall_face_real4_020", "wall_face_real4_021", "wall_face_real4_023", "wall_face_real4_025",
+        "surface_real4_floor_bedroom_2", "surface_real4_ceiling_bedroom_2"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "strong_pattern_competition", "wall_floor_color_relation",
+        "same_room_wall_family", "small_room_complexity"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "small_bedroom",
+          "tool": "observe_room",
+          "room_id": "bedroom_2",
+          "focus_target_ids": [
+            "wall_face_real4_020", "wall_face_real4_021", "wall_face_real4_023", "wall_face_real4_025",
+            "surface_real4_floor_bedroom_2", "surface_real4_ceiling_bedroom_2"
+          ],
+          "minimum_image_count": 3,
+          "covers_criteria": [
+            "intent_matches_image", "strong_pattern_competition", "wall_floor_color_relation",
+            "same_room_wall_family", "small_room_complexity"
+          ]
+        }
+      ],
+      "grader_focus": "重点检查小空间是否因深色和图案叠加而拥挤，以及弱层次是否仍属于同一体系。"
+    },
+    {
+      "scenario_id": "public_single_wallpaper_04",
+      "title": "横厅单一完整墙纸焦点",
+      "tags": ["single_room", "wallpaper", "smoke", "focal_control"],
+      "confirmed_requirements": [
+        "范围仅为横厅客厅",
+        "只设置一面墙纸焦点墙，并选择尽量完整、少被门窗切割的墙面",
+        "其余墙面、地面和顶面都要安静",
+        "同一画面不能再出现第二种强图案"
+      ],
+      "approved_plan": "在横厅客厅选择一面完整度最高的主墙使用低对比、可独立成景的墙纸作为唯一焦点；其余墙面统一使用浅暖中性哑光墙漆，地面使用安静的浅自然木，顶面保持平整克制。不得增加第二种强图案，只修改横厅客厅。",
+      "allowed_room_ids": ["open_public"],
+      "allowed_target_ids": [
+        "wall_face_real4_002", "wall_face_real4_010", "wall_face_real4_013",
+        "wall_face_real4_022", "wall_face_real4_028", "wall_face_real4_032",
+        "surface_real4_floor_open_public", "surface_real4_ceiling_open_public"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "strong_pattern_competition", "wallpaper_wall_integrity",
+        "wall_floor_color_relation", "same_room_wall_family"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "public_wallpaper",
+          "tool": "observe_room",
+          "room_id": "open_public",
+          "focus_target_ids": [
+            "wall_face_real4_002", "wall_face_real4_010", "wall_face_real4_013",
+            "wall_face_real4_022", "wall_face_real4_028", "wall_face_real4_032",
+            "surface_real4_floor_open_public"
+          ],
+          "minimum_image_count": 3,
+          "covers_criteria": [
+            "intent_matches_image", "strong_pattern_competition", "wallpaper_wall_integrity",
+            "wall_floor_color_relation", "same_room_wall_family"
+          ]
+        }
+      ],
+      "grader_focus": "必须看清墙纸所在整面墙及相邻表面；漂亮的局部特写不能替代墙体完整度证据。"
+    },
+    {
+      "scenario_id": "foyer_lengthwise_order_05",
+      "title": "狭长玄关的纵向秩序",
+      "tags": ["single_room", "foyer", "smoke", "direction"],
+      "confirmed_requirements": [
+        "范围仅为玄关",
+        "希望狭长区域显得更连贯，不被横向强条纹切碎",
+        "可以有轻微纵向肌理，但不能再叠加强地面图案",
+        "整体明亮、整洁"
+      ],
+      "approved_plan": "玄关墙面使用浅暖中性底色，可在完整墙面加入低对比纵向织纹以加强长度方向；地面选择低色差、方向不抢眼的浅色材料；顶面保持简洁。禁止横向强条纹和第二种强图案，只修改玄关。",
+      "allowed_room_ids": ["foyer"],
+      "allowed_target_ids": [
+        "wall_face_real4_004", "wall_face_real4_012",
+        "surface_real4_floor_foyer", "surface_real4_ceiling_foyer"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "strong_pattern_competition", "wall_floor_color_relation",
+        "small_room_complexity", "corridor_stripe_direction"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "foyer",
+          "tool": "observe_room",
+          "room_id": "foyer",
+          "focus_target_ids": [
+            "wall_face_real4_004", "wall_face_real4_012",
+            "surface_real4_floor_foyer", "surface_real4_ceiling_foyer"
+          ],
+          "minimum_image_count": 3,
+          "covers_criteria": [
+            "intent_matches_image", "strong_pattern_competition", "wall_floor_color_relation",
+            "small_room_complexity", "corridor_stripe_direction"
+          ]
+        }
+      ],
+      "grader_focus": "从入口和返回方向都检查条纹/铺装方向，避免只用正面近景掩盖横向切割感。"
+    },
+    {
+      "scenario_id": "public_dining_continuity_06",
+      "title": "客餐厅连续的公共区",
+      "tags": ["multi_room", "public", "smoke", "continuity"],
+      "confirmed_requirements": [
+        "范围为横厅客厅和餐厅",
+        "两个连续空间的地面要像同一公共区，不得明显打架或割裂",
+        "墙面使用协调的暖中性体系",
+        "不设置多个视觉焦点"
+      ],
+      "approved_plan": "横厅客厅与餐厅使用同一种浅色低色差木地面，形成连续公共区；两个空间的墙面统一在暖白与浅 Greige 家族内，仅允许轻微层级差；顶面保持安静，不设置多个图案焦点。只修改横厅客厅和餐厅。",
+      "allowed_room_ids": ["open_public", "dining_room"],
+      "allowed_target_ids": [
+        "wall_face_real4_002", "wall_face_real4_010", "wall_face_real4_013",
+        "wall_face_real4_022", "wall_face_real4_028", "wall_face_real4_032",
+        "surface_real4_floor_open_public", "surface_real4_ceiling_open_public",
+        "wall_face_real4_005", "wall_face_real4_034",
+        "surface_real4_floor_dining_room", "surface_real4_ceiling_dining_room"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "adjacent_floor_color_harmony", "connected_floor_continuity",
+        "strong_pattern_competition", "wall_floor_color_relation"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "public_room",
+          "tool": "observe_room",
+          "room_id": "open_public",
+          "focus_target_ids": ["surface_real4_floor_open_public", "wall_face_real4_013"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "strong_pattern_competition", "wall_floor_color_relation"]
+        },
+        {
+          "capture_id": "dining_room",
+          "tool": "observe_room",
+          "room_id": "dining_room",
+          "focus_target_ids": ["surface_real4_floor_dining_room", "wall_face_real4_005", "wall_face_real4_034"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "connected_floor_continuity", "wall_floor_color_relation"]
+        },
+        {
+          "capture_id": "public_harmony",
+          "tool": "observe_home_harmony",
+          "minimum_image_count": 3,
+          "covers_criteria": ["adjacent_floor_color_harmony", "connected_floor_continuity"]
+        }
+      ],
+      "grader_focus": "必须使用能同时或连续看到客餐厅的证据判断地面连续性，不能分别看两张孤立美图。"
+    },
+    {
+      "scenario_id": "kitchen_public_transition_07",
+      "title": "厨房瓷砖与公共区木地板过渡",
+      "tags": ["multi_room", "wet_dry", "smoke", "transition"],
+      "confirmed_requirements": [
+        "只修改横厅客厅和厨房的地面",
+        "公共区保留自然木感，厨房使用耐清洁的低对比瓷砖",
+        "两种材料必须有共同的灰、米或棕色底调",
+        "墙面和顶面全部保持不变"
+      ],
+      "approved_plan": "横厅客厅地面使用浅色自然木；厨房地面使用低对比暖灰或 Greige 矿物瓷砖，两者通过共同的灰米底调建立过渡。除这两个地面外不得修改任何墙面或顶面。",
+      "allowed_room_ids": ["open_public", "kitchen"],
+      "allowed_target_ids": ["surface_real4_floor_open_public", "surface_real4_floor_kitchen"],
+      "required_visual_criteria": [
+        "intent_matches_image", "adjacent_floor_color_harmony", "wood_tile_transition"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "public_floor",
+          "tool": "observe_room",
+          "room_id": "open_public",
+          "focus_target_ids": ["surface_real4_floor_open_public"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "adjacent_floor_color_harmony", "wood_tile_transition"]
+        },
+        {
+          "capture_id": "kitchen_floor",
+          "tool": "observe_room",
+          "room_id": "kitchen",
+          "focus_target_ids": ["surface_real4_floor_kitchen"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "adjacent_floor_color_harmony", "wood_tile_transition"]
+        },
+        {
+          "capture_id": "kitchen_public_pair",
+          "tool": "observe_home_harmony",
+          "minimum_image_count": 3,
+          "covers_criteria": ["adjacent_floor_color_harmony", "wood_tile_transition"]
+        }
+      ],
+      "grader_focus": "以厨房玻璃移门两侧的成对视角为主证据，并核对 Scheme diff 是否真的只改了两个地面。"
+    },
+    {
+      "scenario_id": "master_suite_continuity_08",
+      "title": "主卧与衣帽间连续性",
+      "tags": ["multi_room", "bedroom", "continuity"],
+      "confirmed_requirements": [
+        "范围为主卧和主卧衣帽间",
+        "两个相连空间要延续同一种安静、成熟的氛围",
+        "地面连续，墙面可有轻微深浅变化但不能换色温",
+        "衣帽间不能因深色叠加而显拥挤"
+      ],
+      "approved_plan": "主卧和衣帽间使用同一种低色差自然木地面；墙面保持同一低饱和暖中性色家族，主卧可以略深、衣帽间保持更浅；两个顶面均保持克制。不得在衣帽间叠加深墙、深地和强图案，只修改这两个空间。",
+      "allowed_room_ids": ["master_bedroom", "master_dressing"],
+      "allowed_target_ids": [
+        "wall_face_real4_007", "wall_face_real4_014", "wall_face_real4_015",
+        "surface_real4_floor_master_bedroom", "surface_real4_ceiling_master_bedroom",
+        "wall_face_real4_016", "wall_face_real4_017", "wall_face_real4_019", "wall_face_real4_026",
+        "surface_real4_floor_master_dressing", "surface_real4_ceiling_master_dressing"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "adjacent_floor_color_harmony", "connected_floor_continuity",
+        "wall_floor_color_relation", "same_room_wall_family", "small_room_complexity"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "master_bedroom",
+          "tool": "observe_room",
+          "room_id": "master_bedroom",
+          "focus_target_ids": ["surface_real4_floor_master_bedroom", "wall_face_real4_007", "wall_face_real4_014", "wall_face_real4_015"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "wall_floor_color_relation", "same_room_wall_family"]
+        },
+        {
+          "capture_id": "master_dressing",
+          "tool": "observe_room",
+          "room_id": "master_dressing",
+          "focus_target_ids": ["surface_real4_floor_master_dressing", "wall_face_real4_016", "wall_face_real4_017", "wall_face_real4_019", "wall_face_real4_026"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "wall_floor_color_relation", "same_room_wall_family", "small_room_complexity"]
+        },
+        {
+          "capture_id": "master_suite_pair",
+          "tool": "observe_home_harmony",
+          "minimum_image_count": 3,
+          "covers_criteria": ["adjacent_floor_color_harmony", "connected_floor_continuity"]
+        }
+      ],
+      "grader_focus": "重点看衣帽间与主卧门洞两侧，而不是只比较各自最漂亮的主视角。"
+    },
+    {
+      "scenario_id": "guest_bath_low_complexity_09",
+      "title": "公卫低复杂度矿物感",
+      "tags": ["single_room", "bathroom", "small_room", "wet_area"],
+      "confirmed_requirements": [
+        "范围仅为公卫",
+        "清爽、耐看、容易清洁，不能像样板材料展厅",
+        "墙地材料有共同底色，只允许一种低对比纹理",
+        "顶面使用适合湿区的简洁系统"
+      ],
+      "approved_plan": "公卫采用低对比浅灰米矿物体系：墙地砖共享灰米底调，只允许一种轻微纹理，其他表面保持素净；顶面使用整齐简洁的厨卫模块化大板。不得叠加强石纹、花砖和深色，只修改公卫。",
+      "allowed_room_ids": ["guest_bath"],
+      "allowed_target_ids": [
+        "wall_face_real4_024", "wall_face_real4_027", "wall_face_real4_029",
+        "surface_real4_floor_guest_bath", "surface_real4_ceiling_guest_bath"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "strong_pattern_competition", "wall_floor_color_relation",
+        "ceiling_visual_priority", "small_room_complexity"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "guest_bath",
+          "tool": "observe_room",
+          "room_id": "guest_bath",
+          "focus_target_ids": [
+            "wall_face_real4_024", "wall_face_real4_027", "wall_face_real4_029",
+            "surface_real4_floor_guest_bath", "surface_real4_ceiling_guest_bath"
+          ],
+          "minimum_image_count": 3,
+          "covers_criteria": [
+            "intent_matches_image", "strong_pattern_competition", "wall_floor_color_relation",
+            "ceiling_visual_priority", "small_room_complexity"
+          ]
+        }
+      ],
+      "grader_focus": "小卫生间需要多方向证据确认纹理没有在墙地重复竞争，且湿区顶面不抢视觉。"
+    },
+    {
+      "scenario_id": "public_ceiling_restrained_10",
+      "title": "只升级公共区吊顶",
+      "tags": ["local_edit", "ceiling", "scope_control"],
+      "confirmed_requirements": [
+        "只修改横厅客厅和餐厅吊顶",
+        "增加一点精致层次，但进入空间时不能先注意到天花",
+        "墙面和地面必须保持不变"
+      ],
+      "approved_plan": "仅把横厅客厅与餐厅顶面调整为细薄周边跌级或克制灯槽，以轻微阴影增加精致感；不得使用强格栅、重井字或高对比顶面，也不得修改任何墙面和地面。",
+      "allowed_room_ids": ["open_public", "dining_room"],
+      "allowed_target_ids": ["surface_real4_ceiling_open_public", "surface_real4_ceiling_dining_room"],
+      "required_visual_criteria": ["intent_matches_image", "ceiling_visual_priority"],
+      "capture_plan": [
+        {
+          "capture_id": "public_ceiling",
+          "tool": "observe_room",
+          "room_id": "open_public",
+          "focus_target_ids": ["surface_real4_ceiling_open_public"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "ceiling_visual_priority"]
+        },
+        {
+          "capture_id": "dining_ceiling",
+          "tool": "observe_room",
+          "room_id": "dining_room",
+          "focus_target_ids": ["surface_real4_ceiling_dining_room"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "ceiling_visual_priority"]
+        }
+      ],
+      "grader_focus": "视觉判断吊顶是否克制，同时用 Scheme diff 严格检查墙地零修改。"
+    },
+    {
+      "scenario_id": "single_wall_temperature_11",
+      "title": "客厅单墙统一灰蓝",
+      "tags": ["local_edit", "single_wall", "temperature", "scope_control"],
+      "confirmed_requirements": [
+        "只修改横厅客厅当前焦点墙",
+        "整面墙采用统一、低饱和的浅灰蓝",
+        "不允许同一墙面出现冷暖拼接或局部异色",
+        "其余所有表面保持不变"
+      ],
+      "approved_plan": "仅将横厅客厅焦点墙 wall_face_real4_013 改为统一的低饱和浅灰蓝哑光墙漆；整面墙保持同一色温和连续表面，不做分区拼色。除该墙外不得修改任何目标。",
+      "allowed_room_ids": ["open_public"],
+      "allowed_target_ids": ["wall_face_real4_013"],
+      "required_visual_criteria": ["intent_matches_image", "single_wall_temperature_consistency"],
+      "capture_plan": [
+        {
+          "capture_id": "single_wall",
+          "tool": "observe_room",
+          "room_id": "open_public",
+          "focus_target_ids": ["wall_face_real4_013"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["intent_matches_image", "single_wall_temperature_consistency"]
+        }
+      ],
+      "grader_focus": "需要能看到整面目标墙的视角；局部色块近照不足以证明整墙连续。"
+    },
+    {
+      "scenario_id": "whole_home_warm_cohesive_12",
+      "title": "全屋暖中性统一方案",
+      "tags": ["whole_home", "comprehensive", "expensive"],
+      "confirmed_requirements": [
+        "覆盖全部可设计的墙面、地面和顶面",
+        "全屋温暖自然但不过黄，公共区明亮，卧室安静，湿区清爽",
+        "相连干区地面连续，木地板与湿区瓷砖共享灰米底调",
+        "全屋最多一个明显墙纸焦点，小空间和吊顶保持克制"
+      ],
+      "approved_plan": "全屋建立统一暖中性体系：公共区使用浅暖白与浅 Greige 墙面及连续浅自然木地面；卧室延续同族墙面与低色差木地面，只允许轻微深浅变化；厨房和卫生间使用共享灰米底调的低对比矿物砖，与木地面自然过渡；仅在横厅完整主墙设置一个低对比墙纸焦点；玄关避免横向强条纹；所有吊顶保持克制，湿区使用简洁模块化顶面。覆盖全部可设计表面，不引入第二个强图案焦点。",
+      "allowed_room_ids": [
+        "foyer", "open_public", "dining_room", "kitchen", "bedroom_3", "bedroom_2",
+        "master_bedroom", "master_dressing", "guest_bath", "master_bath", "south_panorama_balcony"
+      ],
+      "allowed_target_ids": [
+        "wall_face_real4_001", "wall_face_real4_002", "wall_face_real4_003", "wall_face_real4_004",
+        "wall_face_real4_005", "wall_face_real4_006", "wall_face_real4_007", "wall_face_real4_008",
+        "wall_face_real4_009", "wall_face_real4_010", "wall_face_real4_011", "wall_face_real4_012",
+        "wall_face_real4_013", "wall_face_real4_014", "wall_face_real4_015", "wall_face_real4_016",
+        "wall_face_real4_017", "wall_face_real4_018", "wall_face_real4_019", "wall_face_real4_020",
+        "wall_face_real4_021", "wall_face_real4_022", "wall_face_real4_023", "wall_face_real4_024",
+        "wall_face_real4_025", "wall_face_real4_026", "wall_face_real4_027", "wall_face_real4_028",
+        "wall_face_real4_029", "wall_face_real4_030", "wall_face_real4_031", "wall_face_real4_032",
+        "wall_face_real4_033", "wall_face_real4_034",
+        "surface_real4_floor_foyer", "surface_real4_ceiling_foyer",
+        "surface_real4_floor_open_public", "surface_real4_ceiling_open_public",
+        "surface_real4_floor_dining_room", "surface_real4_ceiling_dining_room",
+        "surface_real4_floor_kitchen", "surface_real4_ceiling_kitchen",
+        "surface_real4_floor_bedroom_3", "surface_real4_ceiling_bedroom_3",
+        "surface_real4_floor_bedroom_2", "surface_real4_ceiling_bedroom_2",
+        "surface_real4_floor_master_bedroom", "surface_real4_ceiling_master_bedroom",
+        "surface_real4_floor_master_dressing", "surface_real4_ceiling_master_dressing",
+        "surface_real4_floor_guest_bath", "surface_real4_ceiling_guest_bath",
+        "surface_real4_floor_master_bath", "surface_real4_ceiling_master_bath",
+        "surface_real4_floor_south_panorama_balcony"
+      ],
+      "required_visual_criteria": [
+        "intent_matches_image", "adjacent_floor_color_harmony", "connected_floor_continuity",
+        "strong_pattern_competition", "wallpaper_wall_integrity", "wall_floor_color_relation",
+        "ceiling_visual_priority", "same_room_wall_family", "small_room_complexity",
+        "corridor_stripe_direction", "single_wall_temperature_consistency", "wood_tile_transition"
+      ],
+      "capture_plan": [
+        {
+          "capture_id": "whole_home_harmony",
+          "tool": "observe_home_harmony",
+          "minimum_image_count": 3,
+          "covers_criteria": [
+            "intent_matches_image", "adjacent_floor_color_harmony", "connected_floor_continuity",
+            "wall_floor_color_relation", "wood_tile_transition"
+          ]
+        },
+        {
+          "capture_id": "public_focus",
+          "tool": "observe_room",
+          "room_id": "open_public",
+          "focus_target_ids": [
+            "wall_face_real4_002", "wall_face_real4_010", "wall_face_real4_013",
+            "wall_face_real4_022", "wall_face_real4_028", "wall_face_real4_032",
+            "surface_real4_floor_open_public", "surface_real4_ceiling_open_public"
+          ],
+          "minimum_image_count": 3,
+          "covers_criteria": [
+            "strong_pattern_competition", "wallpaper_wall_integrity", "wall_floor_color_relation",
+            "ceiling_visual_priority", "same_room_wall_family", "single_wall_temperature_consistency"
+          ]
+        },
+        {
+          "capture_id": "foyer_direction",
+          "tool": "observe_room",
+          "room_id": "foyer",
+          "focus_target_ids": ["wall_face_real4_004", "wall_face_real4_012", "surface_real4_floor_foyer"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["small_room_complexity", "corridor_stripe_direction"]
+        },
+        {
+          "capture_id": "small_bedroom",
+          "tool": "observe_room",
+          "room_id": "bedroom_2",
+          "focus_target_ids": [
+            "wall_face_real4_020", "wall_face_real4_021", "wall_face_real4_023", "wall_face_real4_025",
+            "surface_real4_floor_bedroom_2"
+          ],
+          "minimum_image_count": 3,
+          "covers_criteria": ["same_room_wall_family", "small_room_complexity", "wall_floor_color_relation"]
+        },
+        {
+          "capture_id": "kitchen_transition",
+          "tool": "observe_room",
+          "room_id": "kitchen",
+          "focus_target_ids": ["surface_real4_floor_kitchen", "wall_face_real4_006", "wall_face_real4_030"],
+          "minimum_image_count": 3,
+          "covers_criteria": ["wall_floor_color_relation", "wood_tile_transition"]
+        }
+      ],
+      "grader_focus": "这是综合回归案例；任何必查项缺少合适视角都应判 UNABLE_TO_JUDGE，而不是依据 Scheme 文本猜测视觉结果。"
+    }
+  ]
+}

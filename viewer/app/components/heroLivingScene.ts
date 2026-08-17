@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import type { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { PAINT_APPEARANCE_CALIBRATION, PAINT_CATALOG, PAINT_VARIANTS } from "../data/paintCatalog";
-import { WALLPAPERS } from "../data/wallpaperCatalog";
+import { WALLPAPER_APPEARANCE_CALIBRATION, WALLPAPERS } from "../data/wallpaperCatalog";
 
 const HERO_ROOT = "/assets/hero-living";
 
@@ -13,6 +13,23 @@ function texture(
   options: { color?: boolean; repeat?: [number, number]; clamp?: boolean } = {},
 ) {
   const map = loader.load(path.startsWith("/") ? path : `${HERO_ROOT}/${path}`);
+  if (options.color) map.colorSpace = THREE.SRGBColorSpace;
+  map.wrapS = map.wrapT = options.clamp ? THREE.ClampToEdgeWrapping : THREE.RepeatWrapping;
+  if (options.repeat) map.repeat.set(...options.repeat);
+  map.anisotropy = anisotropy;
+  return map;
+}
+
+// Async variant of `texture`: same configuration, but resolves with the map so
+// callers can await a full PBR set (used to signal render-on-demand when the
+// maps land after an idle frame was skipped).
+async function textureAsync(
+  loader: THREE.TextureLoader,
+  path: string,
+  anisotropy: number,
+  options: { color?: boolean; repeat?: [number, number]; clamp?: boolean } = {},
+) {
+  const map = await loader.loadAsync(path.startsWith("/") ? path : `${HERO_ROOT}/${path}`);
   if (options.color) map.colorSpace = THREE.SRGBColorSpace;
   map.wrapS = map.wrapT = options.clamp ? THREE.ClampToEdgeWrapping : THREE.RepeatWrapping;
   if (options.repeat) map.repeat.set(...options.repeat);
@@ -342,10 +359,13 @@ export function enhanceHeroSurfaces(materials: Map<string, THREE.MeshStandardMat
   // catalog metadata keeps the renderer and procedural generator in lockstep.
   const [paintWidthM, paintHeightM] = PAINT_CATALOG.texture_set.physical_size_m;
   const paintRepeat: [number, number] = [1 / paintWidthM, 1 / paintHeightM];
-  const paintBase = texture(loader, "/assets/paints/paint_micro_basecolor_4k.jpg", anisotropy, { color: true, repeat: paintRepeat });
-  const paintNormal = texture(loader, "/assets/paints/paint_micro_normal_gl_4k.jpg", anisotropy, { repeat: paintRepeat });
-  const paintRoughMatte = texture(loader, "/assets/paints/paint_micro_roughness_matte_4k.jpg", anisotropy, { repeat: paintRepeat });
-  const paintRoughEggshell = texture(loader, "/assets/paints/paint_micro_roughness_eggshell_4k.jpg", anisotropy, { repeat: paintRepeat });
+  // Web-sized variants: the 4K masters are upscaled from a 2048 source, so the
+  // 2048 web set costs ~4x less decode time and VRAM with no visible difference.
+  const paintBase = texture(loader, "/assets/paints/paint_micro_basecolor_web.jpg", anisotropy, { color: true, repeat: paintRepeat });
+  const paintNormal = texture(loader, "/assets/paints/paint_micro_normal_gl_web.jpg", anisotropy, { repeat: paintRepeat });
+  const paintRoughMatte = texture(loader, "/assets/paints/paint_micro_roughness_matte_web.jpg", anisotropy, { repeat: paintRepeat });
+  const paintRoughEggshell = texture(loader, "/assets/paints/paint_micro_roughness_eggshell_web.jpg", anisotropy, { repeat: paintRepeat });
+  const loadedSpecialtyPaintMaps = new Map<string, THREE.Texture[]>();
   const loadedWallpaperMaps = new Map<string, THREE.Texture[]>();
 
   ["floor_light_oak_matte_01", "floor_honey_oak_matte_01"].forEach((assetId) => {
@@ -362,17 +382,51 @@ export function enhanceHeroSurfaces(materials: Map<string, THREE.MeshStandardMat
     material.roughness = 1;
     material.color.set(assetId.includes("honey") ? "#a86f46" : "#d2b38b");
     material.envMapIntensity = 0.14;
+    // These three textures are intentionally shared by both catalogue entries.
+    // The generic inactive-material cleanup must not dispose them through one
+    // material while the other one is still visible.
+    material.userData.sharedPbr = true;
     material.needsUpdate = true;
   });
 
   PAINT_VARIANTS.forEach((variant) => {
     const material = materials.get(variant.id);
     if (!material) return;
+    if (variant.isSpecialty && variant.texturePrefix) {
+      material.userData.ensurePbr = () => {
+        if (loadedSpecialtyPaintMaps.has(variant.id)) return;
+        const repeat: [number, number] = [1 / variant.physicalSizeM[0], 1 / variant.physicalSizeM[1]];
+        const basePath = `/assets/paints/${variant.texturePrefix}`;
+        const load = Promise.all([
+          textureAsync(loader, `${basePath}_basecolor_web.jpg`, anisotropy, { color: true, repeat }),
+          textureAsync(loader, `${basePath}_normal_gl_web.jpg`, anisotropy, { repeat }),
+          textureAsync(loader, `${basePath}_roughness_web.jpg`, anisotropy, { repeat }),
+        ]).then(([color, normal, roughness]) => {
+          loadedSpecialtyPaintMaps.set(variant.id, [color, normal, roughness]);
+          material.map = color;
+          material.normalMap = normal;
+          material.normalScale.set(variant.normalScale, variant.normalScale);
+          material.roughnessMap = roughness;
+          material.roughness = 1;
+          material.color.set("#ffffff").multiplyScalar(PAINT_APPEARANCE_CALIBRATION.directLightShare);
+          material.emissive.set("#ffffff").multiplyScalar(PAINT_APPEARANCE_CALIBRATION.colourStandardShare);
+          material.emissiveMap = color;
+          material.emissiveIntensity = 1;
+          material.envMapIntensity = variant.envMapIntensity;
+          material.needsUpdate = true;
+        }).catch((error) => {
+          console.warn(`Failed to load specialty paint maps for ${variant.id}`, error);
+        });
+        return load;
+      };
+      return;
+    }
     material.map?.dispose();
     material.map = paintBase;
     material.normalMap = paintNormal;
     material.normalScale.set(variant.normalScale, variant.normalScale);
-    material.roughnessMap = variant.finish === "eggshell" ? paintRoughEggshell : paintRoughMatte;
+    material.roughnessMap = variant.parameters?.finish === "eggshell" ? paintRoughEggshell : paintRoughMatte;
+    material.userData.paintRoughnessMaps = { matte: paintRoughMatte, eggshell: paintRoughEggshell };
     material.roughness = 1;
     material.color.set(variant.color).multiplyScalar(PAINT_APPEARANCE_CALIBRATION.directLightShare);
     material.emissive.set(variant.color).multiplyScalar(PAINT_APPEARANCE_CALIBRATION.colourStandardShare);
@@ -396,33 +450,32 @@ export function enhanceHeroSurfaces(materials: Map<string, THREE.MeshStandardMat
       // Repeat wrapping avoids ClampToEdge smearing on oblique mip samples. The
       // mural allowance above keeps the authored image entirely inside 0..1.
       const clamp = false;
-      const color = texture(
-        loader,
-        `/assets/wallpapers/${product.id}_basecolor_web.jpg`,
-        anisotropy,
-        { color: true, repeat, clamp },
-      );
-      const normal = texture(
-        loader,
-        `/assets/wallpapers/${product.id}_normal_gl_web.webp`,
-        anisotropy,
-        { repeat, clamp },
-      );
-      const roughness = texture(
-        loader,
-        `/assets/wallpapers/${product.id}_roughness_web.webp`,
-        anisotropy,
-        { repeat, clamp },
-      );
-      loadedWallpaperMaps.set(product.id, [color, normal, roughness]);
-      material.map = color;
-      material.normalMap = normal;
-      material.normalScale.set(product.normal_scale, product.normal_scale);
-      material.roughnessMap = roughness;
-      material.roughness = 1;
-      material.color.set("#ffffff");
-      material.envMapIntensity = product.env_map_intensity;
-      material.needsUpdate = true;
+      const load = Promise.all([
+        textureAsync(loader, `/assets/wallpapers/${product.id}_basecolor_web.jpg`, anisotropy, { color: true, repeat, clamp }),
+        textureAsync(loader, `/assets/wallpapers/${product.id}_normal_gl_web.webp`, anisotropy, { repeat, clamp }),
+        textureAsync(loader, `/assets/wallpapers/${product.id}_roughness_web.webp`, anisotropy, { repeat, clamp }),
+      ]).then(([color, normal, roughness]) => {
+        loadedWallpaperMaps.set(product.id, [color, normal, roughness]);
+        material.map = color;
+        material.normalMap = normal;
+        material.normalScale.set(product.normal_scale, product.normal_scale);
+        material.roughnessMap = roughness;
+        material.roughness = 1;
+        material.color.set("#ffffff").multiplyScalar(
+          WALLPAPER_APPEARANCE_CALIBRATION.directionalLightShare,
+        );
+        material.emissive.set("#ffffff").multiplyScalar(
+          WALLPAPER_APPEARANCE_CALIBRATION.printedColourShare,
+        );
+        material.emissiveMap = color;
+        material.emissiveIntensity = 1;
+        material.envMapIntensity = product.env_map_intensity;
+        material.needsUpdate = true;
+      }).catch((error) => {
+        // A failed wallpaper must not break applyAsset / observation flows.
+        console.warn(`Failed to load wallpaper maps for ${product.id}`, error);
+      });
+      return load;
     };
     // The default west wall starts with linen; all other products remain lazy.
     if (product.id === "wallpaper_linen_natural_01") material.userData.ensurePbr();
@@ -438,6 +491,7 @@ export function enhanceHeroSurfaces(materials: Map<string, THREE.MeshStandardMat
         material.map = null;
         material.normalMap = null;
         material.roughnessMap = null;
+        material.emissiveMap = null;
         material.needsUpdate = true;
       }
     }
@@ -451,6 +505,7 @@ export function enhanceHeroSurfaces(materials: Map<string, THREE.MeshStandardMat
     paintNormal,
     paintRoughMatte,
     paintRoughEggshell,
+    ...Array.from(loadedSpecialtyPaintMaps.values()).flat(),
     ...Array.from(loadedWallpaperMaps.values()).flat(),
   ].forEach((map) => map.dispose());
 

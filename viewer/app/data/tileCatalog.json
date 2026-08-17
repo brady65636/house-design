@@ -7,128 +7,562 @@
       "id": "tile_plain_mineral_01",
       "name_zh": "暖白素色矿物感瓷砖",
       "name_en": "Warm white mineral ceramic tile",
-      "family": "plain_mineral",
       "source_file": "output/imagegen/tile_plain_mineral_generated_v1.png",
       "source_type": "imagegen_original",
-      "module_size_mm": [600, 600],
-      "repeat_size_m": [1.2, 1.2],
-      "supported_layouts": ["stacked", "running_bond"],
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
       "surface_profile": "satin_ceramic",
       "roughness_mean": 0.66,
       "normal_scale": 0.16,
-      "tint": "#e2ddd1"
+      "tint": "#e2ddd1",
+      "material_group": "plain_mineral"
     },
     {
       "order": 2,
       "id": "tile_white_marble_01",
       "name_zh": "低对比白色大理石纹砖",
       "name_en": "Low-contrast white marble tile",
-      "family": "white_marble",
       "source_file": "output/imagegen/tile_white_marble_generated_v1.png",
       "source_type": "imagegen_original",
-      "module_size_mm": [600, 1200],
-      "repeat_size_m": [1.2, 1.2],
-      "supported_layouts": ["stacked"],
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
       "surface_profile": "honed_stone",
       "roughness_mean": 0.52,
-      "normal_scale": 0.10,
-      "tint": "#e7e3da"
+      "normal_scale": 0.1,
+      "tint": "#e7e3da",
+      "material_group": "white_marble"
     },
     {
       "order": 3,
       "id": "tile_warm_travertine_01",
       "name_zh": "暖米色洞石感瓷砖",
       "name_en": "Warm travertine tile",
-      "family": "warm_travertine",
       "source_file": "output/imagegen/tile_warm_travertine_generated_v1.png",
       "source_type": "imagegen_original",
-      "module_size_mm": [600, 1200],
-      "repeat_size_m": [1.2, 1.2],
-      "supported_layouts": ["stacked", "running_bond"],
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
       "surface_profile": "honed_stone",
       "roughness_mean": 0.62,
       "normal_scale": 0.18,
-      "tint": "#b69e7a"
+      "tint": "#b69e7a",
+      "material_group": "warm_travertine"
     },
     {
       "order": 4,
       "id": "tile_dark_slate_01",
       "name_zh": "深灰板岩感瓷砖",
       "name_en": "Dark grey slate tile",
-      "family": "dark_slate",
       "source_file": "output/imagegen/tile_dark_slate_generated_v1.png",
       "source_type": "imagegen_original",
-      "module_size_mm": [600, 600],
-      "repeat_size_m": [1.2, 1.2],
-      "supported_layouts": ["stacked", "running_bond"],
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
       "surface_profile": "cleft_stone",
       "roughness_mean": 0.78,
       "normal_scale": 0.24,
-      "tint": "#565655"
+      "tint": "#565655",
+      "material_group": "dark_slate"
     },
     {
       "order": 5,
       "id": "tile_light_microcement_01",
       "name_zh": "浅灰微水泥感瓷砖",
       "name_en": "Light microcement tile",
-      "family": "microcement",
       "source_type": "procedural_original",
       "synthetic_profile": "microcement",
-      "module_size_mm": [600, 600],
-      "repeat_size_m": [1.2, 1.2],
-      "supported_layouts": ["stacked"],
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
       "surface_profile": "microcement",
       "roughness_mean": 0.78,
       "normal_scale": 0.14,
-      "tint": "#a5a7a2"
+      "tint": "#a5a7a2",
+      "material_group": "microcement"
     },
     {
       "order": 6,
       "id": "tile_terrazzo_warm_01",
       "name_zh": "暖灰细颗粒水磨石砖",
       "name_en": "Warm fine-chip terrazzo tile",
-      "family": "terrazzo",
       "source_file": "output/imagegen/tile_terrazzo_generated_v1.png",
       "source_type": "imagegen_original",
-      "module_size_mm": [600, 600],
-      "repeat_size_m": [1.2, 1.2],
-      "supported_layouts": ["stacked"],
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
       "surface_profile": "terrazzo",
-      "roughness_mean": 0.70,
+      "roughness_mean": 0.7,
       "normal_scale": 0.18,
-      "tint": "#b7aea0"
+      "tint": "#b7aea0",
+      "material_group": "terrazzo"
     },
     {
       "order": 7,
       "id": "tile_woodlook_oak_01",
       "name_zh": "暖橡木纹砖",
       "name_en": "Warm oak wood-look tile",
-      "family": "woodlook",
       "source_file": "output/imagegen/tile_woodlook_generated_v1.png",
       "source_type": "imagegen_original",
-      "module_size_mm": [200, 1200],
-      "repeat_size_m": [1.6, 1.2],
-      "supported_layouts": ["running_bond", "herringbone"],
+      "module_size_mm": [
+        200,
+        1200
+      ],
+      "repeat_size_m": [
+        1.6,
+        1.2
+      ],
+      "supported_layouts": [
+        "running_bond",
+        "herringbone"
+      ],
       "surface_profile": "satin_ceramic",
       "roughness_mean": 0.68,
       "normal_scale": 0.14,
-      "tint": "#b48755"
+      "tint": "#b48755",
+      "material_group": "woodlook"
     },
     {
       "order": 8,
       "id": "tile_decorative_arc_01",
       "name_zh": "弧环几何装饰花砖",
       "name_en": "Interlocking arc decorative tile",
-      "family": "decorative_pattern",
       "source_file": "output/imagegen/tile_decorative_pattern_generated_v1.png",
       "source_type": "imagegen_original",
-      "module_size_mm": [200, 200],
-      "repeat_size_m": [0.8, 0.8],
-      "supported_layouts": ["stacked"],
+      "module_size_mm": [
+        200,
+        200
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
       "surface_profile": "matte_printed_ceramic",
       "roughness_mean": 0.74,
       "normal_scale": 0.12,
-      "tint": "#d5c7b5"
+      "tint": "#d5c7b5",
+      "material_group": "decorative_pattern"
+    },
+    {
+      "order": 9,
+      "id": "tile_terracotta_cotto_01",
+      "name_zh": "手工赤陶砖",
+      "name_en": "Handmade terracotta cotto tile",
+      "source_file": "output/imagegen/tile_terracotta_cotto_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        300,
+        300
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "porous_terracotta",
+      "roughness_mean": 0.78,
+      "normal_scale": 0.22,
+      "tint": "#a8613f",
+      "material_group": "terracotta_cotto"
+    },
+    {
+      "order": 10,
+      "id": "tile_jade_handglazed_01",
+      "name_zh": "翠玉手工釉砖",
+      "name_en": "Jade handmade glazed tile",
+      "source_file": "output/imagegen/tile_jade_handglazed_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        100,
+        200
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "hand_glazed_ceramic",
+      "roughness_mean": 0.48,
+      "normal_scale": 0.13,
+      "tint": "#557a67",
+      "material_group": "jade_handglazed"
+    },
+    {
+      "order": 11,
+      "id": "tile_blue_white_brush_01",
+      "name_zh": "青花笔触陶砖",
+      "name_en": "Blue-and-white brush ceramic tile",
+      "source_file": "output/imagegen/tile_blue_white_brush_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        200,
+        200
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "matte_printed_ceramic",
+      "roughness_mean": 0.58,
+      "normal_scale": 0.1,
+      "tint": "#d8d8cf",
+      "material_group": "blue_white_brush"
+    },
+    {
+      "order": 12,
+      "id": "tile_oxblood_small_format_01",
+      "name_zh": "酒红小规格釉砖",
+      "name_en": "Oxblood small-format glazed tile",
+      "source_file": "output/imagegen/tile_oxblood_small_format_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        75,
+        150
+      ],
+      "repeat_size_m": [
+        0.6,
+        0.6
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "hand_glazed_ceramic",
+      "roughness_mean": 0.5,
+      "normal_scale": 0.12,
+      "tint": "#6e272b",
+      "material_group": "oxblood_glazed"
+    },
+    {
+      "order": 13,
+      "id": "tile_checker_black_ivory_01",
+      "name_zh": "黑象牙棋盘砖",
+      "name_en": "Black and ivory checker tile",
+      "source_file": "output/imagegen/tile_checker_black_ivory_generated_v1.png",
+      "source_type": "procedural_original_from_imagegen_brief",
+      "synthetic_profile": "checker_black_ivory",
+      "already_seamless": true,
+      "checker_colors": [
+        "#292a29",
+        "#ddd3bf"
+      ],
+      "grout_color": "#777168",
+      "module_size_mm": [
+        300,
+        300
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked",
+        "diagonal"
+      ],
+      "surface_profile": "printed_honed_ceramic",
+      "roughness_mean": 0.54,
+      "normal_scale": 0.1,
+      "tint": "#8c887f",
+      "material_group": "checker_black_ivory"
+    },
+    {
+      "order": 14,
+      "id": "tile_green_breccia_01",
+      "name_zh": "深绿碎裂石纹大板",
+      "name_en": "Deep green breccia slab tile",
+      "source_file": "output/imagegen/tile_green_breccia_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "honed_stone",
+      "roughness_mean": 0.56,
+      "normal_scale": 0.12,
+      "tint": "#355044",
+      "material_group": "green_breccia"
+    },
+    {
+      "order": 15,
+      "id": "tile_ivory_fluted_relief_01",
+      "name_zh": "象牙竖向浮雕墙砖",
+      "name_en": "Ivory fluted relief wall tile",
+      "source_file": "output/imagegen/tile_ivory_fluted_relief_generated_v1.png",
+      "source_type": "procedural_original_from_imagegen_brief",
+      "synthetic_profile": "ivory_fluted_relief",
+      "already_seamless": true,
+      "flute_count": 16,
+      "grout_color": "#b8afa0",
+      "module_size_mm": [
+        100,
+        300
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "relief_ceramic",
+      "roughness_mean": 0.58,
+      "normal_scale": 0.34,
+      "tint": "#e8dfcf",
+      "material_group": "ivory_fluted_relief"
+    },
+    {
+      "order": 16,
+      "id": "tile_warm_white_zellige_01",
+      "name_zh": "暖白手工釉面小砖",
+      "name_en": "Warm white handmade glazed tile",
+      "source_file": "output/imagegen/tile_warm_white_zellige_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        100,
+        100
+      ],
+      "repeat_size_m": [
+        0.8,
+        0.8
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "hand_glazed_ceramic",
+      "roughness_mean": 0.46,
+      "normal_scale": 0.15,
+      "tint": "#e7dfd0",
+      "material_group": "warm_white_zellige"
+    },
+    {
+      "order": 17,
+      "id": "tile_largechip_terrazzo_01",
+      "name_zh": "大颗粒彩色水磨石砖",
+      "name_en": "Large-chip coloured terrazzo tile",
+      "source_file": "output/imagegen/tile_largechip_terrazzo_generated_v1.png",
+      "source_type": "imagegen_original",
+      "seam_edge_blend_px": 20,
+      "module_size_mm": [
+        600,
+        600
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "terrazzo",
+      "roughness_mean": 0.66,
+      "normal_scale": 0.16,
+      "tint": "#cbbfac",
+      "material_group": "largechip_terrazzo"
+    },
+    {
+      "order": 18,
+      "id": "tile_deep_blue_cloudstone_01",
+      "name_zh": "深蓝云纹石材大板",
+      "name_en": "Deep blue cloud-stone slab tile",
+      "source_file": "output/imagegen/tile_deep_blue_cloudstone_generated_v1.png",
+      "source_type": "imagegen_original",
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "honed_stone",
+      "roughness_mean": 0.57,
+      "normal_scale": 0.12,
+      "tint": "#263b52",
+      "material_group": "deep_blue_cloudstone"
+    },
+    {
+      "order": 19,
+      "id": "tile_cool_finger_mosaic_01",
+      "name_zh": "冷灰蓝细长马赛克",
+      "name_en": "Cool grey-blue finger mosaic tile",
+      "source_type": "procedural_original",
+      "synthetic_profile": "cool_finger_mosaic",
+      "already_seamless": true,
+      "grout_color": "#8F9596",
+      "module_size_mm": [
+        25,
+        100
+      ],
+      "repeat_size_m": [
+        0.6,
+        0.6
+      ],
+      "supported_layouts": [
+        "stacked",
+        "running_bond"
+      ],
+      "surface_profile": "fine_glazed_mosaic",
+      "roughness_mean": 0.54,
+      "normal_scale": 0.12,
+      "tint": "#607884",
+      "design_roles": [
+        "support",
+        "anchor"
+      ],
+      "relationship_tags": [
+        "cool_refined",
+        "small_module",
+        "linear_rhythm",
+        "wet_area_capable"
+      ],
+      "material_group": "cool_finger_mosaic"
+    },
+    {
+      "order": 20,
+      "id": "tile_smoke_penny_mosaic_01",
+      "name_zh": "烟灰圆点马赛克",
+      "name_en": "Smoke-grey penny mosaic tile",
+      "source_type": "procedural_original",
+      "synthetic_profile": "smoke_penny_mosaic",
+      "already_seamless": true,
+      "grout_color": "#A6A39D",
+      "module_size_mm": [
+        50,
+        50
+      ],
+      "repeat_size_m": [
+        0.6,
+        0.6
+      ],
+      "supported_layouts": [
+        "offset_grid"
+      ],
+      "surface_profile": "fine_glazed_mosaic",
+      "roughness_mean": 0.57,
+      "normal_scale": 0.13,
+      "tint": "#5F6262",
+      "design_roles": [
+        "support",
+        "anchor"
+      ],
+      "relationship_tags": [
+        "cool_refined",
+        "small_module",
+        "circular_rhythm",
+        "wet_area_capable"
+      ],
+      "material_group": "smoke_penny_mosaic"
+    },
+    {
+      "order": 21,
+      "id": "tile_deep_matte_monochrome_01",
+      "name_zh": "深炭哑光素色大砖",
+      "name_en": "Deep charcoal matte monochrome tile",
+      "source_type": "procedural_original",
+      "synthetic_profile": "deep_matte_monochrome",
+      "already_seamless": true,
+      "grout_color": "#3E4142",
+      "module_size_mm": [
+        600,
+        1200
+      ],
+      "repeat_size_m": [
+        1.2,
+        1.2
+      ],
+      "supported_layouts": [
+        "stacked"
+      ],
+      "surface_profile": "matte_monochrome_ceramic",
+      "roughness_mean": 0.79,
+      "normal_scale": 0.08,
+      "tint": "#34393D",
+      "design_roles": [
+        "quiet",
+        "support"
+      ],
+      "relationship_tags": [
+        "deep_quiet",
+        "large_module",
+        "low_reflection",
+        "wet_area_capable"
+      ],
+      "material_group": "deep_matte_monochrome"
     }
   ],
   "source_and_license": {
